@@ -1,0 +1,4 @@
+fileignoreconfig:
+- filename: crawler/main.py
+  checksum: b03f815475317e24d16f301c37cc18f8e588ac3dbc6864b2101b60b2ac958531
+version: "1.0"

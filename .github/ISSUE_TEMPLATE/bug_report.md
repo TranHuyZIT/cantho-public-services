@@ -1,9 +1,10 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ""
+title: ''
 labels: bug
-assignees: thangved
+assignees: ''
+
 ---
 
 **Describe the bug**

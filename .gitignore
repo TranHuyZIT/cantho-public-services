@@ -1,2 +1,3 @@
+.venv
 ./crawler/.gitignore
 ./thesis/.gitignore

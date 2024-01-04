@@ -1,3 +1,4 @@
 langchain==0.0.350
 sentence-transformers
 chromadb
+rank_bm25

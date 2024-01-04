@@ -27,22 +27,22 @@ def prompt_basic_info(id, ten, soqd, capthuchien, loaithutuc, linhvuc):
 
 
 def prompt_trinhtu_thuchien(id, ten, trinhtuthuchien):
-    prompt = f"Thủ tục hành chính tên {ten} với mã {id} có trình tự thực hiện như sau:\n"
-    prompt += trinhtuthuchien.replace("    ", "\n")
+    prompt = f"Thủ tục hành chính tên {ten} với mã {id} được thực hiện theo trình tự thực hiện như sau:\n"
+    prompt += trinhtuthuchien.replace("       ", "\n")
     prompt += "\n\n"
     return prompt
 
 def prompt_cachthuc_thuchien(ten, cachthucthuchiens):
     if not cachthucthuchiens or len(cachthucthuchiens) == 0:
         return f"Thủ tục hành chính {ten} chưa có mô tả cách thức thực hiện nào.\n\n"
-    prompt = f"Để thực hiện thủ tục hành chính {ten}, có những cách thức thực hiện sau:\n"
+    prompt = f"Có những cách thức thực hiện sau để thực hiện thủ tục hành chính {ten}:\n"
     for cachthuc in cachthucthuchiens:
         prompt += f"- Với hình thức {cachthuc['hinhthucnop']}, thời gian giải quyết sẽ là {cachthuc['thoigiangiaiquyet']}. Cách thức thực hiện này sẽ có mô tả như sau: {cachthuc['mota']}\n"
     prompt += "\n"
     return prompt
 
 def prompt_thanhphan_hoso(ten, thanhphanhosos, diachitiepnhanhs):
-    prompt = f"Để thực hiện thủ tục hành chính {ten}, cần chuẩn bị các hồ sơ sau đây và nộp tại {diachitiepnhanhs}:\n"
+    prompt = f"Cần chuẩn bị các hồ sơ sau đây và nộp tại {diachitiepnhanhs} với thủ tục hành chính {ten}:\n"
     for index, hoso in enumerate(thanhphanhosos):
         if 'ghichu' in hoso.keys():
             prompt += f"- Ghi chú: {hoso['ghichu']}\n"
@@ -59,7 +59,7 @@ def prompt_thanhphan_hoso(ten, thanhphanhosos, diachitiepnhanhs):
     return prompt
 
 def prompt_coquan_tochuc(ten, doituongthuchien, coquanthuchien, coquanphoihop, coquanthamquyen, coquanuyquyen, diachitiepnhanhs, ketquathuchien, yeucaudieukien):
-    prompt = f"Thủ tục hành chính {ten} có các cơ quan thực hiện, ủy quyền, thẩm quyền, điều kiện thực hiện, kết quả thực hiện như sau:\n"
+    prompt = f"Cơ quan thực hiện, ủy quyền, thẩm quyền, điều kiện thực hiện, kết quả thực hiện của thủ tục hành chính {ten} như sau:\n"
     prompt += f"- Cơ quan thực hiện: {coquanthuchien}\n"
     prompt += f"- Cơ quan thẩm quyền: {coquanthamquyen}\n"
     prompt += f"- Cơ quan ủy quyền: {coquanuyquyen}\n"
@@ -96,11 +96,15 @@ def main():
             capthuchien = data["capthuchien"].strip()
             loaithutuc = data["loaithutuc"].strip()
             linhvuc = data["linhvuc"].strip()
-            trinhtuthuchien = data["trinhtuthuchien"].strip()
+            data["trinhtuthuchien"] = data["trinhtuthuchien"].strip()
+            data["trinhtuthuchien"] = data["trinhtuthuchien"].replace("\n\n", "")
+            trinhtuthuchien = data["trinhtuthuchien"]
             for cachthuc in data["cachthucthuchiens"]:
                 cachthuc["hinhthucnop"] = cachthuc["hinhthucnop"].strip()
                 cachthuc["thoigiangiaiquyet"] = cachthuc["thoigiangiaiquyet"].strip()
+                cachthuc["thoigiangiaiquyet"] = cachthuc["thoigiangiaiquyet"].replace("\n\n", "")
                 cachthuc["mota"] = cachthuc["mota"].strip()
+                cachthuc["mota"] = cachthuc["mota"].replace("\n\n", "")
                 cachthuc["phi"] = cachthuc["phi"].strip()
             for hoso in data["thanhphanhosos"]:
                 if 'ghichu' in hoso.keys() :

@@ -1,4 +1,8 @@
 fileignoreconfig:
+- filename: backend/rag/reranking.ipynb
+  checksum: 4f773e5b9d81488acc97c2acd1437acc663f9726ff3c8f9ed7c0801267245da0
+- filename: backend/rag/visualize.ipynb
+  checksum: 284df3fac6f6de2234ce233a51ddaaefe33bcc9f390fb2244ea6cfde9fbdc499
 - filename: crawler/main.py
   checksum: 42e7aa01f39cee9c985f2a1b70e07b1f1db3977bee3b174e167ac4e967d75f14
 - filename: thesis/references.bib

@@ -469,10 +469,27 @@ Phương pháp \ac{rag} là một phương pháp kết hợp giữa phương ph�
 Phương pháp RAG \cite{lewis2021retrievalaugmented} này được giới thiệu lần đầu bởi các nhà nghiên cứu của Meta AI để giải quyết các nhiệm vụ yêu cầu nhiều kiến thức.
 Nó là thành phần kết hợp giữa thành phần truy xuất thông tin (Retrieval) và một mô hình tạo sinh văn bản (Generation).
 
-
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=14cm]{./assets/images/RAG-procedure.jpg}
+    \captionsetup{type=figure}
+    \caption{Quá trình thực hiện phương pháp \ac{rag}.}
+\end{minipage}
 
 \vspace{0.2cm}
 
+Phương pháp \ac{rag} ra đời để giải quyết cho việc ảo giác (hallucination) của các
+mô hình ngôn ngữ lớn. Ý tưởng của phương pháp chính là kết hợp một phương pháp truy vấn
+để tìm ra được các ngữ cảnh (context) có liên quan cho câu hỏi của người dùng. Sau đó sử dụng chính 
+ngữ cảnh này để yêu cầu (prompt) cho các mô hình ngôn ngữ lớn mạnh mẽ như GPT, Llama2, Gemini,\dots
+
+Bằng cách này, phương pháp RAG có thể giải quyết được một số hạn chế của LLM. Đầu tiên, nó đã giúp cho
+LLM có được những kiến thức mới hoặc những tri thức chuyên sâu về một tác vụ cụ thể nào đó. Những kiến thức có thể đã không được
+sử dụng để huấn luyện cho LLM đó.
+
+Kế tiếp, phương pháp RAG này giúp kiểm soát được những thông tin mà LLM sẽ trả lời, biết được nguồn thông tin mà mô
+hình ngôn ngữ sẽ sử dụng để sinh từ. Nhờ đó, hệ thống sẽ có được khả năng kiểm soát cao hơn với câu trả lời được sinh ra
+từ các LLM.
 \subsection{Xếp hạng lại trong RAG (Re-ranking)}
 % # Xếp hạng lại trong RAG (Re-ranking)
 

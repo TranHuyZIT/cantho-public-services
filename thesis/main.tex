@@ -19,6 +19,14 @@
 \usepackage{amsmath}
 \usepackage{afterpage}
 
+\usepackage{titlesec}
+\raggedbottom
+\titlespacing*{\section}
+{0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
+\titlespacing*{\subsection}
+{0pt}{5.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\subsubsection}
+{0pt}{2.ex minus .2ex}{1.3ex plus .2ex}
 
 
 \colorlet{punct}{red!60!black}
@@ -406,9 +414,82 @@ và tăng tốc tốc độ học tuyến tính trên 10\% dữ liệu huấn lu
 % # TODO: Mô hình BERT
 
 \subsection{Phương pháp RAG}
-Phương pháp \ac{rag} là một phương pháp kết hợp giữa phương pháp truy vấn kết hợp và phương pháp sinh câu trả lời.
-% # TODO: Phương pháp RAG
+\subsubsection{Thực trạng của các mô hình ngôn ngữ}
+Với sự phát triển bùng nổ của các mô hình ngôn ngữ lớn hiện nay đã mở đường cho những tiến bộ vượt bậc trong lĩnh vực xử lý ngôn ngữ tự nhiên cũng như đẩy mạnh việc ứng dụng AI tạo sinh vào cuộc sống
 
+Tuy nhiên, những mô hình mạnh mẽ này cũng đi kèm với một số thách thức cần phải giải quyết.
+Một trong những vấn đề lớn là hiện tượng "hallucination" - ảo giác, tức việc \ac{llm} tạo ra các thông tin không chính xác,
+không đúng sự thật hoặc không được hỗ trợ bởi dữ liệu có sẵn. Hiện tượng này rất nguy hiểm bởi nó có thể dẫn đến việc cung cấp các thông tin sai lệch gây hậu quả nghiêm trọng và làm giảm độ tin cậy của các hệ thống dựa trên AI
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=14cm]{./assets/images/hallucination.png}
+    \captionsetup{type=figure}
+    \caption{Định nghĩa về vấn đề "hallucination" ở LLMs.}
+\end{minipage}
+
+Hallucination \cite{huang2023survey} theo bài báo "\textit{A Survey on Hallucination in Large Language Models:
+Principles, Taxonomy, Challenges, and Open Questions}" sẽ chia làm 2 loại: Ảo giác sự thật (Factuality Hallucination)
+và Ảo giác tính trung thực (Faithfulness Hallucination).
+
+Ảo giác sự thật (Factuality Hallucination) thể hiện khi thông tin cung cấp từ LLM có sự sai lệch
+so với thông tin đã được xác nhận trong thế giới thực, những thông tin
+này được coi như là một sự không nhất quán với sự thật hoặc là sự ngụy tạo do mô hình ngôn ngữ.
+
+Còn với ảo giác tính trung thực (Faithfullness Hallucination) đề cập đến sự chệch lệch của nội dung được tạo ra so với 
+hướng dẫn của người dùng hoặc bối cảnh được cung cấp bởi đầu vào, cũng như tính nhất quán trong nội dung được tạo ra.
+
+Ví dụ, như trong Hình 2.12(a) thể hiện ảo giác sự thật (Factuality Hallucination), khi được hỏi về người đầu tiên đi bộ trên mặt trăng, mô hình có thể khẳng định rằng đó là Charles Lindbergh vào năm 1951.
+Trong khi sự thật là Neil Armstrong là người đầu tiên đi bộ trên mặt trăng vào năm 1969 trong chuyến bay Apollo 11. 
+
+Ngược lại, như minh họa trong Hình 1(b) thể hiện ảo giác tính trung thực (Faithfullness Hallucination), khi được yêu cầu tóm tắt một bài báo, mô hình đã không chính xác về ngày diễn ra xung đột giữa Israel và Hamas từ tháng 10 năm 2023 thành tháng 10 năm 2006. 
+
+Một vấn đề khác với các \ac{llm}, chính là kiến thức bị lỗi thời. Ví dụ như dữ liệu đào tạo của ChatGPT 3.5 bị đóng băng ở thời điểm tháng 1/2022. 
+Nếu hỏi ChatGPT về một sự kiện gì đó vào 2023, tình hình thời tiết, chính sách mới, vv. thì nó sẽ không trả lời được một thông tin chính xác.
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=14cm]{./assets/images/llm-limitation-1.png}
+    \captionsetup{type=figure}
+    \caption{Đặt một câu hỏi nằm ngoài thời gian kiến thức huấn luyện của ChatGPT 3.5.}
+\end{minipage}
+
+\vspace{0.2cm}
+
+Ngoài ra, các LLM được huấn luyện cho các nhiệm vụ tổng quát, (generalized tasks), nghĩa là nó sẽ không biết dữ liệu riêng tư của cá nhân hay tổ chức nào đó, 
+cũng như thiếu các kiến thức ngành chuyên sâu hoặc thông tin về một đối tượng rất cụ thể nào đó (ví dụ sản phẩm mới ABC của một công ty XYZ). 
+
+Một hạn chế khác cũng vô cùng quan trọng, chính là việc các LLM hoạt động như một hộp đen: 
+nghĩa là không thể biết được LLM đã sử dụng những nguồn thông tin nào để đưa ra được câu trả lời. Điều này sẽ gây ra
+khó khăn trong việc quản lý kiến thức của LLM, hạn chế những nguồn thông tin sai lệch hoặc không phù hợp.
+
+
+\subsubsection{Định Nghĩa}
+Phương pháp \ac{rag} là một phương pháp kết hợp giữa phương pháp truy vấn kết hợp và phương pháp sinh câu trả lời.
+Phương pháp RAG \cite{lewis2021retrievalaugmented} này được giới thiệu lần đầu bởi các nhà nghiên cứu của Meta AI để giải quyết các nhiệm vụ yêu cầu nhiều kiến thức.
+Nó là thành phần kết hợp giữa thành phần truy xuất thông tin (Retrieval) và một mô hình tạo sinh văn bản (Generation).
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=14cm]{./assets/images/RAG-procedure.jpg}
+    \captionsetup{type=figure}
+    \caption{Quá trình thực hiện phương pháp \ac{rag}.}
+\end{minipage}
+
+\vspace{0.2cm}
+
+Phương pháp \ac{rag} ra đời để giải quyết cho việc ảo giác (hallucination) của các
+mô hình ngôn ngữ lớn. Ý tưởng của phương pháp chính là kết hợp một phương pháp truy vấn
+để tìm ra được các ngữ cảnh (context) có liên quan cho câu hỏi của người dùng. Sau đó sử dụng chính 
+ngữ cảnh này để yêu cầu (prompt) cho các mô hình ngôn ngữ lớn mạnh mẽ như GPT, Llama2, Gemini,\dots
+
+Bằng cách này, phương pháp RAG có thể giải quyết được một số hạn chế của LLM. Đầu tiên, nó đã giúp cho
+LLM có được những kiến thức mới hoặc những tri thức chuyên sâu về một tác vụ cụ thể nào đó. Những kiến thức có thể đã không được
+sử dụng để huấn luyện cho LLM đó.
+
+Kế tiếp, phương pháp RAG này giúp kiểm soát được những thông tin mà LLM sẽ trả lời, biết được nguồn thông tin mà mô
+hình ngôn ngữ sẽ sử dụng để sinh từ. Nhờ đó, hệ thống sẽ có được khả năng kiểm soát cao hơn với câu trả lời được sinh ra
+từ các LLM.
 \subsection{Xếp hạng lại trong RAG (Re-ranking)}
 % # Xếp hạng lại trong RAG (Re-ranking)
 

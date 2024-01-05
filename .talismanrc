@@ -1,6 +1,6 @@
 fileignoreconfig:
 - filename: backend/rag/reranking.ipynb
-  checksum: 4f773e5b9d81488acc97c2acd1437acc663f9726ff3c8f9ed7c0801267245da0
+  checksum: 397cac960a76d0bbef37ab6e70dd4fb04c8f15fc8cd4ce300487a0e82cecff6a
 - filename: backend/rag/visualize.ipynb
   checksum: 284df3fac6f6de2234ce233a51ddaaefe33bcc9f390fb2244ea6cfde9fbdc499
 - filename: crawler/main.py

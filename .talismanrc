@@ -1,4 +1,6 @@
 fileignoreconfig:
+- filename: backend/rag/classifier.ipynb
+  checksum: 326b04567c4d7d59f7737a17ab7784d67708db031e434222969ab7262dc30796
 - filename: backend/rag/reranking.ipynb
   checksum: 397cac960a76d0bbef37ab6e70dd4fb04c8f15fc8cd4ce300487a0e82cecff6a
 - filename: backend/rag/visualize.ipynb

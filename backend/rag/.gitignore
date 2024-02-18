@@ -161,5 +161,6 @@ cython_debug/
 
 venv
 data/
-model/
+filter-model/
+crossencoder-model/
 answer.txt

@@ -1,0 +1,112 @@
+<mxfile host="app.diagrams.net" modified="2024-04-28T09:31:16.622Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="2r2ext8a97aiVZ4wJPfB" version="24.3.1" type="device">
+  <diagram name="Page-1" id="bLd0my5m5GIbpAlpZ4Qc">
+    <mxGraphModel dx="2087" dy="819" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-30" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="470" y="1035" width="640" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-1" target="6hJsPvGFx_RhZ-SnBOjX-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-1" target="6hJsPvGFx_RhZ-SnBOjX-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-1" target="6hJsPvGFx_RhZ-SnBOjX-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-1" target="6hJsPvGFx_RhZ-SnBOjX-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-1" target="6hJsPvGFx_RhZ-SnBOjX-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-1" target="6hJsPvGFx_RhZ-SnBOjX-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-1" value="Thủ tục đăng ký giấy khai sinh" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="80" y="280" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-3" value="Thông tin chung" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="420" y="150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;dashed=1;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-3" target="6hJsPvGFx_RhZ-SnBOjX-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-4" value="Trình tự thực hiện" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="420" y="250" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-5" value="Cách thức thực hiện" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="420" y="350" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-6" value="Hồ sơ cần chuẩn bị" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="420" y="450" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-7" value="Cơ quan thực hiện" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="270" y="525" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-8" value="Trích dẫn pháp luật" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="260" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-16" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Mỗi chunk đều được chèn thêm một câu mô tả. VD&lt;span style=&quot;background-color: initial;&quot;&gt;:&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;&quot;Thủ tục hành chính tên Đề nghị chấm dứt hoạt động của cơ sở hỗ trợ nạn nhân&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;với mã 1.000091.000.00.00.H13&lt;span style=&quot;background-color: initial;&quot;&gt;có các thông tin về&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;font-size: 14px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;tên, số quyết định, cấp thực hiện, loại thủ tục và lĩnh vực như sau&quot;&lt;/font&gt;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="630" y="250" width="530" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-18" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Thủ tục hành chính tên Đăng ký khai sinh. với mã 2.002285.000.00.00.H13 được thực hiện theo trình tự thực hiện như sau&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="470" y="730" width="630" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-19" value="&lt;font style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 15px;&quot;&gt;Thủ tục hành chính tên&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-size: 15px; white-space: normal;&quot;&gt;Thủ tục đăng ký khai sinh cho người đã có hồ sơ, giấy tờ cá nhân&lt;/span&gt;&lt;span style=&quot;font-size: 15px;&quot;&gt;. với mã 2.002285.000.00.00.H14 được thực hiện theo trình tự thực hiện như sau&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="470" y="830" width="630" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-20" value="&lt;font style=&quot;font-size: 31px;&quot;&gt;...&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1040" width="50" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-21" value="&lt;font style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 15px;&quot;&gt;Thủ tục hành chính tên&amp;nbsp;Thủ tục đăng ký khai sinh có yếu tố nước ngoài&amp;nbsp;với mã 2.002285.000.00.00.H14 được thực hiện theo trình tự thực hiện như sau&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="470" y="940" width="630" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-25" target="6hJsPvGFx_RhZ-SnBOjX-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-36" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Similarity Search&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="6hJsPvGFx_RhZ-SnBOjX-26">
+          <mxGeometry x="0.4548" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-25" target="6hJsPvGFx_RhZ-SnBOjX-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="860" />
+              <mxPoint x="360" y="860" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-35" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Similarity Search&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="6hJsPvGFx_RhZ-SnBOjX-27">
+          <mxGeometry x="-0.105" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-25" target="6hJsPvGFx_RhZ-SnBOjX-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-34" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Similarity Search&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="6hJsPvGFx_RhZ-SnBOjX-28">
+          <mxGeometry x="0.1752" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="6hJsPvGFx_RhZ-SnBOjX-25" target="6hJsPvGFx_RhZ-SnBOjX-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-33" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Similarity Search&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="6hJsPvGFx_RhZ-SnBOjX-31">
+          <mxGeometry x="0.3003" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6hJsPvGFx_RhZ-SnBOjX-25" value="&lt;span style=&quot;font-size: 21px;&quot;&gt;Cần làm gì để đăng ký khai sinh cho con ?&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-30" y="850" width="270" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

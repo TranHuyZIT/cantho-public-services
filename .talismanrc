@@ -11,6 +11,8 @@ fileignoreconfig:
   checksum: 284df3fac6f6de2234ce233a51ddaaefe33bcc9f390fb2244ea6cfde9fbdc499
 - filename: crawler/main.py
   checksum: 42e7aa01f39cee9c985f2a1b70e07b1f1db3977bee3b174e167ac4e967d75f14
+- filename: thesis/main.tex
+  checksum: fce24cafec5fc00ad592e2f01a3d459eb92c3034cd87eac9eb0f8299fc5870e9
 - filename: thesis/references.bib
   checksum: 02e0a76e9e2a53c23aa9b0491392e3ca03b9b0dc7964ef14f1d1216676a24956
 version: "1.0"

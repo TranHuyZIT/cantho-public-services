@@ -9,7 +9,7 @@
 \usepackage{indentfirst}
 \usepackage{mathptmx}
 \usepackage[style=ieee]{biblatex}
-\usepackage[table]{xcolor}
+\usepackage[table, svgnames]{xcolor}
 \usepackage{pgfplots}
 \usepackage{subcaption}
 \usepackage{tikz}
@@ -18,21 +18,61 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{afterpage}
+\usepackage{tabularx}
+\usepackage{listings}
 
 \usepackage{titlesec}
-\raggedbottom
-\titlespacing*{\section}
-{0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
-\titlespacing*{\subsection}
-{0pt}{5.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
-\titlespacing*{\subsubsection}
-{0pt}{2.ex minus .2ex}{1.3ex plus .2ex}
+% Listings style START
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{diffstart}{named}{Grey}
+\definecolor{diffincl}{named}{Green}
+\definecolor{diffrem}{named}{OrangeRed}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\footnotesize\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+}
+
+\lstdefinelanguage{diff}{
+    basicstyle=\ttfamily\footnotesize,
+    morecomment=[f][\color{diffstart}]{@@},
+    morecomment=[f][\color{diffincl}]{+\ },
+    morecomment=[f][\color{diffrem}]{-\ },
+}
+
+\lstset{style=mystyle}
+% Listings style END
+
+\raggedbottom % Prevents random vertical space
+
+\setlength\columnsep{.3cm}
+
+\addbibresource{references.bib}
+
+\pagestyle{fancy}
+\fancyfoot{}
+
+\renewcommand{\headrulewidth}{0pt}
 
 
-\colorlet{punct}{red!60!black}
-\definecolor{background}{HTML}{EEEEEE}
-\definecolor{delim}{RGB}{20,105,176}
-\colorlet{numb}{magenta!60!black}
+\fancyfoot[LO, RE]{\thepage}
 
 \input{pages/keywords.tex}
 
@@ -125,12 +165,354 @@
 % # TODO: Xử lý ngôn ngữ tự nhiên
 
 \subsection{Phương pháp nhúng từ và văn bản}
-% # TODO: Phương pháp nhúng từ và văn bản
 
+Các mô hình máy học chỉ có thể hiểu từ vựng của con người dưới dạng số. Từ đó, yêu cầu một phương pháp có thể
+ánh xạ từ vựng của con người thành dạng số. Phương pháp nhúng từ (word embedding)
+được sinh ra để giải quyết tác vụ này.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/word_embedding.png}
+    \caption{Phương pháp nhúng từ biểu diễn từ thành vector số.}
+\end{minipage}
+\vspace{0.5cm}
+
+Nhúng từ hay Word Embedding là tác vụ thực hiện ánh xạ các từ hoặc cụm từ sang dạng vector
+số (thường là số thực). Các vector từ được biểu diễn theo phương pháp nhúng từ thể hiện
+được ngữ nghĩa của các từ, từ đó nhận ra được mối quan hệ giữa các từ với nhau. Nhúng
+từ được chia thành 02 loại:
+
+
+\begin{itemize}
+    \item \textbf{Frequency-based embedding}: dựa vào tần suất xuất hiện của các từ để tạo ra các
+    vector số đại diện cho từ. Tiêu biểu ở đây sẽ là TF-IDF, Bm25. Mục tiêu của các phương pháp này là
+    dựa vào thống kê và xác xuất xuất hiện của từ trong tập từ điển (corpus) để nhúng nghĩa của từ.
+
+    \item \textbf{Prediction-based embedding}: dựa vào mô hình dự đoán từ tiếp theo để tạo ra các
+    vector số đại diện cho từ. Tiêu biểu ở đây sẽ là Word2Vec, GloVe, FastText. Mục tiêu của những
+    phương pháp này là biểu diễn ngữ nghĩa của từ dưới dạng vector sao cho 
+    các từ có ngữ nghĩa tương tự sẽ có vector biểu diễn có khoảng cách gần nhau. Đây là phương pháp
+    thường được sử dụng hơn trong các mô hình \ac{nlp} hiện đại.
+\end{itemize}
+
+\subsubsection{One hot encoding}
+Phương pháp One hot encoding là phương pháp đơn giản nhất để biểu diễn từ dưới dạng vector có độ dài bằng với số từ trong từ điển.
+Kỹ thuật này chuyển đổi một từ thành một vector đặc trưng có độ
+dài bằng với số lượng từ trong từ điển và chỉ có một giá trị bằng 1 tại vị trí tương ứng với
+từ đó, còn lại là giá trị 0.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/onehot.png}
+    \caption{Phương pháp one hot encoding.}
+\end{minipage}
+\vspace{0.5cm}
+
+Tuy phương pháp này đã giải quyết được vấn đề biểu diễn từ vựng trong corpus thành 
+vector số. Nó vẫn còn rất đơn giản và có nhiều hạn chế như sau:
+
+\begin{itemize}
+    \item \textbf{Kích thước vector lớn:} Kích thước của vector biểu diễn từ sẽ phụ thuộc vào số lượng từ trong từ điển. Điều này dẫn đến việc tăng kích thước của vector đầu ra đặc biệt với tập từ điển lớn, làm tăng độ phức tạp của mô hình.
+    \item \textbf{Không biểu diễn được ngữ cảnh:} Phương pháp one hot encoding không biểu diễn được ngữ cảnh của từ trong câu. Mỗi từ sẽ được biểu diễn một cách độc lập với các từ khác.
+    Nói cách khác, tất cả các từ đều có cùng một khoảng cách với nhau trong không gian vector và không thể giữ được mối quan hệ giữa các từ.
+\end{itemize}
+
+\subsubsection{Word2Vec}
+Word embedding là một kỹ thuật trong lĩnh vực xử lý ngôn ngữ tự nhiên (NLP) được sử dụng để biểu diễn từ vựng dưới dạng các vector trong không gian nhiều chiều. Ý tưởng cơ bản của word embedding là ánh xạ mỗi từ trong từ điển sang một vector số học, sao cho các từ có ý nghĩa tương tự hoặc thường xuất hiện cùng nhau trong văn bản sẽ có biểu diễn gần nhau trong không gian vector.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/word2vec-intro.png}
+    \caption{Một ví dụ về nhúng từ bằng Word2Vec.}
+\end{minipage}
+\vspace{0.5cm}
+
+Một trong những ưu điểm lớn của word embedding là khả năng biểu diễn từ vựng trong một không gian vector có chiều thấp, giúp giảm chi phí tính toán và không gian lưu trữ. Hơn nữa, những vector biểu diễn từ đã được học có thể bao gồm các mối quan hệ ngữ nghĩa và cú pháp, giúp cải thiện hiệu suất của các mô hình NLP trong nhiều tác vụ, như phân loại văn bản, dịch máy và tóm tắt văn bản.
+
+Trong Word2Vec, có hai kiểu mô hình chính là Skip-gram và Continuous Bag of Words (CBOW). Trong đó, Skip-gram tập trung vào việc dự đoán các từ xung quanh một từ cho trước trong một câu, trong khi CBOW dựa vào ngữ cảnh của từ để dự đoán từ đó.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/word2vec.png}
+    \caption{Hai kiến trúc cho các mô hình Word2Vec.}
+\end{minipage}
+\vspace{0.5cm}
+
+\textbf{Huấn luyện và dự đoán mô hình Word2Vec}
+Để huấn luyện mô hình Word2Vec, ta sẽ xét một ví dụ sử dụng kiến trúc CBOW.
+Đầu tiên, tất cả các từ trong tập dữ liệu sẽ được mã hóa thành dạng one-hot vector. Sau đó, một tầng ẩn sẽ được tạo ra với số lượng nơ-ron bằng với số chiều của vector nhúng. Tầng ẩn này sẽ nhận đầu vào là one-hot vector của từ hiện tại và dự đoán từ tiếp theo trong câu.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/cbow.png}
+    \caption{Huấn luyện mô hình Word2Vec với kiến trúc CBOW.}
+\end{minipage}
+\vspace{0.5cm}
+
+Ta sẽ áp dụng cửa sổ trượt (sliding window) với một số lượng từ xác định cho mỗi window. Sau đó, từ ở giữa sẽ được dùng để làm nhãn \(\hat{y}\)
+các từ còn lại sẽ được dùng làm đầu vào để dự doán cho từ ở giữa đó. Ta lấy ví dụ với câu \textit{"Tôi là sinh viên trường."} với window size = 5:
+
+\begin{itemize}
+    \item \textbf{Input}: \textit{"Tôi", "là", "viên", "trường"}
+    \item \textbf{Output}: \textit{"sinh"}
+\end{itemize}
+
+Mô hình lúc này sẽ nhận các one hot vector của các từ \textit{"Tôi", "là", "viên", "trường"} và dự đoán ra một vector kết quả.
+Vector kết quả này sẽ được so sánh với one hot vector của từ \textit{"sinh"} để tính toán lỗi. 
+Lỗi này sẽ được lan truyền ngược để cập nhật trọng số của mô hình sao cho lỗi được giảm thiểu.
+
+Kết quả cuối cùng sau khi huấn luyện, ta sẽ có được  một ma trận nhúng từ (embedding matrix) với số hàng bằng với số từ trong từ điển và số cột bằng với số chiều của vector nhúng.
+Chọn kích thước embedding vector là 5 cho dữ liệu huấn luyện trên, ta có ma trận trọng mẫu như sau:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        w01 & w02 & w03 & w04 & w05 \\ \hline
+        w11 & w12 & w13 & w14 & w15 \\ \hline
+        w21 & w22 & w23 & w24 & w25 \\ \hline
+        w31 & w32 & w33 & w34 & w35 \\ \hline
+        w41 & w42 & w43 & w44 & w45 \\ \hline
+    \end{tabular}
+    \caption{Bảng ma trận nhúng từ sau khi huấn luyện với Word2Vec.}
+\end{table}
+
+Khi muốn sử dụng mô hình đã huấn luyện để nhúng từ mới, ta sẽ nhân từ mới với ma trận nhúng từ để lấy vector nhúng của từ đó:
+
+\begin{equation}
+    \text{Embedding vector của từ mới} = \text{One hot vector của từ mới} \times W
+\end{equation}
+
+Cách huấn luyện cũng gần tương tự với kiến trúc Skip-gram, tuy nhiên kiến trúc này sẽ dự đoán các từ xung quanh từ hiện tại:
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/skipgram.png}
+    \caption{Huấn luyện mô hình Word2Vec với kiến trúc Skip-gram.}
+\end{minipage}
+\vspace{0.5cm}
+
+\subsubsection{Nhúng từ bằng phương pháp Tf-Idf}
+
+
+TF-IDF (Term Frequency-Inverse Document Frequency) là một kỹ thuật quan trọng trong xử lý ngôn ngữ tự nhiên được sử dụng để đánh giá sự quan trọng của một từ trong một tài liệu so với một tập hợp các tài liệu khác. Kỹ thuật này kết hợp giữa tần số xuất hiện của từ trong một tài liệu (TF) và tần suất nghịch đảo của từ đó trong tất cả các tài liệu (IDF).
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/tf-idf.png}
+    \caption{Phương pháp Tf-Idf.}
+\end{minipage}
+\vspace{0.5cm}
+
+\begin{itemize}
+    \item Tần số xuất hiện của từ (TF): Đo lường tần suất xuất hiện của một từ trong một tài liệu cụ thể. TF tăng khi tần suất xuất hiện của từ trong tài liệu càng cao. Ta có thể tính TF theo công thức:
+    \begin{center}
+        \(TF(t, d) = \frac{\text{Số lần từ t xuất hiện trong tài liệu d}}{\text{Tổng số từ trong tài liệu d}}\)
+    \end{center}
+    
+    \item Tần suất nghịch đảo của từ (IDF): Đo lường độ quan trọng của một từ bằng cách đo tần suất xuất hiện của từ đó trong toàn bộ tập hợp các tài liệu. Các từ phổ biến như "và", "là" thường xuất hiện nhiều trong một số lượng lớn các tài liệu, do đó tần suất nghịch đảo của chúng thấp, trong khi các từ đặc biệt hoặc hiếm có tần suất nghịch đảo cao.
+    Ta có thể tính IDF theo công thức:
+
+    \begin{center}
+        \(IDF(t, D) = \log\left(\frac{\text{Tổng số tài liệu trong tập D}}{\text{Số tài liệu chứa từ t trong tập D}}\right)\)
+    \end{center}
+\end{itemize}
 \subsection{Mô hình Seq2Seq và cơ chế attention}
-% # TODO: Mô hình Seq2Seq và cơ chế attention
+\subsubsection{Mô hình Seq2Seq}
 
-\subsection{Mô hình Transformer}
+
+Mô hình \ac{seq2seq} là một kiến trúc mạng nơ-ron sử dụng cho các tác vụ liên quan đến chuỗi, như dịch máy, tổng hợp văn bản, và phản hồi tự động trong hội thoại. Mô hình này bao gồm hai phần chính: một bộ mã hóa (encoder) và một bộ giải mã (decoder).
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/seq2seq.png}
+    \caption{Kiến trúc Seq2Seq trong bài toán hỏi đáp.\cite{sutskever2014sequence}}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Mô hình Seq2Seq chính là tập hợp các mô hình \ac{rnn} hoặc các mô hình \ac{gru} được áp dụng vào trong kiến trúc Encoder - Decoder. Mô hình Seq2Seq 
+là một công cụ mạnh mẽ cho xử lý và tạo ra các chuỗi, với khả năng thích ứng với nhiều loại dữ liệu và tác vụ khác nhau trong lĩnh vực xử lý ngôn ngữ tự nhiên và trí tuệ nhân tạo.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/seq2seq2.png}
+    \caption{Chi tiết Kiến trúc Seq2Seq trong bài toán hỏi đáp.\cite{sutskever2014sequence}}
+\end{minipage}
+\vspace{0.5cm}
+
+Từ hình, ta có thể thấy được đầu vào của \ac{seq2seq} chính là một nhúng từ (embedding) của mỗi từ.
+Đầu tiên chúng ta sử dụng
+một phương pháp Word Embedding bất kỳ, chẳng hạn như Word2Vec để chuyển
+đổi các từ thành vector số thực gọi là Embedding. Sau đó, các Embedding tương ứng với
+mỗi từ sẽ được truyền vào Encoder dưới dạng đầu vào.
+
+Mỗi input embedding sẽ được lần lượt được xử lý bởi khối mã hóa (Encoder).
+Khối encoder sẽ nén thông tin đầu vào thành một vector ngữ nghĩa (\textbf{context vector}). Encoder sẽ tổng hợp các hidden state của \ac{rnn}:
+
+\begin{center}
+    \(h_i = f(W_{hh}h_{i-1} + W_{xh}x_i + b_h)\)
+\end{center}
+
+Và vector trạng thái (cell state vectors), được tính theo công thức: 
+
+\begin{center}
+    \(c_i = f_c(c_{i-1}, h_{i-1}, x_i) = \sigma(W_{xc}x_i + W_{hc}h_{i-1} + W_{cc}c_{i-1} + b_c)\)
+\end{center}
+
+
+Nói cách khác, mục đích của Encoder chính là tạo ra context vector. Context vector
+là một vector đơn giản bao gồm các số thực. Kích thước của context vector có thể được
+thiết lập ban đầu khi khởi tạo mô hình, thông thường có thể là 256, 512, 1024.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/seq2seq_detail.png}
+    \caption{Truyền context vector từ khối Encoder sang Decoder trong \ac{seq2seq}.\cite{sutskever2014sequence}}
+\end{minipage}
+\vspace{0.5cm}
+
+Context vector lúc này sẽ được khởi tạo và truyền vào khối giải mã (Decoder).
+Đơn vị recurrent đầu tiên của khối \textbf{Decoder} sẽ nhận hidden state cuối cùng của Encoder làm hidden state đầu vào.
+Tương tự với vector trạng thái:
+
+\begin{center}
+    \text{n encoder: số lượng đơn vị recurrent của encoder}
+
+    \(h_0 = h_{\text{n encoder}}\)
+
+    \(c_0 = c_{\text{n encoder}}\)
+\end{center}
+
+Token input đầu tiên của Decoder sẽ là token đặc biệt \textbf{<SOS>} (Start of Sentence) để bắt đầu quá trình giải mã (decode) của mô hình.
+Kết quả đầu ra \(y_i\) của mỗi đơn vị recurrent sẽ được đưa vào làm đầu vào của đơn vị recurrent tiếp theo cùng với hidden state \(h_i\) và vector trạng thái \(c_i\).
+Và kết quả đầu ra này của mỗi đơn vị sẽ được đưa vào một tầng Dense và Softmax để dự đoán từ tiếp theo trong chuỗi.
+
+Điều này sẽ được lặp lại cho đến khi mô hình dự đoán token đặc biệt \textbf{<EOS>} (End of Sentence) hoặc đạt đến giới hạn số từ tối đa cho phép.
+
+\subsubsection{Hạn chế của mô hình Seq2Seq truyền thống}
+
+Với các mô hình \acl{seq2seq} truyền thống, mặc dù khả năng ứng dụng trong nhiều bài toán của Xử Lý Ngôn Ngữ Tự Nhiên (NLP), khi sử dụng sẽ gặp phải các hạn chế như sau:
+
+\begin{itemize}
+    \item \textbf{Tốc độ huấn luyện và dự đoán chậm:} Mô hình \ac{seq2seq} truyền thống sử dụng kiến trúc \ac{rnn} hoặc \ac{gru} để xử lý chuỗi, điều này khiến cho mô hình trở nên chậm khi huấn luyện và dự đoán.
+    Mỗi đầu vào sẽ phải được xử lý tuần tự từng phần, điều này làm tăng thời gian xử lý của mô hình và không thể tận dụng được khả năng tính toán song song của GPU.
+    
+    \item \textbf{Triệt tiêu đạo hàm}: Vấn đề triệt tiêu đạo hàm (Vanishing Gradient) là vấn đề với mọi mô hình \ac{rnn} và cả
+    các mô hình \ac{seq2seq} truyền thống. Với mạng \ac{rnn}, những chuỗi (sequence) càng dài thì mạng sẽ càng sâu
+    theo chiều thời gian. Điều này làm dẫn đến vấn đề Gradient Vanishing khi huấn luyện mô hình \ac{seq2seq}.
+    Mặc dù các mô hình như LSTM đã cải thiện vấn đề này, Gradient Vanishing vẫn là một thách thức với mô hình truyền thống.
+
+    \begin{minipage}{\linewidth}
+        \captionsetup{type=figure}
+        \centering
+        \includegraphics[width=.8\linewidth]{./assets/images/seq2seq_limit.png}
+        \caption{Triệt tiêu đạo hàm với số lượng câu dài trong \ac{seq2seq}.}
+    \end{minipage}
+    \vspace{0.5cm}
+
+    \item \textbf{Mất mát thông tin} Thông tin khi được truyền từ khối mã hóa (Encoder) sang khối giải mã (Decoder)
+    chỉ được nén trong một vector ngữ nghĩa (context vector) duy nhất với kích thước cố định.
+    Điều này làm cho mô hình \ac{seq2seq} truyền thống không thể hiểu được ngữ cảnh của câu đầu vào một cách tốt và dẫn đến mất mát thông tin.
+
+    \begin{minipage}{\linewidth}
+        \captionsetup{type=figure}
+        \centering
+        \includegraphics[width=\linewidth]{./assets/images/seq2seq_context_vector.png}
+        \caption{Hạn chế khi truyền context vector sang Decoder trong mô hình \ac{seq2seq}.}
+    \end{minipage}
+    \vspace{0.5cm}
+
+\end{itemize}
+
+\subsubsection{Cơ chế Attention và ứng dụng trong mô hình Seq2Seq}
+Để giải quyết các hạn chế của mô hình \ac{seq2seq} truyền thống, ta có thể áp dụng cơ chế tập trung (Attention \cite{vaswani2023attention}) - một cơ chế đã được giới thiệu trong 
+bài báo "Attention is All You Need" vào năm 2017 - đánh dấu một bước tiến lớn trong việc xử lý ngôn ngữ tự nhiên và các tác vụ liên quan đến chuỗi.
+
+Áp dụng vào cơ chế Attention vào mô hình \ac{seq2seq}, với mỗi step của Decoder, mô hình sẽ tập trung vào các phần khác nhau của đầu vào (Input) để dự đoán từ tiếp theo trong chuỗi.
+Khối Encoder sẽ không truyền hidden state của đơn vị cuối cùng mà sẽ truyền toàn bộ hidden state của mình cho Decoder. 
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/seq2seq_attention.png}
+    \caption{Áp dụng cơ chế Attention trong mô hình \ac{seq2seq}.}
+\end{minipage}
+\vspace{0.5cm}
+
+Kèm theo đó, trọng số Attention sẽ được tính toán dựa trên hidden state của Encoder và Decoder và 
+truyền vào mỗi đơn vị của Decoder để giúp mô hình tập trung vào các phần quan trọng của đầu vào. Ta có sơ đồ tính toán Attention như sau:
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/computation_scheme-min.png}
+    \caption{Sơ đồ tính kết quả Attention trong mô hình \ac{seq2seq}.}
+\end{minipage}
+\vspace{0.5cm}
+
+Đầu vào đầu tiên cho quá trình tính kết quả Attention sẽ là hidden state của Decoder và toàn bộ hidden state của Encoder.
+Lúc này, Attention scores sẽ được tính bằng cách áp dụng một hàm Attention Score với m là số đơn vị của khối Encoder:
+\begin{center}
+    \begin{equation}
+        \text{score}(h_t, s_k), k=1,..m
+    \end{equation}
+\end{center}
+\vspace{0.5cm}
+
+Để tính được \( \text{score}(h_t, s_k) \), ta có một số hàm Score Function như sau:
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/score_functions-min.png}
+    \caption{Một số phương thức tính score cho cơ chế attention.}
+\end{minipage}
+\vspace{0.5cm}
+
+Sau đó, tiếp tục tính trọng số attention, lúc này ta nhận được một vector trọng số attention cho tất cả m hidden states của Encoder với một hidden state của Decoder:
+
+\begin{equation}
+    a_{t,k} = \frac{\exp(\text{{score}}(h_t, s_k))}{\sum_{j=1}^{m} \exp(\text{{score}}(h_t, s_j))}
+\end{equation}
+
+Cuối cùng, sau khi đã có được trọng số attention cho step t hiện tại của Decoder, Context Vector tại step t sẽ được tính như sau:
+
+\begin{equation}
+    c_t = \sum_{k=1}^{m} a_{t,k} \cdot h_k
+\end{equation}
+
+
+Context vector này sẽ được dùng để làm đầu vào cho đơn vị tại timestep t của khối Decoder để sinh ra từ kế tiếp ở timestep t + 1.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/decoding-attention.png}
+    \caption{Khác biệt của khối Decoder khi sử dụng Attention trong mô hình \ac{seq2seq}.}
+\end{minipage}
+\vspace{0.5cm}
+
+Sự khác biệt ở khối Decoder giữa mô hình \ac{seq2seq} truyền thống và mô hình \ac{seq2seq} áp dụng cơ chế Attention được mô tả như hình trên.
+Cụ thể, áp dụng cơ chế attention đã giúp cải thiện việc:
+
+\begin{itemize}
+    \item Giữ lại thông tin ngữ nghĩa cho context vector bằng cách tính toán dựa trên toàn bộ hidden states của khối Encoder.
+    \item Cho khối Decoder biết thông tin về từ nào nên "tập trung" vào để dự đoán từ tiếp theo. Điều này sẽ hữu ích với dữ liệu có tính cấu trúc (structured bias). Lấy ví dụ như sau: 
+    \textit{"Tôi rất thích học môn Toán"}. Ở đây từ "học " và "môn Toán" có mối quan hệ mật thiết với nhau hơn so với các từ khác
+\end{itemize}
+
 \subsection{Kiến trúc Transformer}
 \subsubsection{Tổng Quan}
 
@@ -148,8 +530,8 @@ hiểu ngữ cảnh (Contextual Understanding) của dữ liệu đầu vào (In
 
 Mô hình Transformer đã được ứng dụng rộng rãi trong nhiều tác vụ xử lý ngôn ngữ
 tự nhiên, bao gồm dịch máy, phân loại văn bản, dự đoán từ, tóm tắt văn bản, hỏi đáp, và
-nhiều tác vụ ngôn ngữ tự nhiên khác. BERT\cite{devlin2019bert} (Bidirectional Encoder Representations from
-Transformers), GPT\cite{brown2020language} (Generative Pre-trained Transformer), và T5\cite{raffel2023exploring} (Text-to-Text Transfer
+nhiều tác vụ ngôn ngữ tự nhiên khác. BERT\cite{BERT} (Bidirectional Encoder Representations from
+Transformers), GPT\cite{yenduri2023generative} (Generative Pre-trained Transformer), và T5\cite{raffel2023exploring} (Text-to-Text Transfer
 Transformer) là những mô hình NLP nổi tiếng được xây dựng trên kiến trúc của mô hình
 Transformer.
 
@@ -157,7 +539,7 @@ Transformer.
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=\linewidth]{./assets/images/transformer.png}
-    \caption{Tổng quan kiến trúc Transformer\cite{voita-etal-2019-good}}
+    \caption{Tổng quan kiến trúc Transformer\cite{vaswani2023attention}}
 \end{minipage}
 
 \begin{itemize}
@@ -182,7 +564,7 @@ nhiều lần dưới dạng khối để giải mã đầu ra.
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=\linewidth]{./assets/images/The_transformer_encoder_decoder_stack.png}
-    \caption{Chồng các khối Encoders và Decoders\cite{https://jalammar.github.io/illustrated-transformer/}}
+    \caption{Chồng các khối Encoders và Decoders\cite{vaswani2023attention}}
 \end{minipage}
 
 \subsubsection{Embedding và Positional Encoding}
@@ -202,7 +584,7 @@ sẽ được đi qua một phép tính Positional Encoding.
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=\linewidth]{./assets/images/transformer_input.png}
-    \caption{Tầng Input và Output của Transformers\cite{Bramas2021AFV}}
+    \caption{Tầng Input và Output của Transformers\cite{vaswani2023attention}}
 \end{minipage}
 
 
@@ -219,7 +601,7 @@ Cơ chế Attention được sử dụng trong nhiều mô hình NLP, bao gồm 
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=.2\linewidth]{./assets/images/ScaledDotProductAttention.png}
-    \caption{Khối ScaleDotProductAttention\cite{DBLP:journals/corr/VaswaniSPUJGKP17}}
+    \caption{Khối ScaleDotProductAttention\cite{vaswani2023attention}}
 \end{minipage}
 
 Đầu vào của Scaled Dot-Product Attention là 3 ma trận Q, K, V có cùng số chiều.
@@ -248,10 +630,10 @@ Kết quả của khối là một ma trận có cùng số hàng với ma trậ
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=.6\linewidth]{./assets/images/MultiHead.png}
-    \caption{Multi-headed Attention\cite{app13148473}}
+    \caption{Multi-headed Attention\cite{vaswani2023attention}}
 \end{minipage}
 
-\subsection{Add và LayerNormalization}
+\subsubsection{Add và LayerNormalization}
 Trong Transformer, Add \& Norm được sử dụng để kết hợp thông tin
 từ các tầng khác nhau trong mạng. Trong quá trình này, đầu ra của một tầng sẽ được
 cộng với đầu vào ban đầu của tầng đó (skip-connection), sau đó chuẩn hóa lại với Layer
@@ -261,26 +643,26 @@ Normalization để tạo ra đầu ra cuối cùng.
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=.8\linewidth]{./assets/images/Add+Norm.png}
-    \caption{Tầng Add và LayerNormalization\cite{372429372_A_Stock_Price_Prediction_Method_Based_on_BiLSTM_and_Improved_Transformer}}
+    \caption{Tầng Add và LayerNormalization\cite{vaswani2023attention}}
 \end{minipage}
-\subsubsection{Add}
+\textbf{Add}
 Trong bước này, đầu ra của lớp sẽ được cộng với vector
 đầu vào ban đầu. Việc cộng này giúp cập nhật thông tin từ các phần khác nhau của kiến
 trúc và giúp tránh hiện tượng mất thông tin (Vanishing Gradient) trong quá trình huấn
 luyện.
 
-\subsubsection{LayerNormalization}
+\textbf{LayerNormalization}
 Sau khi được cộng với đầu vào ban đầu, đầu ra của lớp sẽ được chuẩn hóa lại với
 Layer Normalization. Layer Normalization là một phép chuẩn hóa dữ liệu đầu ra của
 một tầng theo của ma trận đầu ra. Quá
 trình chuẩn hóa giúp cải thiện tính ổn định của mô hình
 
-\subsection{Position-wise Feed Forward Network}
+\subsubsection{Position-wise Feed Forward Network}
 \begin{minipage}{\linewidth}
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=.6\linewidth]{./assets/images/feed-forward-sublayer-in-transformer.png}
-    \caption{Khối Position-wise Feed Forward\cite{341553895_Natural_language_processing_system_for_self-reflection_and_peer-evaluation}}
+    \caption{Khối Position-wise Feed Forward\cite{vaswani2023attention}}
 \end{minipage}
 
 Các vector đầu vào (là các vector đại diện cho từ) sẽ được truyền qua tầng Fully Connected Layer với hàm kích hoạt ReLU, và cuối cùng đi qua một tầng Fully ConnectedLayer nữa.
@@ -288,10 +670,172 @@ Các vector đầu vào (là các vector đại diện cho từ) sẽ được t
 
 Mục đích chính là xử lý tiếp attention output từ tầng trước đó, giúp mô hình có thể học được các mối quan hệ giữa các từ trong câu.
 
+\subsection{Các mô hình Pretrained}
+
+Pretraining model là quá trình huấn luyện một mạng nơ-ron trên một lượng lớn dữ liệu không được gắn nhãn trước đó, để học các biểu diễn cơ bản của dữ liệu. 
+Mục tiêu của pretraining là tạo ra một mô hình mạng nơ-ron có khả năng học được các đặc trưng chung, tổng quát từ dữ liệu lớn, sau đó có thể được fine-tuning hoặc điều chỉnh lại trên một tập dữ liệu cụ thể cho một tác vụ cụ thể. 
+
+Trong quá trình pretraining, mô hình thường được huấn luyện trên một tác vụ phụ, thường là dự đoán từ tiếp theo trong chuỗi dữ liệu (Masked Language Modeling), dựa trên các mô hình ngôn ngữ như BERT (Bidirectional Encoder Representations from Transformers) hoặc GPT (Generative Pre-trained Transformer). 
+Sau khi pretraining, mô hình sẽ hiểu được cấu trúc và ngữ cảnh của dữ liệu đầu vào một cách tổng quát, giúp nó học được các biểu diễn sâu và phức tạp của dữ liệu.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{./assets/images/pre-train.jpeg}
+    \caption{Quá trình tiền huấn luyện một mô hình.}
+\end{minipage}
+
+\subsubsection{Tổng quan}
+
+Pretraining model đã chứng minh sự hiệu quả của nó trong nhiều ứng dụng khác nhau trong ngành IT, bao gồm xử lý ngôn ngữ tự nhiên (NLP), thị giác máy tính, dịch máy, và nhiều hơn nữa. Sự tiên tiến trong pretraining model đã đóng góp quan trọng vào việc cải thiện hiệu suất và độ chính xác của các ứng dụng AI và machine learning trong các lĩnh vực khác nhau, từ tự động hóa công việc đến y tế và kinh doanh
+
+Với các mô hình sử dụng kiến trúc Transformer, chúng có thể sử dụng chung phần lõi của mô hình.
+Sau đó, thay đổi kiến trúc hoặc cập nhật trọng số một vài tầng cuối cùng của mô hình để phục vụ cho các tác vụ khác nhau.
+
+Đặc tính này đã cho phép các mô hình "Pretrained" ra đời. Những mô hình Pretrained Transformer này, đã được pre-train
+trên một tập dữ liệu khổng lồ bởi các tập đoàn công nghệ lớn như Google, Meta, OpenAI và
+được phát hành cho cộng đồng sử dụng.
 
 
-\subsection{Mô hình SBERT} 
-\subsubsection{Độ tương đồng giữa các embedding}
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{./assets/images/LLM-Evolutionary-Tree.png}
+    \caption{Sự phát triển của các mô hình pretrained và LLm đến năm 2023\cite{llm-trends}}
+\end{minipage}
+
+\subsubsection{Các phương pháp tiền huấn luyện (pre-train) mô hình ngôn ngữ}
+
+\textbf{Masked Language Model – MLM}
+
+\ac{mlm} là một tác vụ được sử dụng trong quá trình
+tiền huấn luyện (pre-training) của các mô hình Pretrained. Với MLM, một phần tử ngẫu nhiên trong câu
+được chọn và sau đó được che đi. Mô hình sẽ nhận diện từ xung quanh từ bị che đi và cố
+gắng dự đoán từ bị che đó.
+
+Tác vụ \ac{mlm} thuộc vào bài toán tự giám sát (Self-supervised learning) - nơi mà mô hình sẽ tự đào tạo để học được
+các đặc trưng bên trong của dữ liệu. Trong quá trình này, ý tưởng của nó sẽ là chuyển các bài toán học máy không được giám sát (Un-supervised learning)
+thành các bài toán học có giám (Supervised learning) bằng các tự động tạo ra các nhãn cần thiết.
+Điều này giúp tác vụ thuộc vào bài toán tự giám sát tận dụng được nguồn dữ liệu không có nhãn - cụ thể trong tác vụ
+\ac{mlm} chính là các tập văn bản lớn trên Internet.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=1\linewidth]{./assets/images/self-supervised.png}
+    \caption{Quá trình huấn luyện bài toán Học Tự Giám Sát\cite{balestriero2023cookbook}}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Sau khi đã kết thúc quá trình tiền huấn luyện, các mô hình trong bài toán học tự giám sát sẽ được
+fine-tune lại cho một tác vụ cụ thể (downstream tasks). Từ đó cải thiện độ chính xác và năng lực của mô hình
+trên các tác vụ đó.
+
+Điều đặc biệt về cách sử dụng \ac{mlm} trong các mô hình tiền huấn luyện (Pretrained) là tất cả các từ trong câu đều có
+thể được che. Trong khoảng 15\% trường hợp, từ được chọn để che sẽ được thay thế bằng token
+[MASK] để đảm bảo rằng mô hình sẽ không chỉ nhớ từ đó, mà phải học cách dự đoán từ
+đó bằng cách sử dụng các từ khác trong câu. Mục tiêu của mô hình là dự đoán từ được che giấu dựa trên ngữ cảnh của các từ còn lại trong câu.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/mllm.png}
+    \caption{Masked Language Modeling\cite{mlm}}
+\end{minipage}
+\vspace{0.5cm}
+
+Quá trình huấn luyện MLM không chỉ giúp mô hình học được biểu diễn của từng từ trong câu mà còn giúp nó học được mối quan hệ giữa các từ và ngữ cảnh xung quanh. Khi một từ được che giấu, mô hình phải dự đoán nó dựa trên thông tin từ các từ xung quanh, điều này thúc đẩy việc học được biểu diễn ngữ nghĩa và ngữ cảnh của từ một cách hiệu quả.
+
+MLM đã chứng minh sự hiệu quả của mình trong nhiều ứng dụng NLP, bao gồm dịch máy, tóm tắt văn bản, phân tích cảm xúc, và nhiều hơn nữa. Kỹ thuật này đã góp phần quan trọng vào sự phát triển của các mô hình ngôn ngữ hiện đại, cung cấp cho chúng khả năng hiểu ngôn ngữ tự nhiên một cách sâu sắc và tổng quát hơn.
+\begin{enumerate}
+    \item \textbf{Chọn ngôn ngữ và tiền xử lý dữ liệu}: Trước hết, cần xác định ngôn ngữ của bộ dữ liệu và tiền xử lý dữ liệu, chuẩn hóa dữ liệu, và tokenize dữ liệu.
+    Trong giai đoạn tiền xử lý dữ liệu cho tác vụ MLM, tập dữ liệu cần chuẩn bị chỉ bao gồm một dataset với một cột duy nhất là các đoạn văn bản:
+
+    \begin{table}[H]
+        \centering
+        \begin{tabularx}{\textwidth}{|X|}
+            \hline
+                \textbf{Text}
+            \\
+            \hline
+            "On its day of release in Japan , Valkyria Chronicles III topped both platform @-@ exclusive and multi @-@ platform sales charts . By early February , the game sold 102 @,@ 779 units , coming in second overall to The Last Story for the Wii . By the end of the year , the game had sold just over 152 @,@ 500 units ." \\ 
+            \hline
+            "In a preview of the TGS demo , Ryan Geddes of IGN was left excited as to where the game would go after completing the demo , along with enjoying the improved visuals over Valkyria Chronicles II . Kotaku 's Richard Eisenbeis was highly positive about the game , citing is story as a return to form after Valkyria Chronicles II and its gameplay being the best in the series . His main criticisms were its length and gameplay repetition , along with expressing regret that it would not be localized ." \\
+            \hline
+        \end{tabularx}
+        \caption{Dữ liệu mẫu huấn luyện cho tác vụ MLM từ tập \textbf{wikitext} \cite{merity2016pointer}}
+    \end{table}
+
+    Trong quá trình tokenize, một phương pháp thường sử dụng cho \ac{mlm} để tiền huấn luyện mô hình ngôn ngữ là nối chuỗi (concatenation). Các từ sau khi đã tokenize
+    sẽ được nối lại với nhau thành các đoạn (chunks) với độ dài cố định của mỗi đoạn là \textbf{context length} của mô hình.
+
+    \begin{minipage}{\linewidth}
+        \captionsetup{type=figure}
+        \centering
+        \includegraphics[width=\linewidth]{./assets/images/concatenation.png}
+        \caption{Nối chuỗi dữ liệu văn bản trong quá trình pretraining}
+    \end{minipage}
+    \vspace{0.5cm}
+    
+    \item \textbf{Tạo các mẫu huấn luyện}: Tiếp theo,cần tạo ra các mẫu huấn luyện bằng cách chọn ngẫu nhiên một số từ trong mỗi câu để thực hiện Masking. Có thể cần phải chọn một phần trăm nhất định của các từ trong mỗi câu hoặc sử dụng một phương pháp khác như WordPiece hoặc Byte Pair Encoding (BPE) để chia câu thành các đơn vị từ con (subword units) và chọn ngẫu nhiên một số lượng từ con (subword) để thực hiện Masking.
+    
+    \item \textbf{Huấn luyện mô hình}: Sử dụng các mẫu huấn luyện đã tạo, bạn huấn luyện một mô hình MLM trên bộ dữ liệu lớn của mình. Mô hình này thường sẽ là một biến thể của mạng transformer như BERT. Trong quá trình huấn luyện, mô hình cố gắng dự đoán các từ được che giấu dựa trên ngữ cảnh của các từ xung quanh.
+    
+    \begin{minipage}{\linewidth}
+        \captionsetup{type=figure}
+        \centering
+        \includegraphics[width=\linewidth]{./assets/images/BERT-mlm.png}
+        \caption{Tác vụ \ac{mlm} trong quá trình pretraining BERT}
+    \end{minipage}
+    \vspace{0.5cm}
+
+    Với mô hình BERT, \ac{mlm} được sử dụng trong quá trình tiền huấn luyện, với 15\% số lượng token được Mask.
+    Nhiệm vụ của mô hình là dự đoán các token được masked đó ở tầng kết quả (output layer).
+
+    Hàm lỗi (loss function) lúc này sẽ chỉ tính độ lỗi dựa trên kết quả dự đoán của các Masked token chứ không phải toàn bộ tokens.
+
+    Việc dự đoán các từ bị che ở đầu ra yêu cầu thêm các tầng để phân
+    lớp (classifier) nhận đầu vào là đầu ra của BERT. Như hình, một tầng kết nối đầy đủ (Fully Connected Layer) sẽ được thêm ngay sau 
+    BERT như là một tầng kết quả (output layer).
+    Tiếp theo đó sẽ sử dụng softmax để tính xác suất nhằm biết được từ bị che là từ gì. Số lượng units của tầng kết quả của mạng kết nối đầy đủ 
+    phải bằng với kích thước từ điển (corpus size).
+
+\end{enumerate}
+
+\textbf{Next Sequence Prediction – NSP hay Two-sequence tasks}
+
+\ac{nsp} là một tác vụ quan trọng khác trong qúa trình tiền huấn luyện (pretraining) các mô hình.
+Mục tiêu của \ac{nsp} là giúp mô hình hiểu được mối quan hệ giữa các câu. Nói cách
+khác, các mô hình tiền huấn luyện không chỉ quan tâm đến từng câu một mà còn nhìn vào mối quan hệ giữa
+các câu trong văn bản.
+
+Trong tác vụ này, mô hình sẽ được huấn luyện trên kết quả nhị phân để quyết định xem hai câu có mối quan hệ với nhau hay không.
+Điều này giúp các mô hình pretrained học được mối quan hệ cho câu trước đó.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/BERT-nsp.png}
+    \caption{Tác vụ \ac{nsp} trong quá trình pretraining BERT}
+\end{minipage}
+\vspace{0.5cm}
+
+Về dữ liệu cần để huấn luyện cho tác vụ \acl{nsp}, với các cặp câu A và B, để có một bộ dữ liệu cân bằng
+ta cần chuẩn bị sao cho 50\% số câu B phía sau câu A sẽ có liên quan và 50\% còn lại là ngược lại.
+
+Tương tự như tác vụ tiền huấn luyện với \acl{mlm}, kết quả đầu ra của mô hình BERT sẽ được vào một mạng kết nối đầy đủ
+(Fully connected neural network) để giúp phân loại độ tương quan giữa hai câu văn bản.
+
+% # TODO: Mô hình BERT
+
+\subsection{Mô hình BERT}
+\subsubsection{Tổng quan mô hình}
+\subsubsection{Trích xuất đặc trưng từ mô hình BERT}
+\subsubsection{Sử dụng BERT để so sánh sự tương đồng ngữ nghĩa}
+\subsubsection{Sử dụng BERT để phẩn loại văn bản}
+
+\subsection{Độ tương đồng Cosine giữa các embedding}
 
 Trong lĩnh vực xử lý ngôn ngữ tự nhiên, một embedding là một biểu diễn vector của một chuỗi, được tạo ra bởi một mô hình học máy. Embedding có thể được tạo ra bằng cách sử dụng các mô hình học máy như Word2Vec, GloVe, FastText, và nhiều mô hình khác.
 Ngoài ra, với sự phát triển của các mô hình học sâu và kiến trúc transformer, các embedding có thể được tạo ra bằng cách sử dụng khối encoder các mô hình sử dụng kiến trúc transformer hoặc các mô hình học sâu BERT, GPT, và nhiều mô hình khác.
@@ -311,7 +855,7 @@ Một số ưu điểm khi sử dụng độ tương đồng cosin để đánh 
     \item \textbf{Hiệu Quả Cho Dữ Liệu Nhiều Chiều:} Trong không gian chiều cao, nơi mỗi chiều biểu diễn một đặc trưng khác nhau, độ tương đồng cosine thường hiệu quả hơn so với các phương pháp đo tương đồng khác. Điều này giúp giảm hiệu ứng "hiệu ứng chiều cao" khi sử dụng các phương pháp dựa trên khoảng cách Euclidean.
 \end{enumerate}
 
-\subsubsection{Siamese Networks}
+\subsection{Siamese Networks}
 
 \begin{minipage}{\linewidth}
     \captionsetup{type=figure}
@@ -336,15 +880,41 @@ Mạng SNN tập trung vào việc cải thiện embedding sao cho các lớp gi
 Chi tiết cách huấn luyện mạng SNN như sau:
 
 \begin{enumerate}
-    \item \textbf{Xây dựng} kiến trúc mạng, hàm loss và optimizer.
-    \item \textbf{Đưa dữ liệu} 1 trong cặp qua network.
-    \item \textbf{Đưa dữ liệu} 2 trong cặp qua network.
-    \item \textbf{Tình lỗi} dựa vào output từ dữ liệu 1 và dữ liệu 2
-    \item \textbf{Lan truyền ngược} để tính lại đạo hàm của các trọng số.
-    \item \textbf{Cập nhật trọng số} bằng optimizer.
+    \item \textbf{Xây dựng kiến trúc mạng}  Đầu tiên, chúng ta cần xác định kiến trúc của mạng nơ-ron SNN bao gồm các lớp nơ-ron và kết nối giữa chúng. Sau đó, chọn hàm loss phù hợp để đo lường sự chênh lệch giữa dự đoán và giá trị thực tế, cùng với một optimizer để cập nhật các trọng số của mạng.
+    \item \textbf{Đưa dữ liệu vào cặp mạng} Tiếp theo, chúng ta cần đưa dữ liệu vào mạng SNN. Dữ liệu này thường được chia thành các cặp, mỗi cặp gồm hai phần tử tương ứng với dữ liệu đầu vào và đầu ra mong muốn.
+    \item \textbf{Tính toán lỗi}  Dựa trên đầu ra của mạng cho cả hai dữ liệu đầu vào, chúng ta tính toán lỗi bằng cách so sánh dự đoán với giá trị thực tế. Lỗi này thường được tính bằng hàm loss đã chọn ở bước đầu tiên.
+    
+        Một số hàm lỗi phổ biến được sử dụng để đo lường sự chênh lệch giữa hai câu (hoặc văn bản) trong kiến trúc mạng Siamese có thể kể đến như sau:    
+        \begin{itemize}
+            \item \textbf{Hinge Loss:}  Hàm mất mát này thường được sử dụng trong các bài toán học có giám sát, đo lường khoảng cách giữa các vector nhúng của các cặp câu. Mục tiêu là tối thiểu hóa khoảng cách giữa các câu cùng loại và tối đa hóa khoảng cách giữa các cặp câu không cùng loại.
+            \item \textbf{Constrative loss} Hàm mất mát này đo lường sự tương đồng giữa các cặp câu bằng cách đo khoảng cách giữa các vector nhúng và áp dụng ngưỡng để xác định xem các câu là giống nhau hay khác biệt.
+            Các cặp câu chỉ có thể có hai nhãn là \textbf{0 và 1} để quyết định hai câu hoặc văn bản có tương đồng hay không.
+
+            \begin{minipage}{\linewidth}
+                \captionsetup{type=figure}
+                \centering
+                \includegraphics[width=12cm]{./assets/images/siamese-cnn.png}
+                \captionof{figure}{Một ví dụ áp dụng mạng Siamese với mô hình \ac{cnn} và Constrative Loss}
+            \end{minipage}
+
+            \item \textbf{Triplet loss} Triplet loss sử dụng ba câu trong mỗi lần huấn luyện: câu anchor, câu dương (positive), và câu âm (negative). Mục tiêu là tối thiểu hóa khoảng cách giữa câu anchor và câu dương, đồng thời tối đa hóa khoảng cách giữa câu anchor và câu âm một lượng nhất định. Triplet loss thường được sử dụng khi có sẵn dữ liệu nhãn câu tương đồng và không tương đồng.
+            
+            \begin{minipage}{\linewidth}
+                \captionsetup{type=figure}
+                \centering
+                \includegraphics[width=12cm]{./assets/images/triplet.png}
+                \captionof{figure}{Minh họa hàm mất mát Constrative Loss}
+            \end{minipage}
+
+            \item \textbf{Cosine similarity loss} Hàm mất mát này đo lường sự tương đồng giữa các cặp câu bằng cách sử dụng cosine similarity giữa các vector nhúng của chúng. Mục tiêu là tối đa hóa cosine similarity giữa các cặp câu giống nhau và tối thiểu hóa cosine similarity giữa các cặp câu không giống nhau. Khác biệt chính giữa cosine similarity loss và các hàm lỗi khác là cách đo đạc sự tương đồng dựa trên góc giữa hai vector nhúng, thay vì khoảng cách Euclidean.
+        \end{itemize}
+    \item \textbf{Lan truyền ngược} Sau khi tính được lỗi, chúng ta sử dụng phương pháp lan truyền ngược để tính toán đạo hàm của lỗi theo các trọng số của mạng. Điều này giúp chúng ta biết được hướng và mức độ điều chỉnh các trọng số để giảm thiểu lỗi.
+    \item \textbf{Cập nhật trọng số} Cuối cùng, sử dụng optimizer đã chọn để cập nhật các trọng số của mạng dựa trên đạo hàm tính được từ lan truyền ngược. Quá trình này được lặp lại cho đến khi đạt được điều kiện dừng hoặc số lượng vòng lặp quy định.
 \end{enumerate}
 
-\subsubsection{Tổng quan mô hình}
+\subsection{Mô hình SBERT}
+
+\subsubsection{Tổng quan kiến trúc các mô hình SBERT}
 SBERT , hay Sentence-BERT, là một tiến bộ quan trọng trong lĩnh vực xử lý ngôn ngữ tự nhiên (NLP) và biểu diễn văn bản. Được phát triển dựa trên ý tưởng của BERT (Bidirectional Encoder Representations from Transformers), SBERT tập trung vào việc tối ưu hóa biểu diễn cho các câu trong văn bản.
 
 Với nhược điểm về thời gian so sánh giữa các cặp câu của BERT
@@ -373,12 +943,11 @@ một embedding vector size cố định cho câu đó. Đã thử nghiệm trê
 Và để fine-tune lại các mô hình BERT và RoBERTa, SBERT sử dụng kiến trúc siamese và triplet network.
 Trong quá trình fine-tuning sẽ cập nhật trọng số sao cho các vector embedding đầu ra có ngữ nghĩa và có thể được so sánh bằng cosine similarity.
 
-\begin{multicols}{2}
     \begin{minipage}
         {14cm}
         \captionsetup{type=figure}
         \centering
-        \includegraphics[width=5cm]{./assets/images/sbert-softmax.png}
+        \includegraphics[width=6cm]{./assets/images/sbert-softmax.png}
         \captionof{figure}{SBERT fine-tuned lại BERT sử dụng hàm đánh giá là Softmax Classifier (1)}
         \label{fig:demo-register-1}
     \end{minipage}
@@ -387,11 +956,10 @@ Trong quá trình fine-tuning sẽ cập nhật trọng số sao cho các vector
         {14cm}
         \captionsetup{type=figure}
         \centering
-        \includegraphics[width=5cm]{./assets/images/sbert-cosine.png}
+        \includegraphics[width=6cm]{./assets/images/sbert-cosine.png}
         \captionof{figure}{SBERT fine-tuned lại BERT sử dụng hàm đánh giá là Cosine Similarity (2)}
         \label{fig:demo-register-2}
     \end{minipage}
-\end{multicols}
 
 Trong quá trình fine-tuning, SBERT đã thử nghiệm với 2 hàm đánh giá khác nhau là Softmax Classifier và Cosine Similarity:
 
@@ -411,7 +979,6 @@ SNLI là một bộ sưu tập gồm \textbf{570,000} cặp câu được chú t
 MultiNLI chứa \textbf{430,000} cặp câu và bao gồm nhiều thể loại văn bản nói và viết khác nhau. Tinh chỉnh SBERT với một hàm mục tiêu là \textbf{Classification Softmax 3 chiều} trong một epoch. Sử dụng \textbf{batch size là 16}, tối ưu hóa Adam với tốc độ học \textbf{2e-5},
 và tăng tốc tốc độ học tuyến tính trên 10\% dữ liệu huấn luyện. Chiến lược pooling sử dụng là \textbf{"MEAN"} (trung bình).
 
-% # TODO: Mô hình BERT
 
 \subsection{Phương pháp RAG}
 \subsubsection{Thực trạng của các mô hình ngôn ngữ}
@@ -496,6 +1063,9 @@ từ các LLM.
 \subsection{Truy vấn kết hợp trong RAG (RAG Fusion)}
 % # TODO: Truy vấn kết hợp trong RAG (RAG Fusion)
 
+\subsection{Đánh giá kết quả từ phương pháp RAG}
+% # TODO: Đánh giá kết quả từ phương pháp RAG
+
 \section{Phương pháp thực hiện}
 Trong chương này, đầu tiên, luận văn sẽ trình bày chi tiết phương pháp ứng dụng RAG vào trong hệ thống tư vấn thủ tục hành chính. Hệ thống sử dụng
 mô hình SBERT để nhúng văn bản và mô hình ngôn ngữ lớn GPT-3.5 để sinh câu trả lời. Với đầu vào là một câu hỏi của người dùng, 
@@ -561,7 +1131,34 @@ Tiếp theo, chương trình chia làm 10 luồng để truy cập vào từng t
 
 Trong quá trình thu thập dữ liệu, có một số trường hợp bị lỗi do cách thức hiển thị của trang web. Những trường hợp này sẽ được lưu lại trong tệp log để xử lý thủ công. Dữ liệu thu thập cuối cùng sẽ đầy đủ 1,827 thủ tục hành chính từ hệ thống thông tin giải quyết thủ tục hành chính thành phố Cần Thơ.
 \subsection{Tiền xử lý dữ liệu}
-% # TODO: Tiền xử lý dữ liệu
+
+Đối với phương pháp RAG, việc tiền xử lý dữ liệu là một bước quan trọng để hỗ trợ cho khâu truy vấn (Retrieval).
+Để tiền xử lý dữ liệu cho hệ thống RAG hỗ trợ thủ tục hành chính Cần Thơ, các thao tác được thực hiện như ảnh sau:
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/preprocess.drawio.png}
+    \captionsetup{type=figure}
+    \caption{Sơ đồ chunking dữ liệu cho một thủ tục hành chính.}
+\end{minipage}
+
+Với mỗi thủ tục hành chính cào được, tách lần lượt thông tin thành các chunk nhỏ hơn, với kích thước của mỗi chunk 
+là tương đương nhau. Ngoài ra, để giữ được ngữ cảnh cho thông tin (context), mỗi chunk sẽ được thêm một câu mô tả tùy thuộc vào thông tin nó chứa.
+Với chunk thông tin chung của thủ tục hành chính \textit{Cấp phép hoạt động giáo dục kỹ năng sống và hoạt động giáo dục ngoài giờ chính khóa} như sau:
+
+\vspace{0.5cm}
+"\textit{Thủ tục hành chính tên Cấp phép hoạt động giáo dục kỹ năng sống và hoạt động giáo dục ngoài giờ chính khóa với mã 1.000181.000.00.00.H13 có các thông tin về  tên, số quyết định, cấp thực hiện, loại thủ tục và lĩnh vực như sau:}"
+
+Mục đích của câu thông tin được chèn thêm này dùng đễ giữ lại ngữ cảnh cho chunk thông tin và hỗ trợ cho khâu truy vấn thông tin (retrieval phase) cho hệ thống RAG.
+Điều quan trọng ở đây là khi truy vấn, hệ thống sẽ không tìm dựa vào cả đoạn thông tin, mà sẽ sử dụng câu
+được chèn vào để tìm. Bên dưới là một ví dụ cho quá trình này:
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/search.drawio.png}
+    \captionsetup{type=figure}
+    \caption{Truy vấn thông tin sau khi đã tiền xử lý dữ liệu.}
+\end{minipage}
 
 \subsection{Xây dựng hệ thống ứng dụng phương pháp RAG}
 % # TODO: Xây dựng hệ thống ứng dụng phương pháp RAG

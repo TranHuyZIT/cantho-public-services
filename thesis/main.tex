@@ -162,7 +162,38 @@
 
 \section{Cơ sở lý thuyết}
 \subsection{Xử lý ngôn ngữ tự nhiên}
-% # TODO: Xử lý ngôn ngữ tự nhiên
+Xử lý ngôn ngữ tự nhiên (\ac{nlp}) là lĩnh vực nghiên cứu và ứng dụng công nghệ tập trung vào tương tác giữa con người và máy tính thông qua ngôn ngữ tự nhiên. NLP đào sâu vào việc hiểu và sản xuất ngôn ngữ tự nhiên bằng cách sử dụng các phương pháp từ khoa học máy tính, trí tuệ nhân tạo và ngôn ngữ học.
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/nln.png}
+    \caption{Phương pháp nhúng từ biểu diễn từ thành vector số.}
+\end{minipage}
+\vspace{0.5cm}
+
+
+Trong NLP, các mục tiêu chính bao gồm việc phân tích và hiểu ngôn ngữ tự nhiên, dịch máy, tổng hợp tiếng nói, và tạo ra hệ thống trả lời tự động. Điều này đòi hỏi một loạt các kỹ thuật như xử lý ngôn ngữ tự nhiên (NLP) để hiểu ý nghĩa của văn bản, sinh tự động ngôn ngữ tự nhiên (NLP) để tạo ra văn bản tự động, và các phương pháp máy học và học sâu để phân loại, dự đoán và tổng hợp thông tin từ dữ liệu ngôn ngữ.
+
+NLP đang được áp dụng rộng rãi trong nhiều lĩnh vực, từ công nghiệp trí tuệ nhân tạo đến y tế, tài chính, marketing, và giáo dục. Các ứng dụng cụ thể có thể là hệ thống hỏi đáp tự động trên web, phân tích ý kiến công cộng, tổng hợp thông tin từ tài liệu lớn, và dịch máy tự động. Sự phát triển của NLP đã mở ra những cơ hội mới trong việc tạo ra các ứng dụng thông minh có khả năng tương tác với con người một cách tự nhiên và hiệu quả.
+
+\subsubsection{AI tạo sinh - Generative AI}
+
+Một trong những xu hướng của không chỉ \acl{nlp} mà là của lĩnh vực trí tuệ nhân tạo nói chung chính là \textit{Generative AI}
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/generative-ai-benefits.png}
+    \caption{Generative AI và các ứng dụng của nó.}
+\end{minipage}
+\vspace{0.5cm}
+
+Generative AI là một lĩnh vực của trí tuệ nhân tạo (AI) tập trung vào việc tạo ra dữ liệu mới, như hình ảnh, văn bản, âm nhạc, và nhiều loại dữ liệu khác, có thể là tự nhiên và chân thực như có thể. Một trong những công cụ phổ biến được sử dụng trong generative AI là Mô hình Ngôn ngữ Dạng Lớn (LLM), như GPT (Generative Pre-trained Transformer).
+
+\acl{llm} là một loại mô hình học sâu (deep learning) dựa trên kiến trúc Transformer, được đào tạo trên một lượng lớn dữ liệu văn bản từ Internet. Đặc điểm nổi bật của LLM là khả năng sinh ra văn bản tự nhiên và có ý nghĩa dựa trên ngữ cảnh. Một số ứng dụng của LLM bao gồm tạo ra văn bản, tổng hợp thông tin, dịch máy, và trả lời câu hỏi.
 
 \subsection{Phương pháp nhúng từ và văn bản}
 
@@ -267,7 +298,7 @@ Vector kết quả này sẽ được so sánh với one hot vector của từ \
 Lỗi này sẽ được lan truyền ngược để cập nhật trọng số của mô hình sao cho lỗi được giảm thiểu.
 
 Kết quả cuối cùng sau khi huấn luyện, ta sẽ có được  một ma trận nhúng từ (embedding matrix) với số hàng bằng với số từ trong từ điển và số cột bằng với số chiều của vector nhúng.
-Chọn kích thước embedding vector là 5 cho dữ liệu huấn luyện trên, ta có ma trận trọng mẫu như sau:
+Chọn kích thước embedding vector là 5 cho dữ liệu huấn luyện trên, ta có ma trận trọng số mẫu như sau:
 
 \begin{table}[H]
     \centering
@@ -325,6 +356,38 @@ TF-IDF (Term Frequency-Inverse Document Frequency) là một kỹ thuật quan t
         \(IDF(t, D) = \log\left(\frac{\text{Tổng số tài liệu trong tập D}}{\text{Số tài liệu chứa từ t trong tập D}}\right)\)
     \end{center}
 \end{itemize}
+
+Chỉ số TF-IDF cuối cùng của từ sẽ được tính bằng cách nhân TF và IDF của từ đó:
+
+\begin{center}
+    \(TF-IDF(t, d, D) = TF(t, d) \times IDF(t, D)\)
+\end{center}
+
+Trong tác vụ biểu diễn từ thành dạng vector số, TF-IDF có thể được coi là một kỹ thuật biểu diễn cơ bản, trong đó các từ được biểu diễn dưới dạng các vector của các điểm TF-IDF của chúng qua nhiều tài liệu. Mặc dù đơn giản, TF-IDF có thể hiệu quả trong các nhiệm vụ như truy xuất thông tin và phân loại văn bản.
+
+\subsubsection{Nhúng từ bằng phương pháp Bm25}
+
+Bm25 là một phương pháp đánh giá mức độ quan trọng của một từ trong một tài liệu so với một tập hợp các tài liệu khác. Phương pháp này được sử dụng rộng rãi trong các hệ thống tìm kiếm văn bản để xếp hạng các tài liệu phù hợp với một truy vấn cụ thể.
+
+Phương pháp Bm25 cũng kết hợp giữa tần số xuất hiện của từ trong tài liệu (TF) và tần suất nghịch đảo của từ đó trong tất cả các tài liệu (IDF). Tuy nhiên, Bm25 sử dụng một hàm tính toán khác so với TF-IDF.
+Mục tiêu của sự thay đổi này so với Tf-IDF là giúp giảm thiểu ảnh hưởng của các từ phổ biến xuất hiện trong nhiều tài liệu.
+
+Ta có công thức để tính điểm Bm25 của từ t trong tài liệu d so với tập hợp tài liệu D như sau:
+
+\begin{center}
+    \(BM25(t, d, D) = \log \left( \frac{N - n(t, D) + 0.5}{n(t, D) + 0.5} \right) \times \frac{f(t, d) \times (k_1 + 1)}{f(t, d) + k_1 \times (1 - b + b \times \frac{|d|}{\text{avgdl}})}\)
+\end{center}
+
+Điểm khác biệt quan trọng giữa Bm25 và TF-IDF là ở cách tính tần số xuất hiện của từ trong tài liệu (Term Frequency).
+Với TF-IDF, khi tần số xuất hiện của từ tăng, điểm TF-IDF cũng tăng theo. Trong khi đó, với Bm25, điểm Bm25 sẽ tăng khi tần số xuất hiện của từ tăng, nhưng sẽ giảm dần khi tần số xuất hiện của từ tăng quá nhiều.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/tf-idf.png}
+    \caption{Khác nhau trong giá trị tần suất xuất hiện giữa Bm25 và TF-IDF.}
+\end{minipage}
+
 \subsection{Mô hình Seq2Seq và cơ chế attention}
 \subsubsection{Mô hình Seq2Seq}
 
@@ -827,15 +890,211 @@ ta cần chuẩn bị sao cho 50\% số câu B phía sau câu A sẽ có liên q
 Tương tự như tác vụ tiền huấn luyện với \acl{mlm}, kết quả đầu ra của mô hình BERT sẽ được vào một mạng kết nối đầy đủ
 (Fully connected neural network) để giúp phân loại độ tương quan giữa hai câu văn bản.
 
-% # TODO: Mô hình BERT
-
 \subsection{Mô hình BERT}
 \subsubsection{Tổng quan mô hình}
-\subsubsection{Trích xuất đặc trưng từ mô hình BERT}
-\subsubsection{Sử dụng BERT để so sánh sự tương đồng ngữ nghĩa}
-\subsubsection{Sử dụng BERT để phẩn loại văn bản}
 
-\subsection{Độ tương đồng Cosine giữa các embedding}
+\acl{bert} là một mô hình
+ngôn ngữ tiên tiến trong lĩnh vực xử lý ngôn ngữ tự nhiên (NLP) được phát triển bởi
+Google vào năm 2018. BERT được xây dựng trên kiến trúc Transformer, một mô hình học
+sâu dựa trên cơ chế Attention. Mô hình này đã chứng minh sự hiệu quả của mình trong
+nhiều tác vụ NLP khác nhau, bao gồm phân loại văn bản, trích xuất thông tin, dịch máy, và
+trả lời câu hỏi.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/BERT.png}
+    \caption{Mô hình BERT trong quá trình pre-training và trong quá trình fine-tuning}
+\end{minipage}
+\vspace{0.5cm}
+
+BERT được huấn luyện trên một lượng lớn dữ liệu văn bản từ các nguồn khác nhau,
+bao gồm các tài liệu trên web, các trang báo, tạp chí, sách và các bài báo khoa học. Quá
+trình huấn luyện của BERT được thực hiện trên một tập hợp các nhiệm vụ phụ (pre-
+training tasks) trước khi được fine-tuning trên các tác vụ cụ thể như phân loại văn bản,
+trích xuất thông tin, hoặc dịch máy. Với việc sử dụng các pre-training tasks,
+BERT có khả năng hiểu được ngôn ngữ tự nhiên một cách toàn diện hơn so với các mô
+hình truyền thống.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/BERT-pretraining.png}
+    \caption{Biểu diễn ngữ cảnh một chiều và biểu diễn ngữ cảnh hai chiều.}
+\end{minipage}
+\vspace{0.5cm}
+
+BERT được huấn luyện hai tác vụ NLP khác nhau trong quá trình tiền huấn luyện  nhưng có liên quan mật thiết với nhau, đó là
+Masked Language Model (MLM) và Next Sequence Prediction (NSP). Mục đích của huấn luyện MLM là ẩn đi một từ trong câu và để thuật toán dự đoán xem từ nào đã được ẩn
+dựa trên ngữ cảnh. Còn mục đích của NSP nhằm dự đoán hai câu đã cho có kết nối có liên kết ngữ nghĩa
+với nhau không, tuần tự không hay chỉ là ngẫu nhiên. Điều này giúp BERT đạt được kết
+quả rất tốt trên nhiều tác vụ trong NLP.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/BERT-bidirectional.png}
+    \caption{Biểu diễn ngữ cảnh một chiều và biểu diễn ngữ cảnh hai chiều.}
+\end{minipage}
+\vspace{0.5cm}
+
+Một trong những điểm nổi bật của BERT là khả năng xử lý ngôn ngữ tự nhiên hai
+chiều (bidirectional), có nghĩa là nó có thể hiểu được ngữ cảnh của từ cần xử lý không chỉ
+dựa trên các từ trước đó mà còn dựa trên các từ sau đó. Điều này chính là một cải thiện từ
+kiến trúc \textit{Unidirectional} của các mô hình trước đó như RNNs và LSTMs.
+
+Về mặt kiến trúc, BERT là mô hình Encoder-Only Transformer, nghĩa là nó chỉ sử dụng khối Encoder của Transformer để xử lý dữ liệu.
+Bài báo \textit{"BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding"} \cite{devlin2019bert} đã giới thiệu hai phiên bản của BERT, đó là BERT-base và BERT-large.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/BERT-versions.png}
+    \caption{Hai phiên bản kích thước khác nhau của mô hình BERT.}
+\end{minipage}
+\vspace{0.5cm}
+
+Mô hình BERT sẽ bao gồm nhiều khối Encoder chồng lên nhau. Với BERT-base, mô hình sẽ sử dụng L = 12 khối Encoder. Trong khi đó, BERT-large sẽ sử dụng L = 24 khối Encoder.
+
+Các thông số chính trong một mô hình BERT: L là số tầng Transformers (blocks)
+được sử dụng với kích thước của các tầng ẩn là H và số lượng Scaled Dot-Product Attention
+ở tầng Multi-Head Attention là A.
+
+\begin{itemize}
+    \item \(BERT_{BASE}\): L = 12, H = 768, A = 12. Tổng số tham số: 110 triệu.
+    \item \(BERT_{LARGE}\): L = 24, H = 1024, A = 16. Tổng số tham số: 340 triệu.
+\end{itemize}
+
+\subsubsection{Đầu vào và đầu ra của BERT}
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/BERT-input.png}
+    \caption{Đầu vào của mô hình BERT.}
+\end{minipage}
+\vspace{0.5cm}
+
+Giống với kiến trúc Transformer, BERT sẽ nhận đầu vào là một chuỗi các token, mỗi token sẽ được biểu diễn dưới dạng một vector có kích thước cố định. 
+Vector embedding này có thể được tạo ra bằng cách sử dụng các phương pháp như Word2Vec, GloVe, hoặc FastText.
+
+Token đầu vào sẽ được thêm vào một token đặc biệt ở đầu câu [CLS] và token đặc biệt ở giữa các câu [SEP]. Và nếu
+câu có độ dài ngắn hơn độ dài tối đa của mô hình, thì các vị trí còn lại sẽ được điền vào bằng token đặc biệt [PAD].
+
+Với mỗi vị trí của token đầu vào, đầu ra của mỗi khối Encoder sẽ là một vector biểu diễn của token đó với kích thước H bằng với kích thước của embedding token đầu vào.
+Với mô hình BERT-base, kích thước của vector biểu diễn token đầu ra sẽ là \(BERT_{BASE}\) = 768.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/BERT-output.png}
+    \caption{Đầu ra của mỗi khối encoder trong mô hình BERT.}
+\end{minipage}
+\vspace{0.5cm}
+
+
+Với việc vector đầu vào và đầu ra có cùng kích thước, các khối Encoder có thể được xếp chồng lên nhau. Mỗi khối Encoder l + 1 sẽ nhận đầu vào từ khối Encoder l và tạo ra đầu ra cho khối Encoder l + 1.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/BERT-stack-encoder.png}
+    \caption{Đầu ra của mỗi khối Encoder sẽ được làm đầu vào cho khối Encoder tiếp theo trong mô hình BERT.}
+\end{minipage}
+\vspace{0.5cm}
+
+Đến khối cuối cùng, đầu ra của nó sẽ là biểu diễn của toàn bộ câu văn bản. Để thực hiện các tác vụ cụ thể như phân loại văn bản, trích xuất thông tin, hoặc dịch máy, một tầng kết nối đầy đủ (Fully Connected Layer) sẽ được thêm vào cuối cùng để phân loại hoặc dự đoán kết quả. 
+
+Với bài toán phân loại văn bản, ta chỉ cần sử dụng vector biểu diễn của token đặc biệt [CLS] ở đầu câu để thực hiện phân loại như sau:
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}\    
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/BERT-classification.png}
+    \caption{Đầu ra của mỗi khối Encoder sẽ được làm đầu vào cho khối Encoder tiếp theo trong mô hình BERT.}
+    \label{fig:bert_classification}
+\end{minipage}
+\vspace{0.5cm}
+
+Hình \ref{fig:bert_classification} trình bày việc sử dụng vector đại diện cho [CLS] token ở đầu ra để phân lớp
+một bài toán có hai nhãn “Spam”, “Not Spam” sử dụng SLP với hàm kích hoạt là Softmax.
+Nếu chúng ta có nhiều hơn hai nhãn, ví dụ, đối với bài toán có các nhãn “Spam”, “Not Spam”, “Social” và “Promotion”, thì chỉ cần tuỳ
+chỉnh số lượng neuron ở đầu ra của SLP
+
+\subsubsection{Trích xuất đặc trưng từ mô hình BERT}
+
+Phương pháp fine-tuning không phải là cách duy nhất để sử dụng BERT, chúng ta
+có thể sử dụng BERT đã được pre-trained để tạo ra các contextualized word embedding.
+
+Trong quá trình huấn luyện BERT, mỗi từ trong câu đầu vào được mã hóa dưới dạng
+một vector đặc trưng bằng cách sử dụng đầu ra của các tầng Encoder. Điều này cho phép
+mỗi từ được biểu diễn như là một vector đặc trưng phụ thuộc vào ngữ cảnh của từ đó
+trong câu. Các vector đặc trưng này được gọi là các contextualized word embeddings, và
+chúng có thể được sử dụng để biểu diễn các từ trong các tác vụ xử lý ngôn ngữ tự nhiên
+khác nhau.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/BERT-context1.png}
+    \caption{Trích xuất đặc trưng sử dụng BERT.}
+    \label{fig:bert_context1}
+\end{minipage}
+\vspace{0.5cm}
+
+Đầu ra của mỗi tầng Encoder trên đường đi của mỗi từ có thể được sử dụng như
+một đặc trưng đại diện cho từ đó \ref{fig_bert_context1}. Vậy đâu là sự lựa chọn tốt nhất để dùng làm
+contextualized embedding. Ta có thể xem xét sáu lựa chọn bên dưới, với thông số đánh giá là 
+Dev F1-score.
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/BERT-context2.png}
+    \caption{Lựa chọn vector embedding từ đặc trưng sử dụng BERT.}
+    \label{fig:bert_context2}
+\end{minipage}
+\vspace{0.5cm}
+
+Dev F1-score là một chỉ số đánh giá hiệu suất của mô hình trong quá trình đánh giá (validation) trên tập dữ liệu kiểm
+tra. Nó được tính bằng cách sử dụng công thức F1-score trên tập dữ liệu kiểm tra và được sử dụng để so sánh và đánh
+giá hiệu suất của các mô hình khác nhau trong cùng một tác vụ. Chỉ số này càng cao thì mô hình càng tốt.
+
+\subsubsection{Sử dụng BERT để so sánh sự tương đồng ngữ nghĩa}
+
+Với đầu ra của mô hình BERT là một ma trận biểu diễn của toàn bộ câu văn bản, chúng ta có thể sử dụng ma trận này để so sánh sự tương đồng ngữ nghĩa giữa các câu.
+Ta có thể dựa vào kiến trúc của mô hình Cross-encoder để so sánh sự tương đồng ngữ nghĩa giữa các câu như sau:
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/cross-encoder.png}
+    \caption{So sánh sự tương đồng ngữ nghĩa giữa các câu với mô hình BERT.}
+\end{minipage}
+\vspace{0.5cm}
+
+Trong một tập với n câu văn bản, ta có thể xét từng cặp câu và cho chúng vào cùng lúc với mô hình Cross-encoder sử dụng BERT.
+Hai câu văn bản sẽ được nối lại với nhau, và phân cách bằng một token đặc biệt [SEP]. Sau đó, chúng sẽ được đưa vào mô hình BERT để tạo ra biểu diễn của cả hai câu.
+
+Ma trận biểu diễn này của cả hai câu sau đó sẽ được đưa vào một tầng kết nối đầy đủ (Fully Connected Layer) để dự đoán độ tương đồng ngữ nghĩa giữa nó.
+Tầng Classifier này sẽ trả về nhãn là một giá trị số thực trong khoảng [0, 1] thể hiện độ tương đồng ngữ nghĩa giữa hai câu.
+
+Đầu vào của tầng Classifier này chỉ cần lấy vector biểu diễn của token đặc biệt [CLS] ở đầu ra của mô hình BERT để thực hiện dự đoán.
+
+Việc xét từng cặp câu với mô hình Cross-encoder này
+mang lại độ chính xác cao trong việc so sánh sự tương đồng ngữ nghĩa giữa các câu. Tuy nhiên, trong một hệ thống với rất nhiều câu văn bản, việc xét từng cặp câu sẽ dẫn đến tiêu tốn rất nhiều thời gian và
+tài nguyên tính toán. Vì vậy, mô hình Cross-encoder chỉ nên đóng vai trò xếp hạng trên một tập nhỏ các câu văn bản. Ta có một ví dụ như sau:
+
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/weaviate-pipeline-long.png}
+    \caption{So sánh sự tương đồng ngữ nghĩa giữa các câu với mô hình BERT.}
+\end{minipage}
+\vspace{0.5cm}
+
+
+\subsection{Độ tương đồng ngữ nghĩa Cosine giữa các embedding}
 
 Trong lĩnh vực xử lý ngôn ngữ tự nhiên, một embedding là một biểu diễn vector của một chuỗi, được tạo ra bởi một mô hình học máy. Embedding có thể được tạo ra bằng cách sử dụng các mô hình học máy như Word2Vec, GloVe, FastText, và nhiều mô hình khác.
 Ngoài ra, với sự phát triển của các mô hình học sâu và kiến trúc transformer, các embedding có thể được tạo ra bằng cách sử dụng khối encoder các mô hình sử dụng kiến trúc transformer hoặc các mô hình học sâu BERT, GPT, và nhiều mô hình khác.
@@ -1159,6 +1418,11 @@ Mục đích của câu thông tin được chèn thêm này dùng đễ giữ l
     \captionsetup{type=figure}
     \caption{Truy vấn thông tin sau khi đã tiền xử lý dữ liệu.}
 \end{minipage}
+
+\subsection{Xây dựng mô hình phân lớp ngữ cảnh dựa trên câu hỏi}
+% # TODO: Xây dựng mô hình lọc ngữ cảnh phù hợp
+
+
 
 \subsection{Xây dựng hệ thống ứng dụng phương pháp RAG}
 % # TODO: Xây dựng hệ thống ứng dụng phương pháp RAG

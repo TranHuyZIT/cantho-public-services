@@ -1105,6 +1105,14 @@ Ngoài ra, với sự phát triển của các mô hình học sâu và kiến t
     \text{similarity}(A, B) = \cos(\theta) = \frac{A \cdot B}{\|A\| \|B\|}
 \end{equation}
 
+\begin{minipage}{\linewidth}
+    \captionsetup{type=figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{./assets/images/cosine.png}
+    \caption{Biểu diễn công thức khoảng cách cosine giữa hai vector trên hệ tọa độ 2D.}
+\end{minipage}
+\vspace{0.5cm}
+
 Một số ưu điểm khi sử dụng độ tương đồng cosin để đánh giá độ tương đồng giữa các embedding:
 \begin{enumerate}
     \item \textbf{Không Ảnh Hưởng bởi Độ Dài:} Một trong những ưu điểm chính của độ tương đồng cosine là nó không bị ảnh hưởng bởi độ dài của vectơ. Bất kể kích thước của các vectơ, chỉ cần hướng của chúng giống nhau, độ tương đồng cosine sẽ là nhỏ nhất khi chúng đối lập và lớn nhất khi chúng trùng hướng.
@@ -1295,6 +1303,8 @@ Phương pháp \ac{rag} là một phương pháp kết hợp giữa phương ph�
 Phương pháp RAG \cite{lewis2021retrievalaugmented} này được giới thiệu lần đầu bởi các nhà nghiên cứu của Meta AI để giải quyết các nhiệm vụ yêu cầu nhiều kiến thức.
 Nó là thành phần kết hợp giữa thành phần truy xuất thông tin (Retrieval) và một mô hình tạo sinh văn bản (Generation).
 
+Trong quá trình hoạt động, một hệ thống RAG thường sử dụng một bộ truy xuất thông tin (retriever) để lấy các ngữ cảnh (context) liên quan đến câu hỏi hoặc yêu cầu của người dùng từ nguồn dữ liệu ngoại vi, chẳng hạn như một tập hợp các văn bản hoặc trang web. Sau đó, thông tin này được sử dụng như một phần của đầu vào cho một mô hình sinh tự nhiên như GPT để tạo ra câu trả lời hoặc văn bản mới.
+
 \begin{minipage}{\linewidth}
     \centering
     \includegraphics[width=14cm]{./assets/images/RAG-procedure.jpg}
@@ -1316,8 +1326,264 @@ sử dụng để huấn luyện cho LLM đó.
 Kế tiếp, phương pháp RAG này giúp kiểm soát được những thông tin mà LLM sẽ trả lời, biết được nguồn thông tin mà mô
 hình ngôn ngữ sẽ sử dụng để sinh từ. Nhờ đó, hệ thống sẽ có được khả năng kiểm soát cao hơn với câu trả lời được sinh ra
 từ các LLM.
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/RAG-evolution.png}
+    \captionsetup{type=figure}
+    \caption{Sự phát triển và xu hướng của kỹ thụât \ac{rag}.}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Áp dụng \acl{rag}, ta sẽ giải quyết được nhiều bài toán trên tập dữ liệu riêng tư hoặc tập dữ liệu chuyên môn, mà không cần huấn luyện hay finetune lại mô hình trên một tập dữ liệu cho tác vụ này.
+Phương pháp RAG sẽ giúp có được sự kiểm soát cao hơn đối với mô hình, khi mà kiến thức của chúng dựa trên những thông tin được truyền vào prompt.
+
+\subsubsection{Phân đoạn dữ liệu (chunking)}
+
+Bước đầu tiên trong việc xây dựng một hệ thống hỏi đáp dựa trên phương pháp RAG chính là việc tiền xử lý và phân đoạn (dữ liệu):
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/RAG-simple.png}
+    \captionsetup{type=figure}
+    \caption{Tiền xử lý và phân đoạn dữ liệu trong hệ thống sử dụng \ac{rag}.}
+    \label{fig:rag-simple}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Như ảnh \ref{fig:rag-simple} minh họa, bước phân đoạn dữ liệu hay chunking sẽ được thực hiện sau khi tập dữ liệu thô, không cấu trúc của chúng ta đã được tiền xử lý về dạng văn bản.
+Tập dữ liệu thô này tốt nhất cũng cần phải được trích xuất thông tin cốt lõi, loại bỏ những thông tin nhiễu và không liên quan để hỗ trợ cho quá trình Chunking và khâu Retrieval nói chung.
+
+Phân đoạn dữ liệu hay chunking chính là quá trình phân tách các văn bản thông tin của hệ thống hỏi đáp thành các đoạn thông tin nhỏ hơn.
+Các chunk thông tin cần phải đảm bảo:
+
+\begin{itemize}
+    \item \textbf{Đủ thông tin:} Mỗi chunk thông tin cần chứa đủ thông tin để trả lời cho một câu hỏi hoặc một yêu cầu của người dùng.
+    \item \textbf{Độ dài phù hợp} Các chunk thông tin cần chứa đủ thông tin và đồng thời cũng cần có một ngưỡng giới hạn độ dài. Vì các chunk thông tin sẽ 
+    được sử dụng như là ngữ cảnh cho mô hình sinh câu trả lời, nên cần phải có độ dài phù hợp với context window của mô hình
+    \item \textbf{Không trùng lặp:} Các chunk thông tin không được chứa thông tin trùng lặp với các chunk khác.
+    \item \textbf{Dễ hiểu:} Các chunk thông tin cần phải dễ hiểu, dễ đọc, ý nghĩa rõ ràng có thể dễ tìm kiếm.
+\end{itemize}
+
+Mục tiêu của việc chunking thông tin là để cắt thông tin ra thành các phần nhỏ và mang ý nghĩa để có thể lưu và truy vấn một cách hiệu quả.
+Việc này giúp cho bộ phận truy xuất thông tin (retriever) có thể tìm kiếm thông tin một cách nhanh chóng và chính xác hơn dựa vào câu hỏi được đặt ra. Với việc đưa một số chunk thông tin nhỏ và cho \ac{llm}
+chi phí sẽ được giảm đáng kể thay vì phải đưa cả văn bản vào.
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/chunking-blog-post.png}
+    \captionsetup{type=figure}
+    \caption{Một ví dụ về chunking một bài viết trong hệ thống sử dụng \ac{rag}.}
+    \label{fig:rag-blog-post}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Về cách để phân đoạn hay chunking dữ liệu, ta sẽ có một số cách tiếp cận và chiến thuật khác nhau.
+Tùy theo yêu cầu của dữ liệu và bài toán, ta sẽ chọn chiến thuật chunking phù hợp và tối ưu nhất.
+
+\textbf{Recursive Character Chunking}
+
+Ý tưởng chính của phương pháp này là phân đoạn dữ liệu dựa trên các ký tự (character) của văn bản. Dựa vào số chunk size đặt trước, các 
+chunk sẽ được phân tách sao cho mỗi chunk sẽ chứa một số ký tự nhất định. Tuy nhiên, ngoài tham số chunk size được quyết định trước, cũng có một vài
+điều kiện khi phân tách chunk ở cách thức này. Chẳng hạn như không ngắt ngang một từ, mỗi chunk phải đảm bảo một độ dài tối thiểu nào đó.
+
+Với chunk size = 100, ta sẽ phân đoạn một văn bản thành các chunk như sau:
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/recursive-chunkchunk.png}
+    \captionsetup{type=figure}
+    \caption{Một ví dụ cho Recursive Character Chunking.}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\textbf{Document Specific Chunking}
+
+Với cách phân đoạn Document Specific Chunking, mục tiêu của cách tiếp cận là giữ nguyên và phân đoạn văn bản theo cấu trúc của văn bản đó.
+Vì vậy, cách tiếp cận này không yêu cầu định nghĩa trước kích thước mỗi chunk, mà nó sẽ dựa vào cấu trúc của văn bản để tiến hành.
+Cách tiếp cận này sẽ cố gắng giữ ý nghĩa cấu trúc văn bản của tác giả văn bản, nhờ vậy các chunk sẽ được đúng và đủ ý.
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/doc-specific-chunk.png}
+    \captionsetup{type=figure}
+    \caption{Một ví dụ cho Document Specific Chunking.}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\textbf{Token-based Chunking}
+
+Mỗi mô hình ngôn ngữ đều có một tokenizer với kích thước là cố định và đầu vào không nên vượt quá giới hạn đó. Mục tiêu của phương pháp chunking
+này. Cách chunking này sẽ có nguyên lý hoạt động giống với Recursive Character Chunking, tuy nhiên nó được bổ sung thêm điều kiện để đảm bảo độ dài phù hợp
+cho mô hình ngôn ngữ đang sử dụng.
+
+\vspace{0.5cm}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/token-chunking.png}
+    \captionsetup{type=figure}
+    \caption{Một ví dụ cho Token-based Chunking.}
+\end{minipage}
+
+\vspace{0.5cm}
+
+\subsubsection{Truy vấn thông tin ở bộ Retriever}
+
+Thông tin sau khi đã được phân đoạn sẽ được lưu trữ và quản lý trong bộ truy xuất thông tin (retriever).
+Để lưu trữ được các chunk thông tin, ta cần sử dụng một mô hình Bi-encoder để nhúng văn bản thành một dạng vector số như sau:
+
+
+\vspace{0.5cm}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.7\linewidth]{./assets/images/bi-encoder.png}
+    \captionsetup{type=figure}
+    \caption{Nhúng văn bản với Bi-encoder.}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Tùy thuộc vào kiến trúc của mô hình, ta sẽ thu được một vector ngữ nghĩa đặc với một số chiều cố định.
+Với mô hình Vietnamese SBERT, số chiều của vector đầu ra sẽ là \(d_{\text{SBERT}} = 768\).
+Những vector này đại diện cho ngữ nghĩa của các chunk thông tin và sẽ được sử dụng để tìm kiếm thông tin phù hợp với câu hỏi của người dùng.
+
+Với các mô hình Bi-encoders này, kiến trúc của nó sẽ bao gồm một tầng BERT để nhúng văn bản và một tầng Pooling để lấy ra được một vector nhúng với chiều dài cố định.
+Cụ thể khi nhận đầu vào là một chuỗi văn bản, mô hình sẽ hoạt động như sau:
+
+\vspace{0.5cm}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/bi-encoder-io.png}
+    \captionsetup{type=figure}
+    \caption{Đầu vào và đầu ra của các mô hình Bi-encoder.}
+    \label{fig:bi-encoder-io}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Như ảnh \ref{fig:bi-encoder-io} đã ví dụ, khi nhận đầu vào là một câu \textit{"my dog is fast"}, tầng BERT sẽ tạo ra một ma trận embedding có kích thước là 4 x 768 (trong phiên bản BERT base), hoặc 4 x 1024 (trong phiên bản BERT large). Sau đó biểu diễn ngữ nghĩa sẽ được đưa qua tầng Pooling để tạo thành một vector đặc với số chiều cố định.
+
+Hai vector này sẽ được lưu lại và có thể so sánh sự tương đồng bằng hàm cosine similarity. Nhờ đó ta có được một cách để truy vấn nhanh
+các văn bản tương đồng với nhau trong hệ thống.
+
+\vspace{0.5cm}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/rag-embedding.png}
+    \captionsetup{type=figure}
+    \caption{Quá trình nhúng văn bản trong bộ phận retrieval.}
+\end{minipage}
+
+\vspace{0.5cm}
+
+Với hệ thống RAG, khi nhận được câu hỏi từ user, đầu tiên hệ thống sẽ nhúng câu hỏi này thành dạng vector đặc
+với cùng mô hình Bi-encoder khi nhúng các chunk thông tin. Sau khi có được vector này, hệ thống RAG sẽ so sánh sự tương đồng giữa vector câu hỏi và các vector chunk thông tin nhằm chọn 
+ra \textit{top k} chunk thông tin liên quan nhất với câu hỏi của người dùng.
+
+Ở đây, việc lựa chọn k là một tham số quan trọng, nó sẽ ảnh hưởng đến việc trả lời của hệ thống. 
+Nếu k quá nhỏ, hệ thống sẽ không thể trả lời được câu hỏi của người dùng, ngược lại nếu k quá lớn, hệ thống sẽ trả về quá nhiều thông tin không cần thiết gây loãng thông tin hoặc không fit với context window của mô hình sinh.
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/vectordb.png}
+    \captionsetup{type=figure}
+    \caption{Cơ sở dữ liệu vector.}
+\end{minipage}
+
+Những vector này sẽ được lưu trữ trong một \textit{cơ sở dữ liệu vector}. Như ý nghĩa của tên, đây là một loại cơ sở dữ liệu chứa các loại embedding hoặc vector cho nhiều loại dữ liệu khác nhau
+như hình ảnh, văn bản, video, âm thanh, \dots Cơ sở dữ liệu Vector cung cấp khả năng tạo truy vấn vector nhanh với một số 
+hàm so sánh như cosine similarity, euclidean distance.
+
+Như vậy trong hệ thống RAG và bài toán hỏi đáp, cơ sở dữ liệu vector là nơi lưu trữ các vector embedding của các chunk thông tin.
+Nếu xem mô hình ngôn ngữ lớn là bộ não của hệ thống RAG, thì cơ sở dữ liệu vector có thể xem như thành phần quản lý kiến thức của mô hình.
+Nó quyết định những kiến thức nào sẽ được sử dụng để sinh câu trả lời cho câu hỏi của người dùng.
+    
+
+\subsubsection{Tạo sinh câu trả lời với LLM và context}
+
+Sau khi đã có được các chunk thông tin liên quan nhất với câu hỏi của người dùng, hệ thống sẽ sử dụng các chunk thông tin này như là ngữ cảnh (context) cho mô hình sinh câu trả lời.
+
+Lúc này đầu vào của mô hình ngôn ngữ sẽ bao gồm prompt, câu hỏi của người dùng và context. Tất cả đều được concatenate và đưa vào mô hình sinh câu trả lời.
+Với mỗi mô hình ngôn ngữ, ta nên áp dụng các prompt template phù hợp và giống với cấu trúc dữ liệu huấn luyện của mô hình đó. Xét một ví dụ về prompt template cho mô hình \textit{PhoGPT}:
+
+\begin{center}
+    \textit{"\#\#\# Câu hỏi: {Đăng ký giấy khai sinh cho con cần chuẩn bị những thủ tục gì} \\ \#\#\# Trả lời:"}
+\end{center}
+
+
+
 \subsection{Xếp hạng lại trong RAG (Re-ranking)}
-% # Xếp hạng lại trong RAG (Re-ranking)
+
+\subsubsection{Vấn đề với RAG thông thường}
+Với các hệ thống sử dụng RAG, chúng ta cần thực hiện việc tìm kiếm ngữ nghĩa qua nhiều tài liệu văn bản.
+Con số này có thể  tăng lên đến hàng chục nghìn đến hàng triệu văn bản với những hệ thống có quy mô lớn và tập dữ liệu thô rộng.
+
+Để đảm bảo được hiệu năng và thời gian xử lý cho các hệ thống ở quy mô này, ta bắt buộc phải sử dụng tìm kiếm bằng vector
+nhằm đảm bảo thời gian tìm kiếm nhanh, khả thi trong thực tế.
+
+Tuy nhiên, việc tìm kiếm bằng vector cũng không tránh khỏi những vấn đề. Với các chunk thông tin văn bản,
+việc nén ngữ nghĩa của chúng chỉ thành một vector đặc với size cố định - thông thường có chiều là 768 hoặc 1536 sẽ dẫn đến việc mất mát thông tin.
+Điều này là gần như không thể tránh khỏi, đặc biệt là với các chunk thông tin có ý nghĩa phức tạp và chi tiết.
+
+Do việc mất mát thông tin này, các chunk thông tin truy vấn được bằng top k vector search sẽ không phải luôn chính xác và có thể tin cậy được.
+Một số chunk thông tin mặc dù được xếp hạng thấp hơn top k lại chứa nhiều thông tin hơn và chính xác hơn.
+Cách dễ nhất cho vấn đề này chính là tăng số k lên, truyền nhiều chunk hơn làm context cho \ac{llm}.
+
+Tuy nhiên, mỗi mô hình ngôn ngữ để có một context window, biểu thị số lượng token tối đa mà mô hình có thể xử lý một lúc. Do đó, không thể truyền vào quá nhiều chunk thông tin cho LLM.
+Ngoài ra quá nhiều thông tin được truyền vào sẽ gây loãng và tình trạng \textit{"Lost in the middle"} cho mô hình ngôn ngữ.
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.7\linewidth]{./assets/images/lost-middle.png}
+    \captionsetup{type=figure}
+    \caption{Vấn đề Lost in the Middle với các LLM.}
+\end{minipage}
+
+Ta sẽ sử dụng metric là \textit{recall@k} để đánh giá hiệu suất của hệ thống tìm kiếm thông tin. Metric này sẽ đo lường xem trong top k chunk thông tin trả về, có bao nhiêu chunk thông tin chứa thông tin chính xác và đầy đủ cho câu hỏi của người dùng.
+
+\begin{equation}
+    \text{recall@k} = \frac{\text{Các chunk thông tin có liên quan trong top k}}{\text{Tổng chunk thông tin có liên quan}}
+\end{equation}
+
+Để cải thiện metric này, ta cần nghĩ đến việc lấy được thật nhiều chunk thông tin (tăng số k) và chỉ giữ lại
+những chunk thông tin chứa thông tin chính xác và đầy đủ nhất cho LLM. Điều này chính là mục tiêu của việc xếp hạng lại trong RAG. 
+
+\subsubsection{Phương pháp Re-ranking}
+Phương pháp Re-ranking sẽ làm điều này bằng cách sử dụng một mô hình Cross Encoder gọi là Re-ranker để xếp hạng lại các chunk thông tin đã được truy xuất từ bộ retriever:
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.9\linewidth]{./assets/images/reranking.png}
+    \captionsetup{type=figure}
+    \caption{Phương pháp Re-ranking trong RAG.}
+\end{minipage}
+\vspace{0.5cm}
+
+Bước reranking sẽ được thực hiện sau khi đã hoàn thành retrieval và trước khi truyền vào mô hình sinh câu trả lời. Ở bộ phận retrieval
+, ta sẽ cho phép chọn một số k chunk lớn hơn (ví dụ k=25 như trong ảnh). Sau đó ở bước re-ranking này, ta sẽ dùng mô hình re-ranker để lọc lại một vài chunk thông tin liên quan nhất.
+
+Sở dĩ, mô hình re-ranker có được khả năng so sánh độ tương đồng chính xác hơn là vì nó sử dụng mô hình Cross Encoder chứ không phải Bi Encoder sử dụng ở vector search.
+Với khả năng cho phép hai câu văn bản A và B cùng đi vào một lúc để so sánh mà không cần nén thành vector biểu diễn như ở Bi Encoder, độ chính xác của Cross Encoder sẽ tốt hơn.
+Tuy nhiên nó cũng có sự đánh đổi đó chính là thời gian xử lý, vì vậy hệ thống RAG thường tận dụng ưu điểm của cả hai kiến trúc mô hình này bằng cách xây dựng hệ thống RAG \textit{"Two-Stage Retrieval with Reranking"}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.9\linewidth]{./assets/images/2phaseRAG.png}
+    \captionsetup{type=figure}
+    \caption{Hệ thống RAG Two-Stage Retrieval with Reranking.}
+\end{minipage}
+\vspace{0.5cm}
+
+Bằng cách này, ta tận dụng sự nhanh và khả năng mở rộng của Bi Encoder cho phase tìm kiếm đầu tiên và tận dụng được sự chính xác của Cross Encoder ở bước re-ranking.
 
 \subsection{Truy vấn kết hợp trong RAG (RAG Fusion)}
 % # TODO: Truy vấn kết hợp trong RAG (RAG Fusion)

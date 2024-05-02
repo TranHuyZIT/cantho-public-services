@@ -141,19 +141,61 @@
 \chapter{Giới thiệu}
 
 \section{Lý do chọn đề tài}
-% # TODO: Lý do chọn đề tài
+
+Trong thực tế, các thủ tục hành chính công vụ tại địa bàn Thành Phố Cần Thơ là những quy trình quan trọng và
+diễn ra hàng ngày. Những thủ tục hành chính này là rất cần thiết cho các người dân, doanh nghiệp và cả các
+cơ quan chính quyền.
+
+Để thực hiện các thủ tục này, đòi hỏi người thực hiện phải nắm rõ các thông tin, yêu cầu, hồ sơ \dots của một thủ tục hành chính
+nào đó trước khi thực hiện. Như một kết quả, điều này đòi hỏi ở phía cơ quan chính quyền cũng cần phải cung cấp thông tin
+và có những lực lượng hỗ trợ tư vấn cho người dân, doanh nghiệp khi họ cần.
+
+Tuy nhiên, việc cung cấp thông tin từ cơ quan chính quyền đến cho người dân sẽ gặp phải nhiều khó khăn và mất nhiều thời gian của cả hai bên.
+Vì vậy, viêc xây dựng một hệ thống hỗ trợ tư vấn thủ tục hành chính sẽ giúp giảm thiểu thời gian và công sức.
+
+Với sự phát triển của lĩnh vực xử lý ngôn ngữ tự nhiên và các mô hình ngôn ngữ lớn những năm gần đây, 
+các hệ thống hỏi đáp tự động đã trở thành một công cụ hữu ích trong rất nhiều hệ thống và doanh nghiệp khác nhau.
+
+Xử lý ngôn ngữ tự nhiên (NLP) là một lĩnh vực trong lĩnh vực khoa học máy tính, đóng vai trò quan trọng trong việc phát triển khả năng hiểu và thực hiện các nhiệm vụ liên quan đến ngôn ngữ của con người một cách hiệu quả. Các ứng dụng của NLP đa dạng, từ tương tác giữa con người và máy, cải thiện giao tiếp con người với con người, cho đến việc tăng cường xử lý văn bản và lời nói. NLP đã được triển khai rộng rãi trong nhiều lĩnh vực, bao gồm nhận dạng giọng nói, dịch máy, rút trích thông tin và trả lời câu hỏi. Với NLP, máy tính có khả năng nhận diện mẫu ngôn ngữ nói, dịch ngôn ngữ, trích xuất thông tin quan trọng và cung cấp câu trả lời thông minh cho các câu hỏi.
+
+Kiến trúc Transformer cùng cơ chế Attention khi ra đời đã đem đến một bước tiến mới cho
+xử lý ngôn ngữ tự nhiên. Các mô hình ngôn ngữ lớn như ChatGPT, Gemini, Llama, Bloom từ đây cũng đã ra đời mở ra rất nhiều khả năng ứng dụng vào các bài toán thực tế,
+đặc biệt là cho việc hỏi đáp, chatbot tư vấn trên kiến thức nội bộ.
+
+RAG, hay Retrieval-Augmented Generation, là một phương pháp mới trong lĩnh vực xử lý ngôn ngữ tự nhiên, kết hợp giữa hai phương pháp: retrieval-based và generation-based. 
+Phương pháp này sử dụng một mô hình ngôn ngữ lớn, như BERT hoặc GPT, để sinh ra câu trả lời cho một câu hỏi, nhưng trước khi sinh ra câu trả lời, nó sẽ tìm kiếm trong một kho dữ liệu lớn để tìm ra những thông tin có liên quan đến câu hỏi. Thông tin này sau đó sẽ được sử dụng như một ngữ cảnh để hỗ trợ việc sinh câu trả lời.
+RAG đã được chứng minh là hiệu quả trong nhiều tác vụ hỏi đáp tự động, đặc biệt là khi câu trả lời cần dựa trên một lượng lớn thông tin từ nhiều nguồn khác nhau. 
 
 \section{Mục tiêu nghiên cứu}
-% # TODO: Mục tiêu đề tài
 
-\section{Các nghiên cứu liên quan}
-% # TODO: Các nghiên cứu liên quan
+Mục tiêu nghiên cứu của đề tài là xây dựng một hệ thống hỏi đáp về tất cả thủ tục hành chính ở Cần Thơ.
+Hệ thống sẽ bao gồm một chatbot để tư vấn cho người thực hiện về các thủ tục hành chính dưới dạng conversation và cho 
+phép người dùng tra cứu thông tin các thủ tục hành chính ở Cần Thơ.
+
+Hệ thống hỏi đáp sẽ dựa vào mô hình ngôn ngữ lớn là GPT 3.5 kết hợp với phương pháp RAG
+để truy vấn thông tin về các thủ tục hành chính cho mô hình ngôn ngữ. Ngoài ra, mục tiêu của nghiên cứu sẽ 
+vận dụng khả năng của các mô hình ngôn ngữ và mô hình ngôn ngữ lớn cho các chức năng của hệ thống.
 
 \section{Đối tượng và phạm vi nghiên cứu}
-% # TODO: Đối tượng và phạm vi nghiên cứu
+
+Về đối tượng nghiên cứu của đề tài bao gồm:
+\begin{itemize}
+    \item Tham khảo các nghiên cứu liên quan đến đề tài về lĩnh vực xử lý ngôn ngữ tự nhiên, tính ứng dụng mô hình ngôn ngữ lớn và phương pháp RAG.
+    \item Mô hình BERT, SBERT, PhoBERTv2, Vietnamese-SBERT sử dụng trong các quá trình truy vấn thông tin cho hệ thống RAG. Cách ứng dụng những mô hình này vào trong hệ thống hỏi đáp thủ tục hành chính tại Cần Thơ.
+    \item Ứng dụng các mô hình ngôn ngữ lớn như OpenAI's GPT 3.5, Llama, Gemini cho các tác vụ hệ thống hỏi đáp
+    \item Các phương pháp thực hiện đánh giá \acl{rag} cũng như đánh giá các mô hình ngôn ngữ như BERT.
+\end{itemize}
+
+Về phạm vi nghiên cứu, đề tài sẽ nghiên cứu về các phương pháp tìm kiếm, xử lý thông tin và
+xây dựng hệ thống hỏi đáp về thủ tục hành chính tại Cần Thơ. Việc hỏi đáp sẽ dựa trên văn bản 
+và theo dạng hội thoại.
 
 \section{Phương pháp nghiên cứu}
-% # TODO: Phương pháp nghiên cứu
+
+Phương pháp nghiên cứu của đề tài sẽ chủ yếu dựa vào các nguồn thông tin trên Internet bao gồm các bài báo khoa học,
+bài viết cá nhân, video, thuyết trình về chủ đề học sâu, xử lý ngôn ngữ tự nhiên, phương pháp RAG và ứng dụng các mô hình ngôn ngữ lớn.
+
+Ngoài ra, còn có thể khai thác các kho mã nguồn mở trên Github để nghiên cứu cách thực hiện, xây dựng hệ thống hỏi đáp với RAG.
 
 \section{Cấu trúc luận văn}
 \input{pages/thesis-struct.tex}
@@ -1581,23 +1623,102 @@ Tuy nhiên nó cũng có sự đánh đổi đó chính là thời gian xử lý
     \captionsetup{type=figure}
     \caption{Hệ thống RAG Two-Stage Retrieval with Reranking.}
 \end{minipage}
-\vspace{0.5cm}
+\vspace{0.5cm} 
 
 Bằng cách này, ta tận dụng sự nhanh và khả năng mở rộng của Bi Encoder cho phase tìm kiếm đầu tiên và tận dụng được sự chính xác của Cross Encoder ở bước re-ranking.
+Nhờ đó, chỉ số recall@k ở phần retrieval sẽ được cải thiện đáng kể và recall của mô hình sẽ tăng lên do sự chính xác của context truyền vào.
 
 \subsection{Truy vấn kết hợp trong RAG (RAG Fusion)}
-% # TODO: Truy vấn kết hợp trong RAG (RAG Fusion)
+\subsubsection{Vấn đề với RAG thông thường}
+
+Trong hệ thổng hỏi đáp, câu hỏi của người dùng cần phải rõ ràng, cụ thể thì sẽ giúp cho việc truy vấn thông tin được chính xác hơn.
+Tuy nhiên trong thực tế, câu hỏi của người dùng không phải luôn rõ ràng và chuẩn cho hệ thống RAG và bộ phận retrieval. Những câu hỏi vắn tắt
+và không đủ ý sẽ không đủ ngữ cảnh để truy vấn thông tin một cách tốt nhất. Ta sẽ cần một cách tiếp cận để sửa lại truy vấn một cách rõ ràng hơn.
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.9\linewidth]{./assets/images/rag_fusion.jpg}
+    \captionsetup{type=figure}
+    \caption{Phương pháp RAG fusion.}
+\end{minipage}
+\vspace{0.5cm}
+
+Đôi khi, việc câu hỏi không rõ nghĩa không đến từ user mà là còn ở phạm vi của câu hỏi.
+Một câu hỏi bao hàm nhiều vấn đề đòi hỏi nhiều chunk thông tin từ các phạm vi / lĩnh vực khác nhau
+sẽ không thể được dùng để truy vấn thông tin một cách chính xác. Vì vậy, ta cần một cách tiếp cận
+để có thể truy vấn thông tin ở phạm vi rộng hơn, bao hàm hơn.
+
+\subsubsection{Phương pháp RAG Fusion}
+
+Truy vấn kết hợp hay RAG Fusion \cite{Rackauckas_2024}, là phương pháp được dùng để giải quyết vấn đề này.
+Hạn chế của hệ thống RAG thông thường là xử lý kém hiệu quả các câu hỏi đầu vào không rõ ràng và thiếu sự đa dạng
+khi truy vấn các đoạn thông tin. Áp dụng RAG Fusion sẽ giúp phần nào tối ưu để giải quyết các vấn đề này.
+
+RAG Fusion sẽ thực hiện một kỹ thuật gọi là \textit{Multi Query Retriever} và thực hiện các bước sau đây:
+
+\begin{itemize}
+    \item \textbf{Multi Query Generation}: Từ câu hỏi của người dùng, ta sẽ sử dụng \ac{llm} để sinh ra các câu hỏi phụ, về cùng vấn đề mà câu hỏi chính đề cập đến.
+    \item \textbf{Context Retrieve}: Bằng tất cả câu hỏi vừa sinh ra và cả câu hỏi chính, ta sẽ truy vấn thông tin từ bộ retriever. Lúc này ta gộp lại và nhận được
+    tất cả chunk thông tin riêng biệt liên quan đến tất cả câu hỏi.
+    \item \textbf{Reciprocal Rank Fusion(RRF)}: Cuối cùng, ta sẽ sử dụng một giải thuật xếp hạng là Reciprocal Rank Fusion nhằm gom nhiều tập kết quả truy vấn lại thành một tập duy nhất với số điểm dựa vào số điểm của
+    văn bản đó trên mỗi câu truy vấn. 
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.9\linewidth]{./assets/images/fusion-flow.png}
+    \captionsetup{type=figure}
+    \caption{Chi tiết quá trình thực hiện RAG Fusion.}
+\end{minipage}
+\vspace{0.5cm}
 
 \subsection{Đánh giá kết quả từ phương pháp RAG}
-% # TODO: Đánh giá kết quả từ phương pháp RAG
+
+Một trong những khó khăn mà ít người quan tâm đến khi xây dựng một hệ thống hỏi đáp với RAG đó là cách đánh giá phương pháp và độ hiệu quả của nó trong
+hai giai đoạn truy vấn thông tin và sinh câu trả lời.
+
+Cụ thể để đánh giá được hệ thống hỏi đáp với RAG, ta sẽ chia ra đánh giá riêng biệt ở hai giai đoạn:
+
+\begin{itemize}
+    \item \textbf{Truy vấn thông tin}: Tại giai đoạn này, dựa vào thông tin truy vấn được và thông tin chính xác, ta sẽ sử dụng các metric như
+    recall, \ac{mrr} để đánh giá độ tin cậy cho các context có thể truy vấn được từ bộ truy vấn thông tin.
+    \item \textbf{Sinh câu trả lời}: Tại giai đoạn này, kết hợp với context truy vấn được ở giai đoạn trước, ta tiến hành sinh câu trả lời với LLM và đánh giá kết quả nhận được với câu trả lời đúng trong bộ dữ liệu có sẵn.
+    Việc đánh giá hai câu trả lời này ta có thể sử dụng kiến thức chuyên gia để đánh giá thủ công hoặc sử dụng một mô hình ngôn ngữ lớn khác để đánh giá sự chính xác giữa câu trả lời sinh ra và câu trả lời đúng (ground truth).
+\end{itemize}
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.9\linewidth]{./assets/images/rag-eval.png}
+    \captionsetup{type=figure}
+    \caption{Đánh giá hệ thống hỏi đáp với RAG.}
+\end{minipage}
+\vspace{0.5cm}
+
+Để đánh giá được toàn diện, một framework có tên là \textit{RAGAS} được tạo ra để hỗ trợ đánh giá phương pháp RAG
+sẽ sử dụng 4 tham số như sau để đánh giá:
+
+\begin{itemize}
+    \item \textbf{Độ chính xác của ngữ cảnh:} đo lường tỷ lệ tín hiệu so với nhiễu của ngữ cảnh được trả về. Độ đo này được tính bằng cách sử dụng câu hỏi và các ngữ cảnh.
+    \item \textbf{Sự nhớ ngữ cảnh:} đo lường xem liệu tất cả thông tin liên quan cần thiết để trả lời câu hỏi đã được trả về chưa. Độ đo này được tính dựa trên ground\_truth (đây là chỉ số duy nhất trong khung công việc mà phụ thuộc vào các nhãn ground truth được gán bởi con người) và các ngữ cảnh.
+    \item \textbf{Độ chân thực:} đo lường tính chính xác về sự thật của câu trả lời được tạo ra. Số lượng tuyên bố đúng từ các ngữ cảnh đã cho được chia cho tổng số tuyên bố trong câu trả lời được tạo ra. Độ đo này sử dụng câu hỏi, các ngữ cảnh và câu trả lời.
+    \item \textbf{Mức độ liên quan của câu trả lời:} đo lường sự phù hợp của câu trả lời được tạo ra với câu hỏi. Độ đo này được tính bằng cách sử dụng câu hỏi và câu trả lời. Ví dụ, câu trả lời "Pháp nằm ở phía tây châu Âu." cho câu hỏi "Pháp ở đâu và thủ đô của nó là gì?" sẽ đạt được mức độ liên quan thấp vì chỉ trả lời một nửa của câu hỏi.
+\end{itemize}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/component-wise-metrics.png}
+    \captionsetup{type=figure}
+    \caption{Các tham số đánh giá của RAGAS.}
+\end{minipage}
+\vspace{0.5cm}
 
 \section{Phương pháp thực hiện}
 Trong chương này, đầu tiên, luận văn sẽ trình bày chi tiết phương pháp ứng dụng RAG vào trong hệ thống tư vấn thủ tục hành chính. Hệ thống sử dụng
 mô hình SBERT để nhúng văn bản và mô hình ngôn ngữ lớn GPT-3.5 để sinh câu trả lời. Với đầu vào là một câu hỏi của người dùng, 
 hệ thống cần trả về một câu trả lời giải quyết được vấn đề của người dùng đi kèm với các trích dẫn thông tin về thủ tục hành chính phù hợp tại Cần Thơ.
 
-Tiếp theo, ở chương này sẽ trình bày từng bước phương pháp xây dựng hệ thống theo kiến trúc Microservices.
-Hệ thống cần đảm bảo khả năng mở rộng, cô lập các tính năng và khả năng chịu lỗi cao.
 
 Các bước thực hiện cho hệ thống sẽ được trình bày dựa vào 2 sơ đồ sau:
 \subsection{Thu thập dữ liệu}

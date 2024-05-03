@@ -1,5 +1,6 @@
 from langchain_community.vectorstores import Chroma
 from langchain_openai import OpenAI
+import openai
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from os import getenv
 from dotenv import load_dotenv
@@ -14,6 +15,7 @@ class AppVariables:
     vectorstore = Chroma(persist_directory="../data", embedding_function=embeddings)
     llm = OpenAI(api_key=OPENAI_API_KEY)
     co = cohere.Client(api_key=COHERE_API_KEY)
+    openai_client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
 
     @staticmethod

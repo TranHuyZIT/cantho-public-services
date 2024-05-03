@@ -12,7 +12,7 @@ fileignoreconfig:
 - filename: crawler/main.py
   checksum: 42e7aa01f39cee9c985f2a1b70e07b1f1db3977bee3b174e167ac4e967d75f14
 - filename: rag/modules/app_vars.py
-  checksum: b58ceb962077f811c5358d4d0e37272e7700769cd92c45f1b8403a0f48184855
+  checksum: bf8cf98472490533ded6044fc5a1e1aa0b640b11e7b7ded224661d9ba7e8938f
 - filename: rag/modules/fusion.py
   checksum: 70d426c500e791b0e28511a6850231e3361fff15fdee675ba11c28c7973b55b9
 - filename: rag/modules/main.ipynb

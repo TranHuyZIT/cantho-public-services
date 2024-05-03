@@ -1,0 +1,12 @@
+langchain
+langchain-chroma
+sentence-transformers
+chromadb
+rank_bm25
+sentence_transformers
+langchain-openai
+cohere
+torch
+tensorflow==2.15.0
+transformers
+matplotlib

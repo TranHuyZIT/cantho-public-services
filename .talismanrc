@@ -11,6 +11,14 @@ fileignoreconfig:
   checksum: 284df3fac6f6de2234ce233a51ddaaefe33bcc9f390fb2244ea6cfde9fbdc499
 - filename: crawler/main.py
   checksum: 42e7aa01f39cee9c985f2a1b70e07b1f1db3977bee3b174e167ac4e967d75f14
+- filename: rag/modules/app_vars.py
+  checksum: b58ceb962077f811c5358d4d0e37272e7700769cd92c45f1b8403a0f48184855
+- filename: rag/modules/fusion.py
+  checksum: 70d426c500e791b0e28511a6850231e3361fff15fdee675ba11c28c7973b55b9
+- filename: rag/modules/main.ipynb
+  checksum: 23ecbe2a69880f5b44303d9abd09ecd31128dba88cfc851a7f79eec0965978b4
+- filename: rag/modules/rerank.py
+  checksum: 8b0fed74e3ab1f732977fe4a6da94fa7c0814f721c7d6db93015cf3e622f39a3
 - filename: thesis/main.tex
   checksum: fce24cafec5fc00ad592e2f01a3d459eb92c3034cd87eac9eb0f8299fc5870e9
 - filename: thesis/references.bib

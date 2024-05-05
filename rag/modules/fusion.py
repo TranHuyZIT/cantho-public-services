@@ -1,10 +1,16 @@
 from langchain.docstore.document import Document
 from langchain_core.prompts import PromptTemplate
-from app_vars import AppVariables
+from rag.modules.app_vars import AppVariables
+import re
+import json
 
 
 class RAGFusion:
-    template = """Bạn là một chatbot hỗ trợ sinh các câu hỏi đồng nghĩa dựa vào câu hỏi gốc. Hãy sinh ra 3 câu hỏi, phân cách bằng ký tự '\n' và không thêm bất kỳ ký tự nào khác ngoài câu hỏi.
+    template = """Bạn là một chatbot hỗ trợ sinh các câu hỏi đồng nghĩa dựa vào câu hỏi gốc về thủ tục hành chính. Hãy tuân thủ các nguyên tắc sau khi tạo ra HAI câu hỏi đồng nghĩa:
+    - Hai câu hỏi phải sử dụng MỘT trong bốn các cụm từ sau: 'trình tự các bước', 'cách thức thực hiện', 'hồ sơ cần', 'cơ quan thực hiện', 'điều kiện thực hiện' .
+    - Với những câu hỏi chung chung, hãy ưu tiên hỏi một câu về về 'trình tự các bước' .
+
+    Hai câu hỏi phải được phân cách bằng ký tự '\n' . KHÔNG thêm bất kỳ ký tự nào khác ngoài hai câu hỏi được bạn tạo ra.
     Câu hỏi gốc : {question}
     """
     prompt = PromptTemplate.from_template(template)
@@ -12,7 +18,7 @@ class RAGFusion:
     llm_chain = prompt | AppVariables.llm 
     
     @staticmethod
-    def reciprocal_rank_fusion(search_results_dict, k=25, limit=25):
+    def reciprocal_rank_fusion(search_results_dict, k=25):
         fused_scores = {}        
         for query, doc_scores in search_results_dict.items():
             for rank, (doc, score) in enumerate(sorted(doc_scores.items(), key=lambda x: x[1]['score'], reverse=True)):
@@ -23,24 +29,44 @@ class RAGFusion:
                     }
                 fused_scores[doc]["rank"] += 1 / (rank + k)
 
-        reranked_results = sorted(fused_scores.items(), key=lambda x: x[1]['rank'], reverse=True)[:limit]
+        reranked_results = sorted(fused_scores.items(), key=lambda x: x[1]['rank'], reverse=True)
         reranked_results = [Document(page_content=doc[0], metadata=doc[1]["metadata"]) for doc in reranked_results]
         return reranked_results
 
     @staticmethod
+    def process_question(question):
+        question = question.strip()
+        question = question.split(":")[-1].strip()
+        question = re.sub(r'^[^a-zA-Z]*', '', question)
+        question = re.sub(r'\W+$', '', question)
+        return question
+
+    @staticmethod
     def generating_search_results(question):
-        
         completion = RAGFusion.llm_chain.invoke(question)
         questions = completion.split("\n")
-        processed_questions = []
-        for question in questions:
-            question = question.strip()
-            question = question.replace('?','')
-            if question != "":
-                processed_questions.append(question)
-    
+
+        processed_questions = [ question ]
+        for generated_question in questions:
+            generated_question = RAGFusion.process_question(generated_question)         
+            if generated_question != "":
+                processed_questions.append(generated_question)
+        processed_questions = processed_questions[0:min(3, len(processed_questions))]
         search_result_scores = {}
         for question in processed_questions:
+            scored_docs = AppVariables.retrieve(question)
+            result = {doc.page_content: {
+                "score": score,
+                "metadata": doc.metadata
+            } for (doc, score) in scored_docs}
+            search_result_scores[question] = result
+
+        return processed_questions
+    
+    @staticmethod
+    def retrieve_fusion_set(questions):
+        search_result_scores = {}
+        for question in questions:
             scored_docs = AppVariables.retrieve(question)
             result = {doc.page_content: {
                 "score": score,

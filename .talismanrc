@@ -11,10 +11,16 @@ fileignoreconfig:
   checksum: 284df3fac6f6de2234ce233a51ddaaefe33bcc9f390fb2244ea6cfde9fbdc499
 - filename: crawler/main.py
   checksum: 42e7aa01f39cee9c985f2a1b70e07b1f1db3977bee3b174e167ac4e967d75f14
+- filename: rag/evaluation/@3/result.json
+  checksum: 459f9a6333fa31fdf3ce1b9caf8adc658c3bbb2e530332b097765c0f76f2557f
+- filename: rag/evaluation/@4/result.json
+  checksum: 49cfa394af24829dfaba6a6f0317ec703665c0bd8e594ab75eef0376abd5d288
+- filename: rag/evaluation/@5/result.json
+  checksum: 561effc5ab29b8d3faa30a375317d3f6ee971a427b0985a85b40a89e303a132c
 - filename: rag/modules/app_vars.py
-  checksum: bf8cf98472490533ded6044fc5a1e1aa0b640b11e7b7ded224661d9ba7e8938f
+  checksum: 89016fd0c2b516f3655d5354e97c04f53bbe2b0faa9aa62aefd561b045899988
 - filename: rag/modules/fusion.py
-  checksum: 70d426c500e791b0e28511a6850231e3361fff15fdee675ba11c28c7973b55b9
+  checksum: eb78e96015553cd0ff37ff02bf35161b2ce3da5cb35ce9ef109c4b899c6e32bf
 - filename: rag/modules/main.ipynb
   checksum: 23ecbe2a69880f5b44303d9abd09ecd31128dba88cfc851a7f79eec0965978b4
 - filename: rag/modules/rerank.py

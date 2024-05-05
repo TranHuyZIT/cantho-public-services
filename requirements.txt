@@ -10,3 +10,4 @@ torch
 tensorflow==2.15.0
 transformers
 matplotlib
+bs4

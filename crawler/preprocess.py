@@ -5,29 +5,33 @@
 import os
 import json
 import bs4
+import time
 
 '''
     Helper Functions
 '''
 
-def create_drop_data():
-    for file in os.listdir("./data/thutuchanhchinh_preprocessed"):
-        os.remove(os.path.join("./data/thutuchanhchinh_preprocessed", file))
+folder_name = "thutuchanhchinh_preprocessed2"
 
-    os.removedirs("./data/thutuchanhchinh_preprocessed")
-    os.makedirs("./data/thutuchanhchinh_preprocessed")
+def create_drop_data():
+    for file in os.listdir(f"./data/{folder_name}"):
+        os.remove(os.path.join(f"./data/{folder_name}", file))
+
+    os.removedirs(f"./data/{folder_name}")
+    time.sleep(3)
+    os.makedirs(f"./data/{folder_name}")
 
 
 def prompt_basic_info(id, ten, soqd, capthuchien, loaithutuc, linhvuc):
-    prompt = "Thủ tục hành chính tên " + ten + " với mã " + id + " có các thông tin về  tên, số quyết định, cấp thực hiện, loại thủ tục và lĩnh vực như sau:\n"
-    prompt += f"Thủ tục hành chính với mã thủ tục là {id} có tên là {ten} được ban hành theo quyết định số {soqd}, thủ tục hành chính này được thực hiện ở các cấp: {capthuchien}"
+    prompt = "Thủ tục hành chính tên " + ten + " có các thông tin về  tên, số quyết định, cấp thực hiện, loại thủ tục và lĩnh vực như sau ::\n"
+    prompt += f"Thủ tục hành chính này được ban hành theo quyết định số {soqd}, thủ tục hành chính này được thực hiện ở các cấp: {capthuchien}"
     prompt += f". Nó thuộc loại thủ tục là {loaithutuc} và thuộc lĩnh vực {linhvuc}.\n"
     prompt += "\n"
     return prompt
 
 
 def prompt_trinhtu_thuchien(id, ten, trinhtuthuchien):
-    prompt = f"Thủ tục hành chính tên {ten} với mã {id} được thực hiện theo trình tự thực hiện như sau:\n"
+    prompt = f"Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính {ten} ::\n"
     prompt += trinhtuthuchien.replace("       ", "\n")
     prompt += "\n\n"
     return prompt
@@ -35,14 +39,14 @@ def prompt_trinhtu_thuchien(id, ten, trinhtuthuchien):
 def prompt_cachthuc_thuchien(ten, cachthucthuchiens):
     if not cachthucthuchiens or len(cachthucthuchiens) == 0:
         return f"Thủ tục hành chính {ten} chưa có mô tả cách thức thực hiện nào.\n\n"
-    prompt = f"Có những cách thức thực hiện sau để thực hiện thủ tục hành chính {ten}:\n"
+    prompt = f"Có những cách thức thực hiện sau để làm thủ tục hành chính {ten} ::\n"
     for cachthuc in cachthucthuchiens:
         prompt += f"- Với hình thức {cachthuc['hinhthucnop']}, thời gian giải quyết sẽ là {cachthuc['thoigiangiaiquyet']}. Cách thức thực hiện này sẽ có mô tả như sau: {cachthuc['mota']}\n"
     prompt += "\n"
     return prompt
 
 def prompt_thanhphan_hoso(ten, thanhphanhosos, diachitiepnhanhs):
-    prompt = f"Cần chuẩn bị các hồ sơ sau đây và nộp tại {diachitiepnhanhs} với thủ tục hành chính {ten}:\n"
+    prompt = f"Cần các hồ sơ sau đây làm thủ tục hành chính {ten} và nộp tại địa điểm nơi sau ::\n"
     for index, hoso in enumerate(thanhphanhosos):
         if 'ghichu' in hoso.keys():
             prompt += f"- Ghi chú: {hoso['ghichu']}\n"
@@ -59,7 +63,7 @@ def prompt_thanhphan_hoso(ten, thanhphanhosos, diachitiepnhanhs):
     return prompt
 
 def prompt_coquan_tochuc(ten, doituongthuchien, coquanthuchien, coquanphoihop, coquanthamquyen, coquanuyquyen, diachitiepnhanhs, ketquathuchien, yeucaudieukien):
-    prompt = f"Cơ quan thực hiện, ủy quyền, thẩm quyền, điều kiện thực hiện, kết quả thực hiện của thủ tục hành chính {ten} như sau:\n"
+    prompt = f"Cơ quan thực hiện, ủy quyền, thẩm quyền, điều kiện thực hiện, kết quả thực hiện của thủ tục hành chính {ten} như sau::\n"
     prompt += f"- Cơ quan thực hiện: {coquanthuchien}\n"
     prompt += f"- Cơ quan thẩm quyền: {coquanthamquyen}\n"
     prompt += f"- Cơ quan ủy quyền: {coquanuyquyen}\n"
@@ -69,7 +73,7 @@ def prompt_coquan_tochuc(ten, doituongthuchien, coquanthuchien, coquanphoihop, c
     return prompt
 
 def prompt_cancu_phaply(ten, cancuphaplys):
-    prompt = f"Thủ tục hành chính {ten} có trích dẫn pháp luật, căn cứ pháp lý dựa vào các văn bản pháp luật như sau:\n"
+    prompt = f"Trích dẫn pháp luật, căn cứ pháp lý dựa vào các văn bản pháp luật của thủ tục hành chính {ten} như sau::\n"
     for index, cancuphaply in enumerate(cancuphaplys):
         prompt += f"{index + 1}. Số ký hiệu {cancuphaply['sokyhieu']}, có trích yếu là {cancuphaply['trichyeu']}, được ban hành từ ngày {cancuphaply['ngaybanhanh']}. Cơ quan ban hành là {cancuphaply['coquanbanhanh'] or 'chưa rõ'}\n"
     prompt += "\n"
@@ -132,7 +136,7 @@ def main():
             )
             text += prompt_cancu_phaply(ten, data["cancuphaplys"])
 
-            with open("./data/thutuchanhchinh_preprocessed/" + file.replace(".json", ".txt"), "w") as f:
+            with open(f"./data/{folder_name}/" + file.replace(".json", ".txt"), "w") as f:
                 f.write(text)
                 f.close()
         # except Exception as e:

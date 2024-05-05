@@ -1805,17 +1805,97 @@ Mục đích của câu thông tin được chèn thêm này dùng đễ giữ l
     \captionsetup{type=figure}
     \caption{Truy vấn thông tin sau khi đã tiền xử lý dữ liệu.}
 \end{minipage}
+\vspace{0.5cm}
 
 \subsection{Xây dựng mô hình phân lớp ngữ cảnh dựa trên câu hỏi}
-% # TODO: Xây dựng mô hình lọc ngữ cảnh phù hợp
 
+Để lọc những thông tin không có giá trị và có thể làm loãng thông tin truyền cho LLM, 
+đề tài đã xây dựng một mô hình phân lớp nhị phân để phân loại ngữ cảnh có liên quan đến câu hỏi hay không.
+Mô hình nhận vào câu thông tin ngữ cảnh và câu hỏi và sẽ trả về một vector xác suất của lớp \textit{không liên quan} và \textit{không liên quan}
 
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.6\linewidth]{./assets/images/classifier.drawio.png}
+    \captionsetup{type=figure}
+    \caption{Kiến trúc mô hình phân lớp ngữ cảnh.}
+    \label{fig:classifier}
+\end{minipage}
+\vspace{0.5cm}
+
+Mô hình sẽ sử dụng lại mô hình pretrained là \textit{PhoBERT-base-v2} \cite{phobert} ở tầng BERT và kết hợp thêm một một mạng kết nối đầy đủ
+(Fully-connected-layer) để phân lớp. Chi tiết kiến trúc mô hình được miêu tả như trong ảnh \ref{fig:classifier}.
+
+Đầu vào của mô hình sẽ được nối hai câu ngữ cảnh và câu hỏi thành template như trong ảnh \ref{fig:classifier}
+và sẽ được đưa vào tầng BERT để encode. Đầu ra của tầng BERT chính là embedding của từng token trong câu đầu vào. Tuy nhiên với bài toán phân lớp,
+mô hình sẽ chỉ lấy token đầu tiên là [CLS] để đưa vào tầng kết nối đầy đủ.
+
+Tầng cuối cùng của mạng kết nối đầy đủ sẽ là tầng Dense với 2 neurons và sử dụng hàm kích hoạt softmax để trả về xác suất của lớp \textit{không liên quan} và \textit{không liên quan}.
+Lúc này ta sẽ lấy giá trị \textit{argmax} của vector xác suất để xác định lớp.
+
+\subsubsection{Tập dữ liệu huấn luyện}
+
+Để huấn luyện cho mô hình, hai tập dữ liệu đã được sử dụng đó là tập dữ liệu \textit{SQuAD-vi} được dịch từ tập dữ liệu Stanford Question Answering Dataset (SQuAD) \cite{rajpurkar-etal-2016-squad} và tập dữ liệu
+\textit{ZaloAIChallenge2019} được tổ chức bởi ZaloAI. Hai tập dữ liệu này được gộp lại với tổng cộng là 149.983 cặp dữ liệu phân bố như hình sau:
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/data-ratio.png}
+    \captionsetup{type=figure}
+    \caption{Tỉ lệ phân bố hai nhãn trong tập dữ liệu huấn luyện.}
+\end{minipage}
+\vspace{0.5cm}
+
+Khi huấn luyện ở mỗi epoch, tập dữ liệu được chia ở mức 80/20. 80\% mẫu dùng để huấn luyện (train)va
+và 20\% mẫu dành cho kiểm thử (validation).
+main
+\subsubsection{Chi tiết huấn luyện}
+
+Để huấn luyện mô hình phân lớp, đề tài đã sử dụng các tham số huấn luyện như sau:
+
+\begin{itemize}
+    \item \textbf{Hàm lỗi}: Sử dụng hàm lỗi \textit{SparseCategoricalCrossentropy} để tính toán lỗi giữa output đầu ra của tầng kết nối đầy đủ và nhãn.
+    \item \textbf{Thuật toán tối ưu}: Sử dụng thuật toán tối ưu \textit{Adam} với tốc độ học là 0.000001.
+    \item \textbf{Số epoch}: Số epoch huấn luyện là 5.
+\end{itemize}
+
+Chi tiết kết quả giá trị lỗi (loss) và giá trị độ chính xác (accuracy) là
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/training-result.png}
+    \captionsetup{type=figure}
+    \caption{Kết quả huấn luyện mô hình phân lớp ngữ cảnh.}
+\end{minipage}
+\vspace{0.5cm}
 
 \subsection{Xây dựng hệ thống ứng dụng phương pháp RAG}
-% # TODO: Xây dựng hệ thống ứng dụng phương pháp RAG
 
-\subsection{Đánh giá kết quả}
-% # TODO: Đánh giá kết quả
+Với phương pháp RAG, hệ thống hỏi đáp thủ tục hành chính sẽ được xây dựng dựa trên 2 giai đoạn chính: giai đoạn truy vấn thông tin và giai đoạn sinh câu trả lời.
+Mô hình ngôn ngữ lớn (LLM) chính được sử dụng sẽ là mô hình GPT 3.5 của OpenAI.
+
+Về mô hình nhúng ngữ nghĩa (embedding), hệ thống sử dụng một mô hình SBERT của Tiếng Việt là vietnamese-SBERT để nhúng văn bản thành vector ngữ nghĩa với
+\(d_{\text{model}} = 768\).
+
+Ngoài ra, hệ thống hỏi đáp còn sử dụng một mô hình Cross-encoder đa ngôn ngữ mới nhất cung cấp từ \textit{Cohere AI} là mô hình reranker: 
+\textit{rerank-multilingual-v3.0}. Mô hình này được sử dụng để sắp xếp và chọn lọc cái đoạn thông tin cuối cùng để đưa vào sinh câu trả lời.
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/training-result.png}
+    \captionsetup{type=figure}
+    \caption{Kết quả huấn luyện mô hình phân lớp ngữ cảnh.}
+\end{minipage}
+\vspace{0.5cm}
+
+\vspace{0.2cm}
+Ở giai đoạn truy vấn thông tin, hệ thống sẽ chia làm hai giai đoạn nhỏ hơn đó là:
+\begin{itemize}
+    \item \textbf{Retrieval:} Ở giai đoạn truy vấn, đây là nơi sẽ tập trung khai thác các đoạn thông tin có liên quan để trả lời câu hỏi của người dùng. Trong hệ thống hỏi đáp về thủ tục hành chính của đề tài,
+    hệ thống kết hợp phương pháp RAG Fusion với truy vấn truyền thống bằng cơ sở dữ liệu Vector.
+    \item \textbf{Post-Retrieval:} Ở giai đoạn này tập trung vào việc tối ưu hóa các đoạn thông tin đã truy vấn được ở giai đoạn trước, nhằm giữ tối thiểu các đoạn thông tin tốt nhất phục vụ cho việc tạo câu hỏi.
+\end{itemize}
+
 
 \subsection{Triển khai hỗ trợ tư vấn thủ tục hành chính}
 % # TODO: Triển khai hỗ trợ tư vấn thủ tục hành chính

@@ -161,6 +161,8 @@ cython_debug/
 
 venv
 data/
+data2/
 filter-model/
 crossencoder-model/
+vietnamese-sbert/
 answer.txt

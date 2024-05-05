@@ -1,0 +1,184 @@
+[
+    {
+        "question": "Cần làm gì để đăng ký kết hôn",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Thủ tục đăng ký kết hôn"
+        ],
+        "answer": "Để đăng ký kết hôn, bạn cần làm theo các bước sau:\n\n1. Nộp hồ sơ tại Ủy ban nhân dân cấp xã có thẩm quyền.\n2. Người tiếp nhận sẽ kiểm tra toàn bộ hồ sơ và đối chiếu thông tin trong Tờ khai và giấy tờ trong hồ sơ.\n3. Nếu hồ sơ đầy đủ và hợp lệ, người tiếp nhận sẽ viết giấy tiếp nhận và trả kết quả. Nếu hồ sơ chưa đầy đủ, người nộp hồ sơ sẽ được hướng dẫn bổ sung hoặc hoàn thiện.\n4. Hồ sơ sau khi được hướng dẫn mà không được bổ sung đầy đủ sẽ bị từ chối tiếp nhận.\n5. Nếu hồ sơ đủ điều kiện, công chức tư pháp - hộ tịch sẽ báo cáo Chủ tịch Ủy ban nhân dân cấp xã. Nếu Chủ tịch đồng ý, sẽ tiến hành kết hôn và trao Giấy chứng nhận kết hôn.\n\nLưu ý: Giấy tờ nộp phải là bản sao được cấp từ sổ gốc hoặc bản sao được chứng thực từ bản chính. Người tiếp nhận không được yêu cầu xuất trình bản chính."
+    },
+    {
+        "question": "Mang theo giấy tờ gì để đăng ký kết hôn",
+        "context": [
+            "Cần các hồ sơ sau đây làm thủ tục hành chính Thủ tục đăng ký kết hôn và nộp tại địa điểm nơi sau"
+        ],
+        "answer": "Để đăng ký kết hôn, bạn cần mang theo các giấy tờ sau:\n1. Bản chính Giấy xác nhận tình trạng hôn nhân do Ủy ban nhân dân cấp xã có thẩm quyền cấp (nếu người yêu cầu đăng ký kết hôn không đăng ký thường trú tại địa bàn xã, phường, thị trấn).\n2. Hộ chiếu hoặc Chứng minh nhân dân hoặc Thẻ căn cước công dân hoặc các giấy tờ khác có dán ảnh và thông tin cá nhân.\n3. Trích lục ghi chú ly hôn (nếu có).\n4. Tờ khai đăng ký kết hôn theo mẫu.\n\nNgoài ra, bạn cũng cần mang theo bản chụp các giấy tờ gửi kèm theo hồ sơ đăng ký kết hôn trực tuyến, bảo đảm rõ nét, đầy đủ, toàn vẹn về nội dung."
+    },
+    {
+        "question": "Tôi muốn đăng ký khai sinh cho con thì cần làm gì",
+        "context": [
+            "Cần các hồ sơ sau đây làm thủ tục hành chính Thủ tục đăng ký khai sinh và nộp tại địa điểm nơi sau"
+        ],
+        "answer": "Để đăng ký khai sinh cho con, bạn cần chuẩn bị các hồ sơ sau:\n\n1. Bản chính Giấy chứng sinh của con; nếu không có Giấy chứng sinh thì cần văn bản của người làm chứng xác nhận về việc sinh hoặc giấy cam đoan về việc sinh.\n2. Trường hợp trẻ em bị bỏ rơi, cần có biên bản về việc trẻ bị bỏ rơi do cơ quan có thẩm quyền lập.\n3. Văn bản ủy quyền (được chứng thực) nếu có ủy quyền thực hiện việc đăng ký khai sinh.\n4. Mẫu hộ tịch điện tử tương tác đăng ký khai sinh.\n5. Tờ khai đăng ký khai sinh theo mẫu.\n\nSau khi chuẩn bị đầy đủ hồ sơ, bạn có thể nộp hồ sơ đăng ký khai sinh trực tiếp tại cơ quan đăng ký hộ tịch hoặc có thể nộp trực tuyến theo hướng dẫn trên Cổng dịch vụ công. Đảm bảo rằng các giấy tờ gửi kèm phải rõ nét, đầy đủ và hợp lệ. Nếu cần thêm thông tin chi tiết, bạn có thể tìm thấy mẫu đơn và hướng dẫn tại các đường link được cung cấp trong thông tin trên."
+    },
+    {
+        "question": "Muốn nộp trực tiếp hồ sơ đăng ký khai sinh thì phải đến đâu",
+        "context": [
+            "Cần các hồ sơ sau đây làm thủ tục hành chính Thủ tục đăng ký khai sinh và nộp tại địa điểm nơi sau"
+        ],
+        "answer": "Để nộp hồ sơ đăng ký khai sinh trực tiếp, bạn cần đến địa chỉ sau: **địa điểm nơi sau**. Trong quá trình nộp hồ sơ, bạn cần xuất trình các giấy tờ cần thiết theo quy định. Chúc bạn thành công trong việc đăng ký khai sinh!"
+    },
+    {
+        "question": "Thủ tục đăng ký khai sinh thực hiện ở cơ quan nào",
+        "context": [
+            "Cơ quan thực hiện, ủy quyền, thẩm quyền, điều kiện thực hiện, kết quả thực hiện của thủ tục hành chính Thủ tục đăng ký khai sinh như sau"
+        ],
+        "answer": "Thủ tục đăng ký khai sinh được thực hiện tại Ủy ban Nhân dân xã, phường, thị trấn."
+    },
+    {
+        "question": "muốn làm lại thẻ căn cước công dân thì phải làm thế nào",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Cấp lại thẻ Căn cước công dân (thực hiện tại cấp huyện)"
+        ],
+        "answer": "Để làm lại thẻ căn cước công dân, bạn cần thực hiện theo các bước sau:\n\nBước 1: Điền vào Tờ khai Căn cước công dân tại Đội Cảnh sát quản lý hành chính về trật tự xã hội, Công an cấp huyện.\n\nBước 2: Cán bộ sẽ kiểm tra và đối chiếu thông tin về bạn trong Tờ khai căn cước công dân với thông tin trong Cơ sở dữ liệu quốc gia về dân cư. Nếu thông tin có sự thay đổi chưa được cập nhật, bạn cần cung cấp thông tin chính xác và xuất trình giấy tờ hợp pháp để cập nhật. Nếu đủ điều kiện, sẽ tiến hành thu nhận vân tay, chụp ảnh và thu lệ phí.\n\nBước 3: Thời gian tiếp nhận hồ sơ và trả kết quả là từ thứ 2 đến thứ 6 hàng tuần (trừ ngày lễ, tết), nơi trả kết quả tại cơ quan Công an hoặc qua đường bưu điện.\n\nVui lòng thực hiện các bước trên để làm lại thẻ căn cước công dân."
+    },
+    {
+        "question": "Tôi bị mất thẻ căn cước công dân, muốn làm lại thì cần hồ sơ gì",
+        "context": [
+            "Cần các hồ sơ sau đây làm thủ tục hành chính Cấp lại thẻ Căn cước công dân (thực hiện tại cấp huyện) và nộp tại địa điểm nơi sau"
+        ],
+        "answer": "Để làm lại thẻ căn cước công dân, bạn cần chuẩn bị các hồ sơ sau:\n1. Phiếu thu nhận thông tin Căn cước công dân (Mẫu CC02).\n2. Giấy tờ pháp lý chứng minh nội dung thay đổi thông tin công dân (nếu có).\n3. Phiếu cập nhật, chỉnh sửa thông tin dân cư (Mẫu DC02).\n\nBạn có thể tải mẫu đơn cho hồ sơ tại các đường link sau:\n- Mẫu CC02: https://csdl.dichvucong.gov.vn/web/jsp/download_file.jsp?ma=3fd24be392f2409c\n- Mẫu DC02: https://csdl.dichvucong.gov.vn/web/jsp/download_file.jsp?ma=3fc3637d2fc93434\n\nSau khi chuẩn bị đầy đủ hồ sơ, bạn có thể nộp tại cơ quan cấp lại thẻ căn cước công dân tại cấp huyện theo quy định. Chúc bạn thành công!"
+    },
+    {
+        "question": "Thủ tục đăng ký thi tốt nghiệp trung học phổ thông cần những giấy tờ gì",
+        "context": [
+            "Cần các hồ sơ sau đây làm thủ tục hành chính Đăng ký dự thi tốt nghiệp trung học phổ thông và nộp tại địa điểm nơi sau"
+        ],
+        "answer": "Để đăng ký thi tốt nghiệp trung học phổ thông, bạn cần chuẩn bị các giấy tờ sau:\n1. 02 Phiếu đăng ký dự thi giống nhau.\n2. Bản chính hoặc bản sao học bạ THPT hoặc học bạ giáo dục thường xuyên cấp THPT.\n3. Các giấy chứng nhận hợp lệ để được hưởng chế độ ưu tiên, khuyến khích (nếu có).\n4. File ảnh hoặc 02 ảnh 4x6 kiểu căn cước công dân.\nNếu bạn đã học xong chương trình THPT nhưng chưa thi tốt nghiệp hoặc đã thi nhưng chưa tốt nghiệp, bạn cần thêm:\n5. Bản sao Bằng tốt nghiệp trung học cơ sở.\n6. Giấy xác nhận của trường phổ thông nơi thí sinh học lớp 12 hoặc nơi thí sinh đăng ký dự thi về xếp loại học lực.\n7. Giấy xác nhận điểm bảo lưu (nếu có).\nNếu bạn đã tốt nghiệp THPT, hồ sơ đăng ký dự thi bao gồm:\n8. 02 ảnh cỡ 4x6 cm.\n9. 02 Phiếu đăng ký dự thi giống nhau.\n10. Bằng tốt nghiệp THPT hoặc trung cấp (bản sao).\nNếu bạn đã tốt nghiệp trung cấp, hồ sơ đăng ký dự thi bao gồm:\n11. 02 ảnh cỡ 4x6 cm.\n12. 02 Phiếu đăng ký dự thi giống nhau.\n13. Bản sao Bằng tốt nghiệp trung học cơ sở, bản sao Bằng tốt nghiệp trung cấp, bản sao Sổ học tập hoặc bảng điểm học các môn văn hóa THPT."
+    },
+    {
+        "question": "Muốn đăng ký thi tốt nghiệp phổ thông thì cần điều kiện gì",
+        "context": [
+            "Cơ quan thực hiện, ủy quyền, thẩm quyền, điều kiện thực hiện, kết quả thực hiện của thủ tục hành chính Đăng ký dự thi tốt nghiệp trung học phổ thông như sau"
+        ],
+        "answer": "Để đăng ký thi tốt nghiệp trung học phổ thông, bạn cần đảm bảo các điều kiện sau đây:\n- Đối với người đã học xong chương trình THPT: đạt hạnh kiểm xếp loại từ trung bình trở lên và học lực không bị xếp loại kém.\n- Đối với người đã học xong chương trình THPT nhưng chưa thi tốt nghiệp hoặc đã thi nhưng chưa tốt nghiệp: phải có Bằng tốt nghiệp trung học cơ sở và đạt hạnh kiểm xếp loại từ trung bình trở lên và học lực không bị xếp loại kém.\n- Đối với người đã có Bằng tốt nghiệp trung cấp dự thi để lấy kết quả làm cơ sở đăng ký xét tuyển sinh: phải đảm bảo đã học và thi đạt yêu cầu đủ khối lượng kiến thức văn hóa THPT.\n- Nộp đầy đủ các giấy tờ đúng thời hạn tại Nơi đăng ký dự thi theo quy định."
+    },
+    {
+        "question": "Có những cách thực hiện nào để đăng ký thi tốt nghiệp trung học phổ thông",
+        "context": [
+            "Có những cách thức thực hiện sau để làm thủ tục hành chính Đăng ký dự thi tốt nghiệp trung học phổ thông"
+        ],
+        "answer": "Để đăng ký thi tốt nghiệp trung học phổ thông, bạn có thể thực hiện theo hai cách thức sau:\n\n1. Hình thức Trực tiếp: Bạn hoàn thiện hồ sơ xét công nhận tốt nghiệp THPT và nộp tại nơi đăng ký dự thi theo quy định. Thời hạn xét duyệt hồ sơ đăng ký dự thi sẽ được thực hiện theo hướng dẫn tổ chức thi THPT quốc gia hằng năm của Bộ Giáo dục và Đào tạo.\n\n2. Hình thức Trực tuyến: Bạn có thể đăng ký trực tuyến theo hướng dẫn và quy trình được cung cấp trên trang web hoặc hệ thống trực tuyến của cơ quan tổ chức thi. Thời gian giải quyết sẽ không quy định cụ thể.\n\nBạn có thể lựa chọn cách thức đăng ký phù hợp với bạn để tham gia thi tốt nghiệp trung học phổ thông."
+    },
+    {
+        "question": "thủ tục đăng ký dự thi ứng dụng công nghệ thông tin cần làm gì",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Đăng ký dự thi cấp chứng chỉ ứng dụng công nghệ thông tin"
+        ],
+        "answer": "Để đăng ký dự thi cấp chứng chỉ ứng dụng công nghệ thông tin, bạn cần thực hiện theo trình tự sau:\nBước 1: Cá nhân trực tiếp đến đăng ký với trung tâm sát hạch hoặc thông qua tổ chức để đăng ký dự thi với trung tâm sát hạch.\nBước 2: Trung tâm sát hạch sẽ lập danh sách thí sinh.\n\nBạn cần thực hiện đúng các bước trên để hoàn tất thủ tục đăng ký dự thi ứng dụng công nghệ thông tin."
+    },
+    {
+        "question": "muốn đổi thẻ căn cước công dân cần làm thế nào",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Đổi thẻ Căn cước công dân (thực hiện tại cấp huyện)"
+        ],
+        "answer": "Để đổi thẻ căn cước công dân, bạn cần thực hiện theo các bước sau:\n\nBước 1: Điền vào Tờ khai Căn cước công dân tại Đội Cảnh sát quản lý hành chính về trật tự xã hội, Công an cấp huyện.\n\nBước 2: Cán bộ tiếp nhận hồ sơ sẽ kiểm tra và đối chiếu thông tin với Cơ sở dữ liệu quốc gia về dân cư. Nếu thông tin cần thay đổi, bạn sẽ được yêu cầu cung cấp giấy tờ hợp pháp để cập nhật thông tin. Nếu đủ điều kiện, bạn sẽ được thu vân tay, chụp ảnh và thu lệ phí theo quy định.\n\nBước 3: Thời gian tiếp nhận hồ sơ và trả kết quả là từ thứ 2 đến thứ 6 hàng tuần (trừ ngày lễ, tết). Kết quả sẽ được trả tại cơ quan Công an nơi tiếp nhận hồ sơ hoặc qua đường bưu điện.\n\nChúc bạn thành công trong việc đổi thẻ căn cước công dân!"
+    },
+    {
+        "question": "Tôi muốn chuyển trường trung học phổ thông cho con tôi thì cần làm thủ tục gì",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Chuyển trường đối với học sinh trung học phổ thông."
+        ],
+        "answer": "Để chuyển trường trung học phổ thông cho con, bạn cần thực hiện các bước sau đây:\n1. Nếu chuyển trường trong cùng tỉnh, thành phố: Bạn cần liên hệ với Hiệu trưởng trường mới để nộp hồ sơ xem xét và giải quyết theo quy định của Giám đốc Sở Giáo dục và Đào tạo.\n2. Nếu chuyển trường đến từ tỉnh, thành phố khác: Bạn cần liên hệ với Sở Giáo dục và Đào tạo nơi đến để nộp hồ sơ, họ sẽ kiểm tra và giới thiệu về trường mới cho con.\n3. Việc chuyển trường thường được thực hiện khi kết thúc học kỳ I của năm học hoặc trong thời gian hè trước khi khai giảng năm học mới. Tuy nhiên, trường hợp ngoại lệ về thời gian có thể được xem xét và quyết định bởi Giám đốc Sở Giáo dục và Đào tạo."
+    },
+    {
+        "question": "Chuyển trường trung học phổ thông cần làm giấy tờ gì",
+        "context": [
+            "Cần các hồ sơ sau đây làm thủ tục hành chính Chuyển trường đối với học sinh trung học phổ thông. và nộp tại địa điểm nơi sau"
+        ],
+        "answer": "Để chuyển trường trung học phổ thông, bạn cần chuẩn bị các hồ sơ sau:\n1. Đơn xin chuyển trường do cha hoặc mẹ hoặc người giám hộ ký.\n2. Giấy chứng nhận trúng tuyển vào lớp đầu cấp trung học phổ thông.\n3. Giấy giới thiệu chuyển trường do Giám đốc Sở Giáo dục và Đào tạo (đối với cấp trung học phổ thông) nơi đi cấp.\n4. Giấy giới thiệu chuyển trường do Hiệu trưởng nhà trường nơi đi cấp.\n5. Học bạ.\n\nBạn cần nộp các bản chính của các giấy tờ này tại địa chỉ nơi cấp hoặc yêu cầu."
+    },
+    {
+        "question": "thủ tục để đăng ký kinh doanh vận chuyển hàng hóa với xe ô tô cần làm gì",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Cấp Giấy phép kinh doanh vận tải bằng xe ô tô"
+        ],
+        "answer": "Để đăng ký kinh doanh vận chuyển hàng hóa bằng xe ô tô, bạn cần thực hiện các bước sau:\n\n1. Nộp hồ sơ tới Sở Giao thông vận tải: Đơn vị kinh doanh vận tải cần nộp hồ sơ đề nghị cấp Giấy phép kinh doanh đến cơ quan cấp Giấy phép, tức là Sở Giao thông vận tải.\n\n2. Giải quyết thủ tục hành chính: Cơ quan cấp Giấy phép sẽ tiếp nhận và kiểm tra hồ sơ. Trong trường hợp cần sửa đổi hoặc bổ sung, cơ quan sẽ thông báo cho đơn vị kinh doanh vận tải trong vòng 03 ngày làm việc. Sau khi nhận đủ hồ sơ đúng quy định, cơ quan sẽ thẩm định hồ sơ và cấp Giấy phép kinh doanh cùng với việc phê duyệt Phương án kinh doanh kèm theo trong vòng 05 ngày làm việc.\n\nNếu không được cấp Giấy phép kinh doanh, cơ quan cấp Giấy phép sẽ phải trả lời bằng văn bản và nêu rõ lý do."
+    },
+    {
+        "question": "để đăng ký kinh doanh vận chuyển hàng hóa với xe ô tô thì cần giấy tờ gì",
+        "context": [
+            "Cần các hồ sơ sau đây làm thủ tục hành chính Cấp Giấy phép kinh doanh vận tải bằng xe ô tô và nộp tại địa điểm nơi sau"
+        ],
+        "answer": "Để đăng ký kinh doanh vận chuyển hàng hóa bằng xe ô tô, bạn cần chuẩn bị các hồ sơ sau đây:\n1. Bản sao hoặc bản chính Quyết định thành lập và quy định chức năng, nhiệm vụ của bộ phận quản lý, theo dõi các điều kiện về an toàn giao thông.\n2. Bản sao văn bằng, chứng chỉ của người trực tiếp điều hành hoạt động vận tải.\n3. Giấy đề nghị cấp Giấy phép kinh doanh theo mẫu quy định.\n\nBạn có thể tìm mẫu đơn cho hồ sơ này tại đường link: https://csdl.dichvucong.gov.vn/web/jsp/download_file.jsp?ma=3fdfed2ffb2c1772\n\nChúc bạn thành công trong việc đăng ký kinh doanh vận chuyển hàng hóa bằng xe ô tô!"
+    },
+    {
+        "question": "tôi muốn đăng ký giám hộ thì cần làm thủ tục gì",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Thủ tục đăng ký giám hộ"
+        ],
+        "answer": "Để đăng ký giám hộ, bạn cần thực hiện các bước sau:\n1. Nộp hồ sơ tại Ủy ban nhân dân cấp xã có thẩm quyền.\n2. Người tiếp nhận sẽ kiểm tra toàn bộ hồ sơ, xác định tính hợp lệ của giấy tờ trong hồ sơ.\n3. Nếu hồ sơ đầy đủ và hợp lệ, người tiếp nhận sẽ viết giấy tiếp nhận và ghi rõ ngày, giờ trả kết quả.\n4. Trong thời hạn 03 ngày làm việc, nếu yêu cầu đăng ký giám hộ đủ điều kiện, công chức tư pháp - hộ tịch sẽ báo cáo Chủ tịch Ủy ban nhân dân cấp xã.\n5. Nếu Chủ tịch Ủy ban nhân dân cấp xã đồng ý giải quyết, công chức tư pháp - hộ tịch sẽ ghi vào Sổ đăng ký giám hộ và cùng người đi đăng ký giám hộ ký vào Sổ.\n6. Chủ tịch Ủy ban nhân dân cấp xã sẽ cấp Trích lục đăng ký giám hộ cho người yêu cầu.\n\nLưu ý: Hồ sơ đăng ký giám hộ cần phải đầy đủ và hợp lệ theo quy định của pháp luật, và người yêu cầu nộp giấy tờ cần là bản sao được cấp từ sổ gốc hoặc bản sao được chứng thực từ bản chính."
+    },
+    {
+        "question": "Tôi muốn đăng ký nhận nuôi con từ trại mồ côi thì cần làm thủ tục gì",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Đăng ký việc nuôi con nuôi trong nước"
+        ],
+        "answer": "Để đăng ký nhận nuôi con từ trại mồ côi, bạn cần thực hiện các bước sau:\n1. Nộp hồ sơ tại Ủy ban nhân dân cấp xã nơi lập biên bản xác nhận tình trạng trẻ em bị bỏ rơi.\n2. Công chức tư pháp – hộ tịch sẽ kiểm tra hồ sơ và lấy ý kiến của những người liên quan.\n3. Sau khi hoàn tất kiểm tra và lấy ý kiến, Ủy ban nhân dân cấp xã sẽ tổ chức đăng ký nuôi con nuôi và trao Giấy chứng nhận nuôi con nuôi cho bạn.\n\nBạn cần tuân thủ đúng quy trình và thủ tục để hoàn tất việc đăng ký nhận nuôi con từ trại mồ côi."
+    },
+    {
+        "question": "đăng ký nhận nuôi con nuôi trong nước cần giấy tờ gì và nộp ở đâu",
+        "context": [
+            "Cần các hồ sơ sau đây làm thủ tục hành chính Đăng ký việc nuôi con nuôi trong nước và nộp tại địa điểm nơi sau"
+        ],
+        "answer": "Để đăng ký nhận nuôi con nuôi trong nước, bạn cần chuẩn bị các giấy tờ sau đây:\n1. Bản sao Hộ chiếu, Chứng minh nhân dân hoặc giấy tờ có giá trị thay thế.\n2. Đơn xin nhận con nuôi trong nước.\n3. Giấy khám sức khỏe do cơ sở y tế cấp huyện trở lên cấp.\n4. Phiếu lý lịch tư pháp.\n5. Văn bản xác nhận hoàn cảnh gia đình, tình trạng chỗ ở, điều kiện kinh tế do UBND cấp xã nơi người nhận con nuôi thường trú cấp.\n\nSau khi chuẩn bị đầy đủ giấy tờ, bạn có thể nộp hồ sơ tại địa chỉ được quy định, thông tin về địa chỉ nộp hồ sơ có thể được cung cấp trong mẫu đơn hoặc thông báo từ cơ quan có thẩm quyền."
+    },
+    {
+        "question": "Cần điều kiện gì để thực hiện thủ tục đăng ký giám hộ",
+        "context": [
+            "Cơ quan thực hiện, ủy quyền, thẩm quyền, điều kiện thực hiện, kết quả thực hiện của thủ tục hành chính Thủ tục đăng ký giám hộ như sau"
+        ],
+        "answer": "Để thực hiện thủ tục đăng ký giám hộ, đối tượng được phép thực hiện là Công dân Việt Nam, Người Việt Nam định cư ở nước ngoài, và cần đảm bảo không có thông tin về điều kiện khác."
+    },
+    {
+        "question": "Muốn đăng ký kinh doanh nhà hàng thì cần làm thủ tục gì",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Cấp Giấy chứng nhận đủ điều kiện an toàn thực phẩm đối với cơ sở sản xuất, kinh doanh thực phẩm do Sở Công Thương thực hiện"
+        ],
+        "answer": "Để đăng ký kinh doanh nhà hàng, bạn cần thực hiện thủ tục hành chính cấp Giấy chứng nhận đủ điều kiện an toàn thực phẩm cho cơ sở sản xuất, kinh doanh thực phẩm. Các bước thực hiện thủ tục này bao gồm:\n\n1. Tiếp nhận, kiểm tra tính hợp lệ của hồ sơ: Cơ quan có thẩm quyền sẽ kiểm tra tính hợp lệ của hồ sơ đăng ký cấp Giấy chứng nhận. Trường hợp hồ sơ không hợp lệ, cơ quan sẽ yêu cầu bổ sung hồ sơ.\n\n2. Thành lập Đoàn thẩm định thực tế tại cơ sở: Đoàn thẩm định sẽ thực hiện thẩm định thực tế tại cơ sở của bạn. Đoàn thẩm định gồm từ 03 đến 05 thành viên, trong đó phải có ít nhất 02 thành viên làm công tác chuyên môn về thực phẩm hoặc an toàn thực phẩm.\n\n3. Nội dung thẩm định thực tế tại cơ sở: Đoàn thẩm định sẽ kiểm tra tính pháp lý của hồ sơ đăng ký cấp Giấy chứng nhận và thẩm định điều kiện an toàn thực phẩm tại cơ sở.\n\n4. Kết quả thẩm định thực tế tại cơ sở: Kết quả thẩm định sẽ được ghi rõ là \"Đạt\" hoặc \"Không đạt\" hoặc \"Chờ hoàn thiện\" vào Biên bản thẩm định.\n\n5. Cấp Giấy chứng nhận: Trong vòng 05 ngày làm việc kể từ khi có kết quả thẩm định thực tế là \"Đạt\", cơ quan có thẩm quyền sẽ cấp Giấy chứng nhận cho cơ sở của bạn.\n\nVui lòng liên hệ với Sở Công Thương tại Cần Thơ để biết thêm chi tiết và hướng dẫn cụ thể về thủ tục đăng ký kinh doanh nhà hàng."
+    },
+    {
+        "question": "Muốn mở quán karaoke thì cần thực hiện thủ tục gì",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Thủ tục cấp Giấy phép đủ điều kiện kinh doanh dịch vụ karaoke (do cơ quan quản lý nhà nước về văn hóa cấp huyện cấp)"
+        ],
+        "answer": "Để mở quán karaoke, bạn cần thực hiện thủ tục cấp Giấy phép đủ điều kiện kinh doanh dịch vụ karaoke. Đầu tiên, bạn cần gửi 01 bộ hồ sơ đề nghị cấp Giấy phép đủ điều kiện kinh doanh dịch vụ karaoke tới cơ quan quản lý nhà nước về văn hóa cấp huyện theo phân cấp. Nếu hồ sơ chưa đầy đủ, bạn sẽ được yêu cầu hoàn thiện hồ sơ trong vòng 1 ngày làm việc. Nếu hồ sơ đầy đủ, cơ quan quản lý sẽ thẩm định hồ sơ và cấp Giấy phép trong vòng 5 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ. Trường hợp không được cấp Giấy phép, cơ quan sẽ phải trả lời bằng văn bản và nêu rõ lý do."
+    },
+    {
+        "question": "đăng ký mở quán karaoke có những cách thực hiện nào",
+        "context": [
+            "Có những cách thức thực hiện sau để làm thủ tục hành chính Thủ tục cấp Giấy phép đủ điều kiện kinh doanh dịch vụ karaoke (do cơ quan quản lý nhà nước về văn hóa cấp huyện cấp)"
+        ],
+        "answer": "Để đăng ký mở quán karaoke và cấp Giấy phép đủ điều kiện kinh doanh dịch vụ karaoke, bạn có thể thực hiện theo các cách sau:\n1. Hình thức trực tiếp: Thời gian giải quyết là 05 ngày làm việc kể từ ngày nhận đủ hồ sơ theo quy định.\n2. Hình thức trực tuyến: Thời gian giải quyết là 05 ngày làm việc kể từ ngày nhận đủ hồ sơ theo quy định.\n3. Hình thức dịch vụ bưu chính: Thời gian giải quyết là 05 ngày làm việc kể từ ngày nhận đủ hồ sơ theo quy định.\n\nBạn có thể chọn cách thức thực hiện phù hợp với bạn để đăng ký mở quán karaoke."
+    },
+    {
+        "question": "tôi muốn thực hiện thủ tục đăng ký quyền sử dụng đất",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Cấp Giấy chứng nhận quyền sử dụng đất, quyền sở hữu nhà ở và tài sản khác gắn liền với đất cho người đã đăng ký quyền sử dụng đất lần đầu (cấp huyện)"
+        ],
+        "answer": "Để thực hiện thủ tục đăng ký quyền sử dụng đất, bạn cần làm theo các bước sau:\n\n1. Nộp hồ sơ tại Văn phòng đăng ký quyền sử dụng đất thuộc Phòng Tài nguyên và Môi trường hoặc cơ quan tiếp nhận hồ sơ theo quy định của Ủy ban nhân dân cấp tỉnh.\n2. Cơ quan tiếp nhận hồ sơ sẽ ghi đầy đủ thông tin vào Sổ tiếp nhận hồ sơ và trả kết quả cho bạn.\n3. Nếu bạn là hộ gia đình, cá nhân, cộng đồng dân cư, bạn nộp hồ sơ tại Ủy ban nhân dân cấp xã.\n4. Sau khi hồ sơ được xác nhận đầy đủ, cơ quan tiếp nhận sẽ gửi hồ sơ đến Văn phòng đăng ký quyền sử dụng đất.\n5. Văn phòng đăng ký quyền sử dụng đất sẽ tiến hành cập nhật thông tin, chuẩn bị hồ sơ để cấp Giấy chứng nhận quyền sử dụng đất.\n6. Cuối cùng, bạn sẽ nhận được Giấy chứng nhận quyền sử dụng đất sau khi hoàn tất các thủ tục.\n\nVui lòng thực hiện các bước trên để hoàn thành thủ tục đăng ký quyền sử dụng đất."
+    },
+    {
+        "question": "đăng ký trợ cấp thất nghiệp làm như thế nào",
+        "context": [
+            "Cần làm theo trình tự các bước sau để thực hiện thủ tục hành chính Giải quyết hưởng trợ cấp thất nghiệp"
+        ],
+        "answer": "Để đăng ký trợ cấp thất nghiệp, bạn cần thực hiện các bước sau:\n\nBước 1: Trong thời hạn 03 tháng kể từ ngày chấm dứt hợp đồng lao động hoặc hợp đồng làm việc, bạn cần nộp hồ sơ đề nghị hưởng trợ cấp thất nghiệp cho trung tâm dịch vụ việc làm tại địa phương nơi bạn muốn nhận trợ cấp thất nghiệp.\n\nBước 2: Trung tâm dịch vụ việc làm sẽ tiếp nhận, kiểm tra hồ sơ của bạn. Nếu hồ sơ không đủ theo quy định, họ sẽ trả lại cho bạn và nêu rõ lý do.\n\nBước 3: Trong thời hạn 20 ngày làm việc kể từ ngày nhận đủ hồ sơ theo quy định, trung tâm dịch vụ việc làm sẽ xem xét hồ sơ của bạn và trình Giám đốc Sở Lao động - Thương binh và Xã hội quyết định về việc hưởng trợ cấp thất nghiệp của bạn.\n\nBước 4: Trong thời hạn 02 ngày làm việc kể từ ngày ghi trong phiếu hẹn trả kết quả, bạn phải đến nhận quyết định về việc hưởng trợ cấp thất nghiệp.\n\nChúc bạn thành công trong việc đăng ký trợ cấp thất nghiệp!"
+    },
+    {
+        "question": "điều kiện được thực hiện thủ tục nhận trợ cấp thất nghiệp",
+        "context": [
+            "Cơ quan thực hiện, ủy quyền, thẩm quyền, điều kiện thực hiện, kết quả thực hiện của thủ tục hành chính Giải quyết hưởng trợ cấp thất nghiệp như sau"
+        ],
+        "answer": "Để được nhận trợ cấp thất nghiệp, người lao động cần đảm bảo các điều kiện sau:\n1. Đang đóng bảo hiểm thất nghiệp theo quy định tại Luật việc làm.\n2. Chấm dứt hợp đồng lao động hoặc hợp đồng làm việc, trừ các trường hợp quy định tại Luật việc làm.\n3. Đã đóng bảo hiểm thất nghiệp từ đủ 12 tháng trở lên trong thời gian 24 tháng trước khi chấm dứt hợp đồng lao động hoặc hợp đồng làm việc.\n4. Hồ sơ cần được nộp tại Trung tâm dịch vụ việc làm tại địa phương nơi người lao động muốn nhận trợ cấp thất nghiệp.\n\nĐể biết thêm chi tiết và hướng dẫn cụ thể, bạn có thể liên hệ với Trung tâm Dịch vụ đào tạo và tư vấn việc làm hoặc Sở Lao động-Thương binh và Xã hội tại Cần Thơ."
+    }
+]

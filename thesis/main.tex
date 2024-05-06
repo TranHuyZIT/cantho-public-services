@@ -20,6 +20,8 @@
 \usepackage{afterpage}
 \usepackage{tabularx}
 \usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algorithmic}
 
 \usepackage{titlesec}
 % Listings style START
@@ -96,7 +98,13 @@
 
 \fontfamily{ptm} % Set font family
 
-\maketitle
+\begin{titlepage}
+    \begin{tikzpicture}[remember picture,overlay,inner sep=0,outer sep=0]
+        \draw[blue!40!black,line width=4pt] ([xshift=-1.5cm,yshift=-2cm]current page.north east) coordinate (A)--([xshift=1.5cm,yshift=-2cm]current page.north west) coordinate(B)--([xshift=1.5cm,yshift=2cm]current page.south west) coordinate (C)--([xshift=-1.5cm,yshift=2cm]current page.south east) coordinate(D)--cycle;
+    \end{tikzpicture}
+
+    \input{pages/cover.tex}
+\end{titlepage}
 
 % =======================================================================
 
@@ -119,7 +127,19 @@
 
 \chapter*{Tóm tắt}
 \addcontentsline{toc}{chapter}{Tóm tắt}
-% # TODO: Tóm tắt
+
+Đề tài luận văn này tập trung vào việc nghiên cứu và phát triển một hệ thống hỗ trợ hỏi đáp thủ tục hành chính tại Cần Thơ dựa
+vào tất cả 1828 thủ tục hành chính được công bố trên Cổng Dịch Vụ Công Thành Phố Cần Thơ. Mục tiêu là xây dựng một hế thống hỏi đáp về các thủ tục này,
+và trích dẫn các thủ tục để người dùng có thể tra cứu.
+
+Đề tài đã nghiên cứu về các cơ sở lý thuyết của phương pháp \acl{rag} và xử lý tự nhiên, học sâu, bao gồm kiến trúc
+Transformer, Siamese Network, Kiến trúc encoder-decoder trong mô hình Seq2Seq, cơ chế Attention cùng các mô hình Transformer-Encoder là vietnamese-SBERT, PhoBERT-base-v2 , Cohere reranker-multilingual-v3 và mô hình ngôn ngữ lớn
+là GPT3.5. Về hệ thống hỏi đáp với RAG, đề tài đã xây dựng một quy trình áp dụng các phương pháp RAG Fusion, xử lý chat theo hội thoại và reranking để truy vấn tri thức
+về thủ tục hành chính phù hợp để trả lời cho câu hỏi của người dùng. Đề tài đã sử dụng các phương pháp đánh giá RAG và sử dụng mô hình GPT4 để đánh giá tự động. Kết quả đạt được cho hệ thống hỏi đáp với RAG là
+78.47\% với recall@4 = 75.78\% và precision@4 = 68.78\%.
+
+Áp dụng quy trình với phương pháp RAG, đề tài đã xây dựng một ứng dụng web hỗ trợ giải đáp các câu hỏi về thủ tục hành chính tại Cần Thơ cho người dùng.
+Ứng dụng cung cấp các chức năng tra cứu thông tin, hỏi đáp theo hội thoại và trả lời câu hỏi của người dùng kèm trích dẫn thủ tục hành chính liên quan.
 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
@@ -305,7 +325,7 @@ Word embedding là một kỹ thuật trong lĩnh vực xử lý ngôn ngữ t�
 
 Một trong những ưu điểm lớn của word embedding là khả năng biểu diễn từ vựng trong một không gian vector có chiều thấp, giúp giảm chi phí tính toán và không gian lưu trữ. Hơn nữa, những vector biểu diễn từ đã được học có thể bao gồm các mối quan hệ ngữ nghĩa và cú pháp, giúp cải thiện hiệu suất của các mô hình NLP trong nhiều tác vụ, như phân loại văn bản, dịch máy và tóm tắt văn bản.
 
-Trong Word2Vec, có hai kiểu mô hình chính là Skip-gram và Continuous Bag of Words (CBOW). Trong đó, Skip-gram tập trung vào việc dự đoán các từ xung quanh một từ cho trước trong một câu, trong khi CBOW dựa vào ngữ cảnh của từ để dự đoán từ đó.
+Trong Word2Vec, có hai kiểu mô hình chính là Skip-gram và \ac{cbow}. Trong đó, Skip-gram tập trung vào việc dự đoán các từ xung quanh một từ cho trước trong một câu, trong khi CBOW dựa vào ngữ cảnh của từ để dự đoán từ đó.
 
 \begin{minipage}{\linewidth}
     \captionsetup{type=figure}
@@ -363,15 +383,6 @@ Khi muốn sử dụng mô hình đã huấn luyện để nhúng từ mới, ta
 
 Cách huấn luyện cũng gần tương tự với kiến trúc Skip-gram, tuy nhiên kiến trúc này sẽ dự đoán các từ xung quanh từ hiện tại:
 
-\vspace{0.5cm}
-\begin{minipage}{\linewidth}
-    \captionsetup{type=figure}
-    \centering
-    \includegraphics[width=\linewidth]{./assets/images/skipgram.png}
-    \caption{Huấn luyện mô hình Word2Vec với kiến trúc Skip-gram.}
-\end{minipage}
-\vspace{0.5cm}
-
 \subsubsection{Nhúng từ bằng phương pháp Tf-Idf}
 
 
@@ -426,7 +437,7 @@ Với TF-IDF, khi tần số xuất hiện của từ tăng, điểm TF-IDF cũn
 \begin{minipage}{\linewidth}
     \captionsetup{type=figure}
     \centering
-    \includegraphics[width=\linewidth]{./assets/images/tf-idf.png}
+    \includegraphics[width=\linewidth]{./assets/images/bm25.png}
     \caption{Khác nhau trong giá trị tần suất xuất hiện giữa Bm25 và TF-IDF.}
 \end{minipage}
 
@@ -1858,15 +1869,15 @@ main
     \item \textbf{Số epoch}: Số epoch huấn luyện là 5.
 \end{itemize}
 
-Chi tiết kết quả giá trị lỗi (loss) và giá trị độ chính xác (accuracy) là
+Trong quá trình huấn luyện, trọng số của mô hình PhoBERT-base-v2 sẽ được đóng băng tất cả và chỉ huấn luyện trọng số của tầng kết nối đầy đủ để phân lớp.
+Ở phần kết quả thực hiện sẽ trình bày chi tiết kết quả huấn luyện.
 
-\begin{minipage}{\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{./assets/images/training-result.png}
-    \captionsetup{type=figure}
-    \caption{Kết quả huấn luyện mô hình phân lớp ngữ cảnh.}
-\end{minipage}
-\vspace{0.5cm}
+Các mẫu dữ liệu gồm hai trường "context" và "question" sẽ được nối vào một chuỗi để đưa vào mô hình huấn luyện.
+Ví dụ như sau:
+
+"context: Năm 2013 , Nguyễn Quang Hải giành chức vô địch U21 quốc gia 2013 cùng với đội trẻ Hà Nội T\&T và tạo nên cú sốc khi trở thành cầu thủ 16 tuổi đầu tiên giành được danh hiệu vô địch U21 quốc gia .\verb|\n|question: Quang Hải giành được chức vô địch U21 quốc gia năm bao nhiêu tuổi"
+
+
 
 \subsection{Xây dựng hệ thống ứng dụng phương pháp RAG}
 
@@ -1882,9 +1893,9 @@ Ngoài ra, hệ thống hỏi đáp còn sử dụng một mô hình Cross-encod
 \vspace{0.5cm}
 \begin{minipage}{\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{./assets/images/training-result.png}
+    \includegraphics[width=\linewidth]{./assets/images/RAG.drawio.png}
     \captionsetup{type=figure}
-    \caption{Kết quả huấn luyện mô hình phân lớp ngữ cảnh.}
+    \caption{Lưu đồ hoạt động của hệ thống hỏi đáp thủ tục hành chính.}
 \end{minipage}
 \vspace{0.5cm}
 
@@ -1893,31 +1904,229 @@ Ngoài ra, hệ thống hỏi đáp còn sử dụng một mô hình Cross-encod
 \begin{itemize}
     \item \textbf{Retrieval:} Ở giai đoạn truy vấn, đây là nơi sẽ tập trung khai thác các đoạn thông tin có liên quan để trả lời câu hỏi của người dùng. Trong hệ thống hỏi đáp về thủ tục hành chính của đề tài,
     hệ thống kết hợp phương pháp RAG Fusion với truy vấn truyền thống bằng cơ sở dữ liệu Vector.
-    \item \textbf{Post-Retrieval:} Ở giai đoạn này tập trung vào việc tối ưu hóa các đoạn thông tin đã truy vấn được ở giai đoạn trước, nhằm giữ tối thiểu các đoạn thông tin tốt nhất phục vụ cho việc tạo câu hỏi.
+    \item \textbf{Post-Retrieval:} Ở giai đoạn này tập trung vào việc tối ưu hóa các đoạn thông tin đã truy vấn được ở giai đoạn trước, nhằm giữ tối thiểu các đoạn thông tin tốt nhất để phục vụ cho việc tạo câu hỏi.
+    Trong hệ thống, đã áp dụng phương pháp Re-ranking và mô hình phân lớp ngữ cảnh. Tuy nhiên, trong quá trình thử nghiệm, mô hình phân lớp ngữ cảnh không có được hiệu quả cao nên đã không được sử dụng.
 \end{itemize}
 
+\subsubsection{Áp dụng phương pháp RAG Fusion vào hệ thống}
 
-\subsection{Triển khai hỗ trợ tư vấn thủ tục hành chính}
-% # TODO: Triển khai hỗ trợ tư vấn thủ tục hành chính
+Nhằm khai thác nhiều thông tin liên quan về thủ tục hành chính trong giai đoạn truy vấn, phương pháp RAG Fusion đã được áp dụng.
+Sau khi nhận được câu hỏi từ người dùng, hai câu hỏi khác về thủ tục hành chính đó sẽ được sinh ra bởi mô hình GPT 3.5. Điều này cũng giúp
+định hướng câu hỏi của người dùng có độ tương đồng với các đoạn thông tin ngữ cảnh để truy vấn hiệu quả hơn.
+
+Sau khi tạo ra hai câu hỏi khác, cùng với câu hỏi từ người dùng, mỗi câu hỏi sẽ được dùng để truy vấn các đoạn thông tin về thủ tục hành chính.
+Cụ thể mỗi câu hỏi sẽ truy vấn k=25 đoạn thông tin từ cơ sở dữ liệu vector. Kết quả của ta lúc này nhận được 3 tập các đoạn thông tin, với mỗi tập gồm
+25 đoạn thông tin.
+
+Để truy vấn được các thông tin này, ta sử dụng vector nhúng bằng mô hình vietnamese-SBERT của các đoạn thông tin
+và vector nhúng của câu hỏi. Các vector được so sánh độ tương đồng Cosine và chọn ra 25 đoạn thông tin gần nhất với câu hỏi.
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.8\linewidth]{./assets/images/fusion1.png}
+    \captionsetup{type=figure}
+    \caption{Sinh các câu hỏi tương tự với RAG Fusion.}
+\end{minipage}
+\vspace{0.5cm}
+
+Ba tập kết quả này sẽ được đưa vào giải thuật xếp hạng là Reciprocal Rank Fusion để hợp nhất ba tập kết quả thành một với giới hạn là 25 đoạn thông tin.
+Mã giả của giải thuật Reciprocal Rank Fusion như sau:
+
+\begin{algorithmic}[1]
+    \STATE Khởi tạo danh sách trống $L$ để lưu thứ hạng
+    \FOR{mỗi danh sách thứ hạng $r$ trong danh sách thứ hạng đầu vào}
+        \FOR{mỗi phần tử $i$ trong $r$}
+            \STATE Tính thứ hạng nghịch đảo của $i$ trong $r$ và thêm vào $L[i]$
+        \ENDFOR
+    \ENDFOR
+    \STATE Sắp xếp các phần tử trong $L$ theo thứ tự giảm dần của tổng thứ hạng nghịch đảo
+    \STATE Trả về 25 phần tử hàng đầu trong $L$
+\end{algorithmic}
+
+\subsubsection{Áp dụng phương pháp Re-ranking vào hệ thống}
+
+Để cải thiện và chọn lọc các đoạn thông tin cho mô hình ngôn ngữ lớn sinh câu trả lời, phương pháp re-rank đã được áp dụng
+với số đoạn thông tin chọn là 4. Mô hình reranker được sử dụng là reranker-multilingual-v3 từ CohereAI với context length là 4k và hỗ trợ hơn 100 ngôn ngữ khác nhau:
+
+Kết quả từ tập được sắp xếp bởi giải thuật Reciprocal Rank Fusion sẽ được đưa vào bước reranking. Sau khi chọn 
+được 4 đoạn thông tin phù hợp nhất ta sẽ sắp xếp sao cho các thông tin ít tương đồng nhất sẽ nằm ở giữa và
+các đoạn thông tin liên quan nhất sẽ nằm ở đầu và cuối. Điều này để tránh tình trạng \textit{Lost In The Middle} ở LLM khi
+các mô hình thường tập trung thông tin ở hai đầu hơn.
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.5\linewidth]{./assets/images/reranking1.png}
+    \captionsetup{type=figure}
+    \caption{Lưu đô rerank các đoạn thông tin thủ tục hành chính.}
+\end{minipage}
+
+\subsubsection{Xử lý trò chuyện hội thoại cho hệ thống}
+Một yêu cầu phổ biến cho hệ thống hỏi đáp là khả năng tương tác với người dùng thông qua trò chuyện hội thoại. Điều này có nghĩa là hệ thống có thể trả lời được các 
+câu hỏi nối tiếp câu trước. Ta lấy ví dụ, ở câu hỏi đầu tiên, người dùng hỏi "thủ tục đăng ký khai sinh cần làm gì?" sau đó lại hỏi tiếp
+một câu hỏi nối là "vậy cần làm hồ sơ gì?".
+
+Với những câu hỏi nối tiếp như vậy, nếu ta dùng nó để truy vấn trực tiếp thì chắc chắn kết quả tìm được sẽ không đúng với yêu cầu của người dùng.
+
+Để trả lời được câu hỏi này, hệ thống hỏi đáp cần biết được lịch sử của đoạn chat để hiểu được ý nghĩa câu hỏi dạng nối tiếp này.
+Một cách tiếp cận thường được sử dụng chính là dựa vào mô hình ngôn ngữ lớn để tạo một câu hỏi độc lập mới, đầy đủ và rõ nghĩa.
+Ta sẽ cung cấp lịch sử trò chuyện cho mô hình và yêu cầu viết lại câu hỏi một cách độc lập. Chi tiết quá trình thực hiện như sau:
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/conversation.png}
+    \captionsetup{type=figure}
+    \caption{Lưu đô xử lý hội thoại cho hệ thống hỏi đáp với RAG.}
+\end{minipage}
 
 \section{Kết quả thực nghiệm}
-% # TODO: Kết quả thực nghiệm
+
+
+Để thực hiện đánh gía kết quả, đề tài đã thực hiện các công việc sau:
+\begin{itemize}
+    \item \textbf{Đánh giá mô hình phân lớp ngữ cảnh:} Thực hiện đánh giá mô hình phân lớp ngữ cảnh trong quá trình huấn luyện mô hình.
+    \item \textbf{Đánh giá hệ thống hỏi đáp với phương pháp RAG:} Thực hiện đánh giá hệ thống hỏi đáp với phương pháp RAG. Việc này được chia
+    ra thành đánh giá 2 giai đoạn: giai đoạn truy vấn thông tin và giai đoạn sinh câu trả lời.
+\end{itemize}
+
+\subsection{Đánh giá mô hình phân lớp ngữ cảnh}
+
+Trong 6 epoch huấn luyện, mô hình đã được kết quả như sau:
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{./assets/images/training-result.png}
+    \captionsetup{type=figure}
+    \caption{Kết quả huấn luyện mô hình phân lớp ngữ cảnh.}
+\end{minipage}
+\vspace{0.5cm}
+
+Mô hình phân lớp ngữ cảnh có được độ chính xác trên tập validation ở mức khá tốt là 81.04\% ở epoch cuối cùng.
+Tuy nhiên, do sự khác biệt giữa tập dữ liệu huấn luyện và khi sử dụng trong hệ thống hỏi đáp thủ tục hành chính, 
+mô hình phân lớp ngữ cảnh không đạt được hiệu quả cao và dẫn đến loại bỏ một số đoạn thông tin quan trọng.
+
+Hạn chế này là do thiếu một tập dữ liệu về hỏi đáp cho thủ tục hành chính để huấn luyện cho mô hình. Vì vậy, mô hình hiện tại không được
+áp dụng vào luồng chính của hệ thống. Để cải thiện vấn đề này, ta cần tạo một bộ dữ liệu hỏi đáp về thủ tục hành chính bao gồm hai trường 'context' và 'question'
+để huấn luyện thêm cho mô hình. Ngoài ra, cần thử nghiệm với việc điều chỉnh cho phép cập nhật một số trọng số ở các tầng cuối cùng của mô hình PhoBERT-base-v2 nhằm đáp ứng
+vector ngữ nghĩa (embedding vector) của mô hình theo bộ dữ liệu.
+
+Kết quả của quá trình huấn luyện được mô tả bằng bảng sau:
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \centering
+    \begin{tabular}{ | m{1cm} | m{2cm} | m{2cm} | m{2cm} | m{2cm} |} 
+        \hline
+        \textbf{Epoch} & \textbf{Tranining Loss} & \textbf{Training Accuracy}  & \textbf{Validation Loss} & \textbf{Validation Accuracy} \\
+        \hline
+        1 & 0.5518 & 0.7266 & 0.4813 & 0.8028 \\
+        \hline
+        2 & 0.4576 & 0.7969 & 0.4624 & 0.7950 \\
+        \hline
+        3 & 0.4265 & 0.8112 & 0.4640 & 0.7834 \\
+        \hline
+        4 & 0.4201 & 0.8167 & 0.4410 & 0.8013 \\
+        \hline
+        5 & 0.4028 & 0.8210 & 0.4153 & 0.8136 \\
+        \hline
+        6 & 0.3972 & 0.8221 & 0.4183 & 0.8104 \\
+        \hline
+    \end{tabular}
+    \captionsetup{type=table}
+    \caption{Kết quả huấn luyện mô hình phân lớp ngữ cảnh.}
+
+\end{minipage}
+
+\subsection{Đánh giá hệ thống hỏi đáp với phương pháp RAG}
+
+Để đánh giá được hệ thống hỏi đáp với phương pháp RAG, đề tài đã sử dụng 3 số liệu (metrics) sau để đánh giá quá trình
+truy vấn và sinh câu trả lời: \textit{context recall} \textit{context precision} \textit{answer accuracy}
+
+Ta có công thức để tính các metrics context recall và context precision như sau:
+
+\begin{equation}
+    \text{Context Recall} = \frac{\text{Số lượng các đoạn ngữ cảnh có liên quan khi truy vấn}}{\text{Số lượng các đoạn ngữ cảnh có liên quan trong tập thực tế}}
+\end{equation}
+    
+\begin{equation}
+\text{Context Precision} = \frac{\text{Số lượng các đoạn ngữ cảnh có liên quan khi truy vấn}}{\text{Số lượng các đoạn ngữ cảnh đã truy vấn}}
+\end{equation}
+
+Còn với số liệu answer accuracy, đề tài sử dụng mô hình GPT 4 để đánh giá tự động độ chính xác của mỗi câu trả lời từ hệ thống hỏi đáp và câu trả lời đáp án.
+Phương pháp đánh giá này đã từng được giới thiệu trong bài báo \textit{Efficient Finetuning Large Language Models For
+Vietnamese Chatbot} \cite{doan2023efficient} để đánh giá mô hình chatbot cho Tiếng Việt.
+
+Việc đánh giá sẽ được thực hiện với số lượng đoạn thông tin từ giai đoạn truy vấn k lần lượt là 3, 4, 5.
+Với mỗi k, ta lần lượt có các thông số đánh giá như sau:
+
+\vspace{0.5cm}
+\begin{minipage}{\linewidth}
+    \centering
+    \begin{tabular}{ | m{1cm} | m{3cm} | m{4cm} | m{4cm} |} 
+        \hline
+        \textbf{K} & \textbf{Context Recall} & \textbf{Context Precision} & \textbf{Answer Accuracy} \\
+        \hline
+        3 & 50\% & 71.29\% & 66.11\% \\
+        \hline
+        4 & 75.78\% & 68.78\% & 78.48\% \\
+        \hline
+        5 & 75.78\% & 63.07\% & 65.57\% \\
+        \hline
+    \end{tabular}
+    \captionsetup{type=table}
+    \caption{Kết quả đánh giá hệ thống hỏi đáp với phương pháp RAG với K=3,4,5.}
+\end{minipage}
+
+Từ kết quả thực nghiệm, ta thấy rằng với k=4, hệ thống hỏi đáp cho thủ tục hành chính đạt được hiệu quả cao nhất với context recall@4 là 75.78\%,
+context precision@4 là 68.78\% và answer accuracy là 78.48\%. Điều này cho thấy rằng việc chọn lọc 4 đoạn thông tin phù hợp nhất cho mô hình sinh câu trả lời.
+
+\begin{minipage}{\linewidth}
+    \centering
+    \includegraphics[width=.7\linewidth]{./assets/images/evaluation.png}
+    \captionsetup{type=figure}
+    \caption{Biểu đồ cột số liệu đánh giá hệ thống hỏi đáp thủ tục hành chính Cần Thơ (đơn vị \%).}
+\end{minipage}
+\vspace{0.5cm}
 
 \chapter{Kết luận}
 \section{Kết quả đạt được}
-% # TODO: Kết quả đạt được
 
-\section{Hạn chế và hướng phát triển}
-% # TODO: Hạn chế và hướng phát triển
+Sau quá trình thực hiện, đề tài đã xây dựng được một hệ thống hỏi đáp trên tất cả thủ tục hành chính tại Cần Thơ.
+Với độ chính xác đạt được ở mức khá xấp xỉ 78.48\% và thời gian phản hồi trung bình với một câu hỏi là xấp xỉ 10s.
+
+Sau quá trình nghiên cứu và thực hiện đề tài, luận văn đã đạt được một số kết quả khác như sau:
+
+\begin{itemize}
+    \item Luận văn đã trình bày được các kiến thức liên quan để xây dựng một hệ thống hỏi đáp với kiến thức riêng bằng phương pháp RAG.
+    Điều này bao gồm cách hoạt động, cơ sở lý thuyết và các cách ứng dụng các mô hình ngôn ngữ lớn như GPT, Gemini, Llama, Bloom và các mô hình
+    Transformer khác là BERT, PhoBERT, SBERT vào các tác vụ hỏi đáp.
+    \item Luận văn đã trình bày được cách tiền xử lý dữ liệu, tách các đoạn thông tin, cách truy vấn thông tin và 
+    các phương pháp để đánh giá phương pháp RAG.
+\end{itemize}
+
+\section{Hướng phát triển}
+
+Để cải thiện hệ thống hỏi đáp thủ tục hành chính tại Cần Thơ bằng phương pháp RAG đã xây dựng, ta 
+sẽ cần phải làm một số việc như sau:
+
+\begin{itemize}
+    \item Cải thiện và tối ưu việc chunking dữ liệu: để giúp truy vấn thông tin được chính xác hơn, việc có được những thông tin được chia đoạn một cách hợp lý
+    sẽ cải thiện được độ chính xác của cả giai đoạn truy vấn và sinh câu trả lời.
+    
+    \item Chuẩn bị một bộ dữ liệu lớn về việc hỏi đáp các thủ tục hành chính ở Cần Thơ. Sử dụng bộ dữ liệu này
+    ta có thể huấn luyện thêm cho mô hình phân lớp ngữ cảnh và fine-tune mô hình ngôn ngữ lớn là GPT 3.5 hoặc thay bằng một mô hình ngôn ngữ nguồn mở như Llama3, Bloom, Mixtral.
+
+    \item Cải thiện ngữ nghĩa của vector embedding từ mô hình Sentence Transformer là vietnamese-SBERT bằng cách fine-tune trên tập dữ liệu lớn hơn về độ tương đồng của câu.
+
+    \item Thử nghiệm với các tham số khác nhau của phương pháp RAG và các siêu tham số của mô hình để có được kết quả tốt.
+\end{itemize}
+
+Ngoài ra về mặt hệ thông cũng sẽ cần cải thiện về trải nghiệm người dùng như
+thêm chức năng streaming token về cho người dùng nhằm cải thiện TimeToFirstByte. Ngoài ra cũng có thể cải thiện 
+việc tham chiếu đến các thủ tục hành chính để hỗ trợ người dùng tra cứu thủ tục ở Cần Thơ.
 
 \printbibliography
-
-\chapter*{Phụ lục}
-\addcontentsline{toc}{chapter}{Phụ lục}
-
-\textbf{File json chứa thông tin một thủ tục hành chính}
-
-
-
 
 \end{document}

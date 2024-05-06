@@ -1,5 +1,5 @@
 {
-  "context_recall": 0.7578947368421053,
+  "context_recall": 0.7653947368421053,
   "context_precision": 0.630769230769231,
   "answer_accuracy": 65.57692307692308,
   "times": [

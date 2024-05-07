@@ -1,17 +1,20 @@
 import Conversation from "./components/conversation";
 import PromptInput from "./components/promptInput";
 import SidebarProvider from "./layouts/Sidebar";
+import AppContextProvider from "./providers/AppContextProvider";
 
 function App() {
   return (
-    <SidebarProvider>
-      <div className="dark:bg-dark-500 w-full">
-        <div className="relative h-full">
-          <Conversation />
-          <PromptInput />
+    <AppContextProvider>
+      <SidebarProvider>
+        <div className="dark:bg-dark-500 w-full bg-slate-100">
+          <div className="relative h-full">
+            <Conversation />
+            <PromptInput />
+          </div>
         </div>
-      </div>
-    </SidebarProvider>
+      </SidebarProvider>
+    </AppContextProvider>
   );
 }
 

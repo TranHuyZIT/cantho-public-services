@@ -1,10 +1,9 @@
 export default function PromptInput() {
   return (
-    <form className="flex w-full absolute bottom-0 left-0 right-0 items-center rounded-b-md border-t border-slate-300 bg-slate-200 p-2 dark:border-slate-700 dark:bg-dark-500">
+    <form className="flex w-full absolute bottom-0 left-0 right-0 items-center rounded-b-md border-t border-slate-300 bg-slate-100 mb-2 p-2 dark:border-slate-700 dark:bg-dark-500">
       <label htmlFor="chat" className="sr-only">
         Enter your prompt
       </label>
-      <div></div>
       <input
         id="chat-input"
         className="mx-2 flex min-h-full w-full rounded-md border border-slate-300 bg-slate-50 p-2 text-base text-slate-900 placeholder-slate-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-50 dark:placeholder-slate-400 dark:focus:border-blue-600 dark:focus:ring-blue-600"

@@ -7,7 +7,9 @@ sentence_transformers
 langchain-openai
 cohere
 torch
-tensorflow==2.15.0
+tensorflow
 transformers
 matplotlib
 bs4
+fastapi
+mongoengine

@@ -1,10 +1,13 @@
 from models import Conversation, Message
 from dtos import AnswerRequest
+from rag.modules.rag_facade import RAGFacade
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from typing import Union
+from typing import Optional
 import datetime
+import json
+
 
 
 app = FastAPI()
@@ -20,10 +23,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/{conversation_id}")
+
+@app.get("/conversations")
+def get_conversations(name: Optional[str] = None):
+    if name:
+        conversations = Conversation.objects(name=name)
+    else:
+        conversations = Conversation.objects().all()
+
+    return {"conversations": json.loads(conversations.to_json())[:5]}
+
+
+@app.get("/conversations/{conversation_id}")
 def get_conversation(conversation_id: str):
     conversation = Conversation.objects.get(id=conversation_id)
-    return conversation
+    # Then, get the messages of this conversation
+    messages = Message.objects(conversation=conversation)
+    result = {
+        "conversation": json.loads(conversation.to_json()),
+        "messages": json.loads(messages.to_json())
+    }
+
+    return result
 
 
 @app.post("/chat")
@@ -42,10 +63,25 @@ def chat(body: AnswerRequest):
         conversation = Conversation.objects.get(id=conversation_id)
     
     user_message = Message(role="user", message=question, created_at=datetime.datetime.now(), updated_at=datetime.datetime.now() , conversation=conversation)
+    response = RAGFacade.generate_response(question)
+    documents= [{"full_text": doc.metadata['full_text'],"source": doc.metadata['filename'].replace(".txt", '')} for doc in response['documents']]
+    bot_message = Message(role="bot", message=response['answer'], created_at=datetime.datetime.now(),
+                            updated_at=datetime.datetime.now(), 
+                            conversation=conversation,
+                            documents=documents,
+                            metadata={
+                                "questions": response['questions'],
+                            }
+                        )
+
     user_message.save()
+    bot_message.save()
 
     return {
-        "answer": "Hello world"
+        "answer": response['answer'],
+        "conversation_id": conversation_id,
+        "documents": documents,
+        "questions": response['questions']
     }
     
     

@@ -1,5 +1,9 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../providers/AppContextProvider";
+import { getConversation, getConversations } from "../client";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import useDebounce from "../hooks/useDebounce";
 
 export default function SidebarProvider({
   children,
@@ -7,6 +11,34 @@ export default function SidebarProvider({
   children: React.ReactNode;
 }) {
   const [themeMode, setThemeMode] = useState<"light" | "dark">("dark");
+  const appContext = useContext(AppContext);
+  const { conversations, setConversations, conversationId, setConversationId } =
+    appContext;
+  const [animationParent] = useAutoAnimate();
+  const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 500);
+
+  useEffect(() => {
+    const fetchConversations = async () => {
+      const results = await getConversations(debouncedSearch);
+      setConversations(results["conversations"]);
+    };
+    fetchConversations();
+  }, [debouncedSearch]);
+
+  useEffect(() => {
+    const fetchConversations = async () => {
+      const results = await getConversations();
+      setConversations(results["conversations"]);
+    };
+    fetchConversations();
+  }, []);
+
+  const onConversationSelect = async (id: string) => {
+    setConversationId(id);
+    const response = await getConversation(id);
+    appContext.setMessages(response["messages"]);
+  };
 
   const toggleTheme = () => {
     const newTheme = themeMode === "light" ? "dark" : "light";
@@ -69,9 +101,6 @@ export default function SidebarProvider({
           <h2 className="inline px-5 text-lg font-medium text-slate-800 dark:text-slate-200">
             Chats
           </h2>
-          <span className="rounded-full bg-blue-600 px-2 py-1 text-xs text-slate-200">
-            24
-          </span>
         </div>
         <div className="mx-2 mt-8">
           <button className="flex w-full gap-x-4 rounded-lg border border-slate-300 p-4 text-left text-sm font-medium text-slate-700 transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">
@@ -79,7 +108,7 @@ export default function SidebarProvider({
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              strokeWidth="2"
               stroke="currentColor"
               fill="none"
               stroke-linecap="round"
@@ -93,70 +122,64 @@ export default function SidebarProvider({
           </button>
         </div>
         <div className="mx-2 mt-8 space-y-4">
-          <form>
-            <label htmlFor="chat-input" className="sr-only">
-              Search chats
-            </label>
-            <div className="relative">
-              <input
-                id="search-chats"
-                type="text"
-                className="w-full rounded-lg border border-slate-300 bg-slate-50 p-3 pr-10 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-                placeholder="Search chats"
-                required
-              />
-              <button
-                type="submit"
-                className="absolute bottom-2 right-2.5 rounded-lg p-2 text-sm text-slate-500 hover:text-blue-700 focus:outline-none sm:text-base"
+          <label htmlFor="chat-input" className="sr-only">
+            Search chats
+          </label>
+          <div className="relative">
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              id="search-chats"
+              type="text"
+              className="w-full rounded-lg border border-slate-300 bg-slate-50 p-3 pr-10 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+              placeholder="Search chats"
+              required
+            />
+            <button
+              type="submit"
+              className="absolute bottom-2 right-2.5 rounded-lg p-2 text-sm text-slate-500 hover:text-blue-700 focus:outline-none sm:text-base"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                  <path d="M8 9h8"></path>
-                  <path d="M8 13h5"></path>
-                  <path d="M11.008 19.195l-3.008 1.805v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v4.5"></path>
-                  <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-                  <path d="M20.2 20.2l1.8 1.8"></path>
-                </svg>
-                <span className="sr-only">Search chats</span>
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M8 9h8"></path>
+                <path d="M8 13h5"></path>
+                <path d="M11.008 19.195l-3.008 1.805v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v4.5"></path>
+                <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M20.2 20.2l1.8 1.8"></path>
+              </svg>
+              <span className="sr-only">Search chats</span>
+            </button>
+          </div>
+          <div ref={animationParent}>
+            {conversations?.map((conversation) => (
+              <button
+                key={conversation._id["$oid"]}
+                onClick={() => onConversationSelect(conversation._id["$oid"])}
+                className={clsx(
+                  "flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800",
+                  conversation._id["$oid"] === conversationId &&
+                    "bg-slate-200 dark:bg-slate-800 text-black"
+                )}
+              >
+                <h1 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
+                  {conversation.name}
+                </h1>
+                {/* <p className="text-xs text-slate-500 dark:text-slate-400">
+                {conversation.updated_at}
+              </p> */}
               </button>
-            </div>
-          </form>
-
-          <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
-            <h1 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
-              Tailwind Classes
-            </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">12 Mar</p>
-          </button>
-
-          <button className="flex w-full flex-col gap-y-2 rounded-lg bg-slate-200 px-3 py-2 text-left transition-colors duration-200 focus:outline-none dark:bg-slate-800">
-            <h1 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
-              explain quantum computing
-            </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">10 Feb</p>
-          </button>
-          <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
-            <h1 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
-              How to create ERP Diagram
-            </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">22 Jan</p>
-          </button>
-          <button className="flex w-full flex-col gap-y-2 rounded-lg px-3 py-2 text-left transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:hover:bg-slate-800">
-            <h1 className="text-sm font-medium capitalize text-slate-700 dark:text-slate-200">
-              API Scaling Strategies
-            </h1>
-            <p className="text-xs text-slate-500 dark:text-slate-400">1 Jan</p>
-          </button>
+            ))}
+          </div>
         </div>
         <div className="flex flex-col absolute bottom-5 left-1/4">
           <div className="flex justify-center">
@@ -181,7 +204,7 @@ export default function SidebarProvider({
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeWidth="2"
                       d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
                     ></path>
                   </svg>
@@ -205,7 +228,7 @@ export default function SidebarProvider({
                     <path
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeWidth="2"
                       d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
                     ></path>
                   </svg>

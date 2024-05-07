@@ -27,7 +27,7 @@ app.add_middleware(
 @app.get("/conversations")
 def get_conversations(name: Optional[str] = None):
     if name:
-        conversations = Conversation.objects(name=name)
+        conversations = Conversation.objects(name__icontains=name)
     else:
         conversations = Conversation.objects().all()
 

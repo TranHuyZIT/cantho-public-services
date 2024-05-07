@@ -29,4 +29,6 @@ fileignoreconfig:
   checksum: fce24cafec5fc00ad592e2f01a3d459eb92c3034cd87eac9eb0f8299fc5870e9
 - filename: thesis/references.bib
   checksum: 02e0a76e9e2a53c23aa9b0491392e3ca03b9b0dc7964ef14f1d1216676a24956
+- filename: ui/src/layouts/Sidebar.tsx
+  checksum: baf657823452ce61b9d4dc6c613ab885e29a8b9ef6f1820d7e1e31565232b456
 version: "1.0"

@@ -2,8 +2,6 @@ from langchain.docstore.document import Document
 from langchain_core.prompts import PromptTemplate
 from rag.modules.app_vars import AppVariables
 import re
-import json
-
 
 class RAGFusion:
     template = """Bạn là một chatbot hỗ trợ sinh các câu hỏi đồng nghĩa dựa vào câu hỏi gốc về thủ tục hành chính. Hãy tuân thủ các nguyên tắc sau khi tạo ra HAI câu hỏi đồng nghĩa:
@@ -13,6 +11,33 @@ class RAGFusion:
     Hai câu hỏi phải được phân cách bằng ký tự '\n' . KHÔNG thêm bất kỳ ký tự nào khác ngoài hai câu hỏi được bạn tạo ra.
     Câu hỏi gốc : {question}
     """
+
+    template2 = """Bạn là một chatbot hỗ trợ sinh làm rõ câu hỏi của người dùng về thủ tục hành chính. Dựa vào đoạn hội thoại dưới đây, hãy viết lại câu hỏi của người dùng ngắn gọn chứa tên thủ tục hành chính nếu được.
+    KHÔNG thêm bất kỳ ký tự nào khác ngoài câu hỏi được bạn tạo ra.
+
+    ------
+    Đoạn hội thoại: {dialogue}
+    
+    ------
+    Câu hỏi từ người dùng : {question}
+
+    ------
+    Câu hỏi viết lại: 
+    """
+
+    rewrite_chain = PromptTemplate.from_template(template2) | AppVariables.llm
+
+    def rewrite_question(question, messages=[]):
+        dialogue = "\n"
+        for message in messages:
+            dialogue += f"{message['role']}: {message['content']}\n"
+        
+        completion = RAGFusion.rewrite_chain.invoke({"question": question, "dialogue": dialogue})
+        completion = RAGFusion.process_question(completion)
+        return completion
+
+
+
     prompt = PromptTemplate.from_template(template)
 
     llm_chain = prompt | AppVariables.llm 
@@ -42,16 +67,21 @@ class RAGFusion:
         return question
 
     @staticmethod
-    def generating_search_results(question):
+    def generate_questions(question):
         completion = RAGFusion.llm_chain.invoke(question)
         questions = completion.split("\n")
 
         processed_questions = [ question ]
         for generated_question in questions:
-            generated_question = RAGFusion.process_question(generated_question)         
+            generated_question = RAGFusion.process_question(generated_question)
             if generated_question != "":
                 processed_questions.append(generated_question)
         processed_questions = processed_questions[0:min(3, len(processed_questions))]
+        return processed_questions
+
+    @staticmethod
+    def generating_search_results(question):
+        processed_questions = RAGFusion.generate_questions(question)
         search_result_scores = {}
         for question in processed_questions:
             scored_docs = AppVariables.retrieve(question)

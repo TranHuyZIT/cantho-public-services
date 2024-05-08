@@ -75,4 +75,5 @@ class RAGFacade:
         
         return response
 
-        
+    def rewrite_question(question, history):
+        return RAGFusion.rewrite_question(question, messages=history)        

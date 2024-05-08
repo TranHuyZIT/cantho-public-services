@@ -9,6 +9,8 @@ fileignoreconfig:
   checksum: 397cac960a76d0bbef37ab6e70dd4fb04c8f15fc8cd4ce300487a0e82cecff6a
 - filename: backend/rag/visualize.ipynb
   checksum: 284df3fac6f6de2234ce233a51ddaaefe33bcc9f390fb2244ea6cfde9fbdc499
+- filename: backend/test.ipynb
+  checksum: d5828bd144e56db1d667321c4b659b419ee70e74de936081119482cd9f72adad
 - filename: crawler/main.py
   checksum: 42e7aa01f39cee9c985f2a1b70e07b1f1db3977bee3b174e167ac4e967d75f14
 - filename: rag/evaluation/@3/result.json
@@ -29,6 +31,16 @@ fileignoreconfig:
   checksum: fce24cafec5fc00ad592e2f01a3d459eb92c3034cd87eac9eb0f8299fc5870e9
 - filename: thesis/references.bib
   checksum: 02e0a76e9e2a53c23aa9b0491392e3ca03b9b0dc7964ef14f1d1216676a24956
+- filename: ui/public/loading.svg
+  checksum: 32e1bae74cfd826508c20c6969e34657da817bf3f806c0bfc8d7574b16114e1a
+- filename: ui/src/components/conversation.tsx
+  checksum: d103409f50832b91b328e79afc869d6fe58c2d3a0c832e7abe7998a36ef1c9d5
+- filename: ui/src/components/message.tsx
+  checksum: b45cbd4911b2a1df2f2431213d382745d861d1d7dff157cb77e5e88db7881365
+- filename: ui/src/components/promptCards.tsx
+  checksum: bcb5d8dbbc3a38f9d8e25201b33feac82e6d609e7af601ca108cf73169c01dcc
+- filename: ui/src/components/promptInput.tsx
+  checksum: 46efd302093de43c2d84cf850edf09f11e5063ee96babd92f9988a7dd99d8205
 - filename: ui/src/layouts/Sidebar.tsx
   checksum: baf657823452ce61b9d4dc6c613ab885e29a8b9ef6f1820d7e1e31565232b456
 version: "1.0"

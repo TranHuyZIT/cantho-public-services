@@ -27,9 +27,9 @@ app.add_middleware(
 @app.get("/conversations")
 def get_conversations(name: Optional[str] = None):
     if name:
-        conversations = Conversation.objects(name__icontains=name)
+        conversations = Conversation.objects(name__icontains=name).order_by('-created_at')
     else:
-        conversations = Conversation.objects().all()
+        conversations = Conversation.objects().order_by('-created_at').all()
 
     return {"conversations": json.loads(conversations.to_json())[:5]}
 
@@ -58,12 +58,23 @@ def chat(body: AnswerRequest):
             updated_at=datetime.datetime.now()
         )
         conversation.save()
-        conversation_id = conversation.id
+        conversation_id = str(conversation.id)
     else:
         conversation = Conversation.objects.get(id=conversation_id)
     
+    messages = Message.objects(conversation=conversation).order_by('created_at').limit(4)
+    history = []
+    for message in messages:
+        history.append({
+            "role": message.role,
+            "content": message.message
+        })
+    transformed_question = None
+    if len(history) > 0:
+        transformed_question = RAGFacade.rewrite_question(question, history)
+    
     user_message = Message(role="user", message=question, created_at=datetime.datetime.now(), updated_at=datetime.datetime.now() , conversation=conversation)
-    response = RAGFacade.generate_response(question)
+    response = RAGFacade.generate_response(transformed_question or question)
     documents= [{"full_text": doc.metadata['full_text'],"source": doc.metadata['filename'].replace(".txt", '')} for doc in response['documents']]
     bot_message = Message(role="bot", message=response['answer'], created_at=datetime.datetime.now(),
                             updated_at=datetime.datetime.now(), 
@@ -78,6 +89,7 @@ def chat(body: AnswerRequest):
     bot_message.save()
 
     return {
+        "message": json.loads(bot_message.to_json()),
         "answer": response['answer'],
         "conversation_id": conversation_id,
         "documents": documents,

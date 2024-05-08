@@ -1,15 +1,29 @@
 import PromptCards from "./promptCards";
+import markdownIt from "markdown-it";
+
+const md = markdownIt();
 
 interface Props {
   role: string;
   message: string;
+  documents?: any[];
+  questions?: string[];
 }
 
-export default function Message({ role, message }: Props) {
+export default function Message({
+  role,
+  message,
+  documents,
+  questions,
+}: Props) {
   return (
     <div>
       {role === "bot" ? (
-        <BotMessage message={message} />
+        <BotMessage
+          message={message}
+          documents={documents || []}
+          questions={questions || []}
+        />
       ) : (
         <UserMessage message={message} />
       )}
@@ -17,7 +31,15 @@ export default function Message({ role, message }: Props) {
   );
 }
 
-function BotMessage({ message }: { message: string }) {
+function BotMessage({
+  message,
+  documents,
+  questions,
+}: {
+  message: string;
+  documents: any[];
+  questions: string[];
+}) {
   return (
     <div className="dark:bg-dark-500 bg-slate-100">
       <div className="flex  px-4 py-8  sm:px-6">
@@ -27,7 +49,12 @@ function BotMessage({ message }: { message: string }) {
         />
 
         <div className="flex w-full flex-col items-start lg:flex-row lg:justify-between">
-          <div>{message}</div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: md.render(message),
+            }}
+          />
+
           <div className="mt-4 flex flex-row justify-start gap-x-2 text-slate-500 lg:mt-0">
             <button className="hover:text-blue-600">
               <svg
@@ -78,7 +105,17 @@ function BotMessage({ message }: { message: string }) {
           </div>
         </div>
       </div>
-      <PromptCards />
+      <div className="mt-4 px-4 sm:px-6 my-5 flex w-full gap-x-2 overflow-x-auto whitespace-nowrap text-xs text-slate-600 dark:text-slate-300 sm:text-sm">
+        {questions?.map((question) => (
+          <button
+            key={question}
+            className="rounded-lg bg-slate-200 p-2 hover:bg-blue-600 hover:text-slate-200 dark:bg-slate-800 dark:hover:bg-blue-600 dark:hover:text-slate-50"
+          >
+            {question}
+          </button>
+        ))}
+      </div>
+      <PromptCards documents={documents} />
     </div>
   );
 }

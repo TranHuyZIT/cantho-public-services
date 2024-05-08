@@ -25,7 +25,7 @@ class AppVariables:
     @staticmethod
     def reranking(docs: List[str], question):
         results = AppVariables.co.rerank(model="rerank-multilingual-v3.0", query=question, 
-                                            documents=docs, top_n=5, return_documents=True)
+                                            documents=docs, top_n=4, return_documents=True)
         
         return results.results
     

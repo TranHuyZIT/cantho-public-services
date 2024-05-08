@@ -20,9 +20,15 @@ export const getConversation = async (id: string) => {
 };
 
 export const chat = async (id?: string, message?: string) => {
-  const response = await client.post(`/chat`, {
-    conversation_id: id,
-    message,
-  });
+  const payload: {
+    question: string;
+    conversation_id?: string;
+  } = {
+    question: message || "",
+  };
+  if (id) {
+    payload.conversation_id = id;
+  }
+  const response = await client.post(`/chat`, payload);
   return response.data;
 };

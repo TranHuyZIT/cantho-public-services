@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../providers/AppContextProvider";
-import { getConversation, getConversations } from "../client";
+import { getConversations } from "../client";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import useDebounce from "../hooks/useDebounce";
 
@@ -18,26 +18,25 @@ export default function SidebarProvider({
   const [search, setSearch] = useState("");
   const debouncedSearch = useDebounce(search, 500);
 
+  const fetchConversations = async () => {
+    const results = await getConversations(debouncedSearch);
+    setConversations(results["conversations"]);
+  };
+
   useEffect(() => {
-    const fetchConversations = async () => {
-      const results = await getConversations(debouncedSearch);
-      setConversations(results["conversations"]);
-    };
     fetchConversations();
   }, [debouncedSearch]);
 
   useEffect(() => {
-    const fetchConversations = async () => {
-      const results = await getConversations();
-      setConversations(results["conversations"]);
+    const interval = setInterval(fetchConversations, 5000);
+
+    return () => {
+      clearInterval(interval);
     };
-    fetchConversations();
   }, []);
 
   const onConversationSelect = async (id: string) => {
     setConversationId(id);
-    const response = await getConversation(id);
-    appContext.setMessages(response["messages"]);
   };
 
   const toggleTheme = () => {
@@ -103,7 +102,10 @@ export default function SidebarProvider({
           </h2>
         </div>
         <div className="mx-2 mt-8">
-          <button className="flex w-full gap-x-4 rounded-lg border border-slate-300 p-4 text-left text-sm font-medium text-slate-700 transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">
+          <button
+            onClick={() => setConversationId(undefined)}
+            className="flex w-full gap-x-4 rounded-lg border border-slate-300 p-4 text-left text-sm font-medium text-slate-700 transition-colors duration-200 hover:bg-slate-200 focus:outline-none dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -111,8 +113,8 @@ export default function SidebarProvider({
               strokeWidth="2"
               stroke="currentColor"
               fill="none"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
               <path d="M12 5l0 14"></path>
@@ -202,8 +204,8 @@ export default function SidebarProvider({
                     className="inline-flex h-4 w-4"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       strokeWidth="2"
                       d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
                     ></path>
@@ -226,8 +228,8 @@ export default function SidebarProvider({
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       strokeWidth="2"
                       d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
                     ></path>

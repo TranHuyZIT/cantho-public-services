@@ -8,7 +8,7 @@
 \usepackage{fancyhdr}
 \usepackage{indentfirst}
 \usepackage{mathptmx}
-\usepackage[style=ieee]{biblatex}
+\usepackage[style=ieee, maxbibnames=99]{biblatex}
 \usepackage[table, svgnames]{xcolor}
 \usepackage{pgfplots}
 \usepackage{subcaption}
@@ -80,6 +80,8 @@
 
 \addbibresource{references.bib}
 
+\renewbibmacro{in:}{}
+
 \pagestyle{fancy}
 \fancyhead{}
 \fancyfoot{}
@@ -143,7 +145,12 @@ về thủ tục hành chính phù hợp để trả lời cho câu hỏi của 
 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
-% # TODO: Abstract
+
+This thesis focuses on researching and developing a question-answering system for administrative procedures in Can Tho, based on all 1828 administrative procedures published on the Can Tho City Public Service Portal. The goal is to build a question-answering system for these procedures and to cite the procedures so that users can look them up.
+
+The thesis explored the theoretical foundations of the Retrieval-Augmented Generation (RAG) method and natural language processing, deep learning, including Transformer architecture, Siamese Network, Encoder-Decoder architecture in the Seq2Seq model, Attention mechanism, along with Transformer-Encoder models such as Vietnamese-SBERT, PhoBERT-base-v2, Cohere reranker-multilingual-v3, and the large language model GPT3.5. Regarding the question-answering system with RAG, the thesis developed a process applying RAG Fusion methods, chat processing for conversation, and reranking to query appropriate administrative procedure knowledge to answer user questions. The thesis used RAG evaluation methods and GPT4 model for automated evaluation. The achieved result for the question-answering system with RAG is 78.47\% with recall@4 = 75.78% and precision@4 = 68.78%.
+
+Applying the process with the RAG method, the thesis built a web application to support answering questions about administrative procedures in Can Tho for users. The application provides functions for information retrieval, conversational question-answering, and answering user questions with citations of related administrative procedures.
 
 \chapter*{Lời cam đoan}
 \addcontentsline{toc}{chapter}{Lời cam đoan}
@@ -451,7 +458,7 @@ Mô hình \ac{seq2seq} là một kiến trúc mạng nơ-ron sử dụng cho cá
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=\linewidth]{./assets/images/seq2seq.png}
-    \caption{Kiến trúc Seq2Seq trong bài toán hỏi đáp.\cite{sutskever2014sequence}}
+    \caption{Kiến trúc Seq2Seq trong bài toán hỏi đáp.}
 \end{minipage}
 
 \vspace{0.5cm}
@@ -463,7 +470,7 @@ là một công cụ mạnh mẽ cho xử lý và tạo ra các chuỗi, với k
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=\linewidth]{./assets/images/seq2seq2.png}
-    \caption{Chi tiết Kiến trúc Seq2Seq trong bài toán hỏi đáp.\cite{sutskever2014sequence}}
+    \caption{Chi tiết Kiến trúc Seq2Seq trong bài toán hỏi đáp}
 \end{minipage}
 \vspace{0.5cm}
 
@@ -495,7 +502,7 @@ thiết lập ban đầu khi khởi tạo mô hình, thông thường có thể 
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=\linewidth]{./assets/images/seq2seq_detail.png}
-    \caption{Truyền context vector từ khối Encoder sang Decoder trong \ac{seq2seq}.\cite{sutskever2014sequence}}
+    \caption{Truyền context vector từ khối Encoder sang Decoder trong \ac{seq2seq}.}
 \end{minipage}
 \vspace{0.5cm}
 
@@ -655,7 +662,7 @@ Transformer.
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=\linewidth]{./assets/images/transformer.png}
-    \caption{Tổng quan kiến trúc Transformer\cite{vaswani2023attention}}
+    \caption{Tổng quan kiến trúc Transformer}
 \end{minipage}
 
 \begin{itemize}
@@ -680,7 +687,7 @@ nhiều lần dưới dạng khối để giải mã đầu ra.
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=\linewidth]{./assets/images/The_transformer_encoder_decoder_stack.png}
-    \caption{Chồng các khối Encoders và Decoders\cite{vaswani2023attention}}
+    \caption{Chồng các khối Encoders và Decoders}
 \end{minipage}
 
 \subsubsection{Embedding và Positional Encoding}
@@ -700,7 +707,7 @@ sẽ được đi qua một phép tính Positional Encoding.
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=\linewidth]{./assets/images/transformer_input.png}
-    \caption{Tầng Input và Output của Transformers\cite{vaswani2023attention}}
+    \caption{Tầng Input và Output của Transformers}
 \end{minipage}
 
 
@@ -717,7 +724,7 @@ Cơ chế Attention được sử dụng trong nhiều mô hình NLP, bao gồm 
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=.2\linewidth]{./assets/images/ScaledDotProductAttention.png}
-    \caption{Khối ScaleDotProductAttention\cite{vaswani2023attention}}
+    \caption{Khối ScaleDotProductAttention}
 \end{minipage}
 
 Đầu vào của Scaled Dot-Product Attention là 3 ma trận Q, K, V có cùng số chiều.
@@ -746,7 +753,7 @@ Kết quả của khối là một ma trận có cùng số hàng với ma trậ
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=.6\linewidth]{./assets/images/MultiHead.png}
-    \caption{Multi-headed Attention\cite{vaswani2023attention}}
+    \caption{Multi-headed Attention}
 \end{minipage}
 
 \subsubsection{Add và LayerNormalization}
@@ -759,7 +766,7 @@ Normalization để tạo ra đầu ra cuối cùng.
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=.8\linewidth]{./assets/images/Add+Norm.png}
-    \caption{Tầng Add và LayerNormalization\cite{vaswani2023attention}}
+    \caption{Tầng Add và LayerNormalization}
 \end{minipage}
 \textbf{Add}
 Trong bước này, đầu ra của lớp sẽ được cộng với vector
@@ -778,7 +785,7 @@ trình chuẩn hóa giúp cải thiện tính ổn định của mô hình
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=.6\linewidth]{./assets/images/feed-forward-sublayer-in-transformer.png}
-    \caption{Khối Position-wise Feed Forward\cite{vaswani2023attention}}
+    \caption{Khối Position-wise Feed Forward}
 \end{minipage}
 
 Các vector đầu vào (là các vector đại diện cho từ) sẽ được truyền qua tầng Fully Connected Layer với hàm kích hoạt ReLU, và cuối cùng đi qua một tầng Fully ConnectedLayer nữa.
@@ -817,7 +824,7 @@ trên một tập dữ liệu khổng lồ bởi các tập đoàn công nghệ 
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=.6\linewidth]{./assets/images/LLM-Evolutionary-Tree.png}
-    \caption{Sự phát triển của các mô hình pretrained và LLm đến năm 2023\cite{llm-trends}}
+    \caption{Sự phát triển của các mô hình pretrained và LLm đến năm 2023}
 \end{minipage}
 
 \subsubsection{Các phương pháp tiền huấn luyện (pre-train) mô hình ngôn ngữ}
@@ -839,7 +846,7 @@ thành các bài toán học có giám (Supervised learning) bằng các tự đ
     \captionsetup{type=figure}
     \centering
     \includegraphics[width=1\linewidth]{./assets/images/self-supervised.png}
-    \caption{Quá trình huấn luyện bài toán Học Tự Giám Sát\cite{balestriero2023cookbook}}
+    \caption{Quá trình huấn luyện bài toán Học Tự Giám Sát}
 \end{minipage}
 
 \vspace{0.5cm}
@@ -880,7 +887,7 @@ MLM đã chứng minh sự hiệu quả của mình trong nhiều ứng dụng N
             "In a preview of the TGS demo , Ryan Geddes of IGN was left excited as to where the game would go after completing the demo , along with enjoying the improved visuals over Valkyria Chronicles II . Kotaku 's Richard Eisenbeis was highly positive about the game , citing is story as a return to form after Valkyria Chronicles II and its gameplay being the best in the series . His main criticisms were its length and gameplay repetition , along with expressing regret that it would not be localized ." \\
             \hline
         \end{tabularx}
-        \caption{Dữ liệu mẫu huấn luyện cho tác vụ MLM từ tập \textbf{wikitext} \cite{merity2016pointer}}
+        \caption{Dữ liệu mẫu huấn luyện cho tác vụ MLM từ tập wikitext}
     \end{table}
 
     Trong quá trình tokenize, một phương pháp thường sử dụng cho \ac{mlm} để tiền huấn luyện mô hình ngôn ngữ là nối chuỗi (concatenation). Các từ sau khi đã tokenize

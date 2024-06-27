@@ -12,7 +12,7 @@ export default function Conversation() {
       {/* Prompt Messages */}
       <div
         ref={animationParent}
-        className="flex-1 overflow-y-auto bg-slate-300 text-sm leading-6 text-slate-900 shadow-md dark:bg-slate-800 dark:text-slate-300 sm:text-base sm:leading-7"
+        className="flex-1 mb-10 overflow-y-auto bg-slate-300 text-sm leading-6 text-slate-900 shadow-md dark:bg-slate-800 dark:text-slate-300 sm:text-base sm:leading-7"
       >
         {messages?.map((message) => (
           <Message
@@ -23,8 +23,8 @@ export default function Conversation() {
             questions={message.metadata?.questions}
           />
         ))}
-        <div id="prompt-input" className="h-10 w-full"></div>
       </div>
+      <div id="prompt-input" className="h-20 w-full"></div>
     </div>
   );
 }
